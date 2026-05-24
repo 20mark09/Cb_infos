@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-05-24",
+  "banks": [
+    {
+      "name": "Banque Misr",
+      "products": [
+        { "name": "Yomaty CD (Daily Variable)", "rates": [19.0, 19.0, 19.0] },
+        { "name": "Ibn Misr Descending — Monthly", "rates": [20.5, 16.25, 12.25] },
+        { "name": "Ibn Misr Descending — Annually", "rates": [22.0, 17.5, 13.25] },
+        { "name": "Al Qimma Certificate", "rates": [16.0, 16.0, 16.0] },
+        { "name": "Al Tholatheya (Variable)", "rates": [19.0, 19.0, 19.0] },
+        { "name": "Certificate of Deposit 5yr — Monthly", "rates": [12.25, 12.25, 12.25, 12.25, 12.25] },
+        { "name": "Certificate of Deposit 5yr — Annually", "rates": [12.5, 12.5, 12.5, 12.5, 12.5] },
+        { "name": "Certificate of Deposit 7yr — Monthly", "rates": [12.75, 12.75, 12.75, 12.75, 12.75, 12.75, 12.75] },
+        { "name": "Aman Al Masreyeen", "rates": [13.0, 13.0, 13.0] }
+      ]
+    },
+    {
+      "name": "National Bank of Egypt",
+      "products": [
+        { "name": "Platinum Fixed — Monthly 3yr", "rates": [16.0, 16.0, 16.0] },
+        { "name": "Platinum Descending — Monthly", "rates": [21.0, 15.25, 12.0] },
+        { "name": "Platinum Descending — Annually", "rates": [22.0, 17.5, 13.0] },
+        { "name": "Fixed Certificate 1yr — Monthly", "rates": [14.0] },
+        { "name": "Variable Rate Certificate 3yr", "rates": [19.0, 19.0, 19.0] }
+      ]
+    },
+    {
+      "name": "CIB Egypt",
+      "products": [
+        { "name": "Triple Fixed — Monthly (Standard)", "rates": [17.25, 17.25, 17.25] },
+        { "name": "Triple Fixed — Monthly (Prime, min 100K)", "rates": [17.5, 17.5, 17.5] },
+        { "name": "Triple Fixed — Monthly (Plus, min 1M)", "rates": [17.75, 17.75, 17.75] },
+        { "name": "Triple Fixed — Monthly (Premium, min 5M)", "rates": [18.0, 18.0, 18.0] },
+        { "name": "Triple Floating — Variable Monthly", "rates": [19.0, 19.0, 19.0] },
+        { "name": "Gold CD 3yr — Monthly (with prizes)", "rates": [5.0, 5.0, 5.0] },
+        { "name": "Fixed CD 5yr — Monthly", "rates": [15.0, 15.0, 15.0, 15.0, 15.0] },
+        { "name": "Fixed CD 7yr — Monthly", "rates": [14.0, 14.0, 14.0, 14.0, 14.0, 14.0, 14.0] }
+      ]
+    },
+    {
+      "name": "QNB Egypt",
+      "products": [
+        { "name": "Fixed CD 3yr — Monthly (Standard, min 1K)", "rates": [16.0, 16.0, 16.0] },
+        { "name": "Fixed CD 3yr — Monthly (First, min 500K)", "rates": [16.5, 16.5, 16.5] },
+        { "name": "Fixed CD 3yr — Quarterly", "rates": [16.25, 16.25, 16.25] },
+        { "name": "Cumulative CD 3yr — At Maturity", "rates": [16.0, 16.0, 16.0] },
+        { "name": "Floating CD 3yr — Monthly", "rates": [19.0, 19.0, 19.0] }
+      ]
+    },
+    {
+      "name": "Abu Dhabi Islamic Bank",
+      "products": [
+        { "name": "Al Ghina Sukuk — Monthly (up to 19%)", "rates": [19.0, 19.0, 19.0] },
+        { "name": "Floating Rate Sukuk (up to 18.5%)", "rates": [18.5, 18.5, 18.5] },
+        { "name": "Diamond Sukuk (up to 15.25%)", "rates": [15.25, 15.25, 15.25] },
+        { "name": "Mudaraba Investment Deposit", "rates": [17.5] }
+      ]
+    },
+    {
+      "name": "Banque du Caire",
+      "products": [
+        { "name": "Primo Step Down 3yr — Monthly", "rates": [18.0, 16.0, 14.0] },
+        { "name": "Primo Mass 3yr — Monthly", "rates": [15.0, 15.0, 15.0] },
+        { "name": "Primo Plus 3yr — Monthly", "rates": [15.5, 15.5, 15.5] },
+        { "name": "Primo Affluent 3yr — Monthly (min 1M)", "rates": [16.0, 16.0, 16.0] },
+        { "name": "Primo Gold 3yr — Quarterly", "rates": [15.25, 15.25, 15.25] },
+        { "name": "Primo Gold 3yr — Annually", "rates": [15.5, 15.5, 15.5] },
+        { "name": "Primo CD 3yr — Variable Monthly", "rates": [19.0, 19.0, 19.0] },
+        { "name": "Primo CD 5yr — Monthly", "rates": [10.25, 10.25, 10.25, 10.25, 10.25] },
+        { "name": "Aman Certificate 3yr — At Maturity", "rates": [13.0, 13.0, 13.0] }
+      ]
+    }
+  ]
+}
