@@ -5,7 +5,7 @@
     {
       "name": "Banque Misr",
       "products": [
-        { "name": "TEST", "rates": [500.0, 459.0, 329.0] },
+        { "name": "TST", "rates": [500.0, 459.0, 329.0] },
         { "name": "Yomaty CDDDD)", "rates": [19.0, 19.0, 19.0] },
         { "name": "Ibn Misr Descending — Monthly", "rates": [20.5, 16.25, 12.25] },
         { "name": "Ibn Misr Descending — Annually", "rates": [22.0, 17.5, 13.25] },
