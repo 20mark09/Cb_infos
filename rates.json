@@ -4,6 +4,8 @@
   "banks": [
     {
       "name": "Banque Misr",
+      "nameAr": "بنك مصر",
+      "logoUrl": "https://raw.githubusercontent.com/20mark09/Cb_infos/main/logos/BM.jpeg",
       "products": [
         { "name": "TST", "rates": [500.0, 459.0, 329.0] },
         { "name": "Yomaty CDDDD)", "rates": [25.0, 19.0, 19.0] },
