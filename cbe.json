@@ -1,0 +1,17 @@
+{
+  "source": "https://www.cbe.org.eg/en/",
+  "lastUpdated": "2026-05-21 09:00 UTC",
+  "scrape_error": null,
+  "data": {
+    "overnight_deposit_rate":     { "value": 19.00, "unit": "%",    "date": "2026-05-21" },
+    "overnight_lending_rate":     { "value": 20.00, "unit": "%",    "date": "2026-05-21" },
+    "main_operation_rate":        { "value": 19.50, "unit": "%",    "date": "2026-05-21" },
+    "discount_rate":              { "value": 19.50, "unit": "%",    "date": "2026-05-21" },
+    "headline_inflation":         { "value": 14.9,  "unit": "%",    "date": "2026-04"    },
+    "core_inflation":             { "value": 13.8,  "unit": "%",    "date": "2026-04"    },
+    "net_international_reserves": { "value": 53.0,  "unit": "USD bn","date": "2026-04"  },
+    "usd_egp_rate":               { "value": 49.60, "unit": "EGP",  "date": "2026-05-21" },
+    "last_mpc_decision":          { "value": "Unchanged", "date": "2026-05-21" },
+    "next_mpc_date":              { "value": "2026-07-03", "date": "" }
+  }
+}
