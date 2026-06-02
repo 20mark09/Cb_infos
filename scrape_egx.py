@@ -17,11 +17,7 @@ def get_html(url):
 
         browser = p.chromium.launch(
             headless=True,
-            args=[
-                "--disable-blink-features=AutomationControlled",
-                "--no-sandbox",
-                "--disable-dev-shm-usage"
-            ]
+            args=["--disable-blink-features=AutomationControlled"]
         )
 
         page = browser.new_page()
@@ -39,20 +35,6 @@ def get_html(url):
         return html
 
 
-def get_match(pattern, text):
-    m = re.search(pattern, text, re.IGNORECASE)
-
-    if not m:
-        return None
-
-    value = m.group(1).replace(",", "").strip()
-
-    try:
-        return float(value)
-    except:
-        return value
-
-
 def parse_indices(html):
 
     text = BeautifulSoup(
@@ -60,8 +42,8 @@ def parse_indices(html):
         "html.parser"
     ).get_text("\n", strip=True)
 
-    print("EGX30 found:", "EGX30" in text)
-    print("Value found:", "Value" in text)
+    print("Contains EGX30:", "EGX30" in text)
+    print("Contains Value :", "Value" in text)
 
     date_match = re.search(
         r"Date\s*:\s*(\d{2}/\d{2}/\d{4})",
@@ -69,37 +51,62 @@ def parse_indices(html):
         re.IGNORECASE
     )
 
-    indices = {
+    value_match = re.search(
+        r"Value\s*:\s*([\d,.]+)",
+        text,
+        re.IGNORECASE
+    )
+
+    open_match = re.search(
+        r"Open\s*:\s*([\d,.]+)",
+        text,
+        re.IGNORECASE
+    )
+
+    high_match = re.search(
+        r"High\s*:\s*([\d,.]+)",
+        text,
+        re.IGNORECASE
+    )
+
+    low_match = re.search(
+        r"Low\s*:\s*([\d,.]+)",
+        text,
+        re.IGNORECASE
+    )
+
+    change_match = re.search(
+        r"Change\s*:\s*(-?[\d,.]+)",
+        text,
+        re.IGNORECASE
+    )
+
+    ytd_match = re.search(
+        r"YTD%\s*Change\s*:\s*(-?[\d,.]+)",
+        text,
+        re.IGNORECASE
+    )
+
+    def num(match):
+        if not match:
+            return None
+
+        return float(
+            match.group(1)
+            .replace(",", "")
+        )
+
+    return {
         "EGX30": {
             "date": date_match.group(1) if date_match else None,
-            "value": get_match(
-                r"Value\s*:\s*([\d,.]+)",
-                text
-            ),
-            "open": get_match(
-                r"Open\s*:\s*([\d,.]+)",
-                text
-            ),
-            "high": get_match(
-                r"High\s*:\s*([\d,.]+)",
-                text
-            ),
-            "low": get_match(
-                r"Low\s*:\s*([\d,.]+)",
-                text
-            ),
-            "change_pct": get_match(
-                r"Change\s*:\s*(-?[\d,.]+)",
-                text
-            ),
-            "ytd_pct": get_match(
-                r"YTD%\s*Change\s*:\s*(-?[\d,.]+)",
-                text
-            )
+            "value": num(value_match),
+            "open": num(open_match),
+            "high": num(high_match),
+            "low": num(low_match),
+            "change_pct": num(change_match),
+            "ytd_pct": num(ytd_match)
         }
     }
-
-    return indices
 
 
 def parse_top_gl(html):
@@ -112,8 +119,7 @@ def parse_top_gl(html):
     gainers = []
     losers = []
 
-    # We'll implement this after market opens
-    # and we can inspect Top_GL.aspx
+    # We'll add parsing later once the market page is populated.
 
     return gainers, losers
 
@@ -128,6 +134,7 @@ def main():
 
     indices = parse_indices(indices_html)
 
+    print("Parsed indices:")
     print(json.dumps(indices, indent=2))
 
     try:
@@ -142,7 +149,7 @@ def main():
 
     except Exception as e:
 
-        print("Top GL error:", e)
+        print("Top gainers/losers failed:", e)
 
         gainers = []
         losers = []
@@ -167,7 +174,7 @@ def main():
             ensure_ascii=False
         )
 
-    print("\nFinal JSON:")
+    print("\nGenerated JSON:")
     print(json.dumps(output, indent=2))
 
     print(f"\nSaved {OUTPUT_FILE}")
