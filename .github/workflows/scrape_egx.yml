@@ -1,37 +1,41 @@
-name: Scrape EGX Stock Data
+name: EGX Scraper
 
 on:
   schedule:
-    - cron: "0 14 * * 0-4"    # 4 PM Cairo — after EGX close (3:30 PM)
-    - cron: "30 9 * * 0-4"    # 11:30 AM Cairo — midday snapshot
-  workflow_dispatch:
+    - cron: "*/15 * * * *"
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  workflow_dispatch:
 
 jobs:
   scrape:
+
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install requests beautifulsoup4 lxml
-      - name: Scrape EGX
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python scrape_egx.py
-      - name: Commit if changed
+
+      - name: Install Dependencies
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          pip install playwright beautifulsoup4
+          playwright install chromium
+
+      - name: Run Scraper
+        run: python scrape_egx.py
+
+      - name: Commit JSON
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
           git add egx.json
-          if git diff --cached --quiet; then
-            echo "No changes."
-          else
-            git commit -m "chore: EGX data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
-            git push
-          fi
+
+          git diff --cached --quiet || git commit -m "Update EGX data"
+
+          git push
