@@ -5,22 +5,11 @@ from datetime import datetime, timezone
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
-
 OUTPUT_FILE = "egx.json"
 
 
 def now_utc():
     return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-
-
-def extract_number(text):
-    if not text:
-        return None
-
-    text = text.replace(",", "")
-    m = re.search(r"-?\d+\.?\d*", text)
-
-    return float(m.group()) if m else None
 
 
 def get_html(url):
@@ -29,7 +18,9 @@ def get_html(url):
         browser = p.chromium.launch(
             headless=True,
             args=[
-                "--disable-blink-features=AutomationControlled"
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox",
+                "--disable-dev-shm-usage"
             ]
         )
 
@@ -48,66 +39,67 @@ def get_html(url):
         return html
 
 
+def get_match(pattern, text):
+    m = re.search(pattern, text, re.IGNORECASE)
+
+    if not m:
+        return None
+
+    value = m.group(1).replace(",", "").strip()
+
+    try:
+        return float(value)
+    except:
+        return value
+
+
 def parse_indices(html):
 
-    soup = BeautifulSoup(html, "html.parser")
+    text = BeautifulSoup(
+        html,
+        "html.parser"
+    ).get_text("\n", strip=True)
 
-    text = soup.get_text("\n", strip=True)
+    print("EGX30 found:", "EGX30" in text)
+    print("Value found:", "Value" in text)
 
-    result = {}
+    date_match = re.search(
+        r"Date\s*:\s*(\d{2}/\d{2}/\d{4})",
+        text,
+        re.IGNORECASE
+    )
 
-    blocks = [
-        "EGX30",
-        "SHARIAH",
-        "EGX35-LV",
-        "EGX70 EWI",
-        "EGX100 EWI",
-        "TAMAYUZ",
-        "EGX30 Capped",
-        "EGX30 TR",
-        "EGX T BONDS"
-    ]
-
-    for idx in blocks:
-
-        if idx not in text:
-            continue
-
-        start = text.find(idx)
-
-        chunk = text[start:start + 1500]
-
-        value_match = re.search(
-            r"Value\s*:\s*([\d,.]+)",
-            chunk,
-            re.IGNORECASE
-        )
-
-        change_match = re.search(
-            r"Change\s*:\s*([-\d,.]+)",
-            chunk,
-            re.IGNORECASE
-        )
-
-        ytd_match = re.search(
-            r"YTD% Change\s*:\s*([-\d,.]+)",
-            chunk,
-            re.IGNORECASE
-        )
-
-        result[idx] = {
-            "value": extract_number(
-                value_match.group(1)
-            ) if value_match else None,
-            "change_pct": extract_number(
-                change_match.group(1)
-            ) if change_match else None,
-            "ytd_pct": extract_number(
-                ytd_match.group(1)
-            ) if ytd_match else None
+    indices = {
+        "EGX30": {
+            "date": date_match.group(1) if date_match else None,
+            "value": get_match(
+                r"Value\s*:\s*([\d,.]+)",
+                text
+            ),
+            "open": get_match(
+                r"Open\s*:\s*([\d,.]+)",
+                text
+            ),
+            "high": get_match(
+                r"High\s*:\s*([\d,.]+)",
+                text
+            ),
+            "low": get_match(
+                r"Low\s*:\s*([\d,.]+)",
+                text
+            ),
+            "change_pct": get_match(
+                r"Change\s*:\s*(-?[\d,.]+)",
+                text
+            ),
+            "ytd_pct": get_match(
+                r"YTD%\s*Change\s*:\s*(-?[\d,.]+)",
+                text
+            )
         }
+    }
 
-    return result
+    return indices
 
 
 def parse_top_gl(html):
@@ -120,10 +112,15 @@ def parse_top_gl(html):
     gainers = []
     losers = []
 
+    # We'll implement this after market opens
+    # and we can inspect Top_GL.aspx
+
     return gainers, losers
 
 
 def main():
+
+    print("Loading indices page...")
 
     indices_html = get_html(
         "https://www.egx.com.eg/en/Indices.aspx"
@@ -131,7 +128,11 @@ def main():
 
     indices = parse_indices(indices_html)
 
+    print(json.dumps(indices, indent=2))
+
     try:
+
+        print("Loading gainers/losers page...")
 
         gl_html = get_html(
             "https://www.egx.com.eg/en/Top_GL.aspx"
@@ -139,7 +140,9 @@ def main():
 
         gainers, losers = parse_top_gl(gl_html)
 
-    except Exception:
+    except Exception as e:
+
+        print("Top GL error:", e)
 
         gainers = []
         losers = []
@@ -164,9 +167,10 @@ def main():
             ensure_ascii=False
         )
 
-    print(
-        f"Saved {OUTPUT_FILE}"
-    )
+    print("\nFinal JSON:")
+    print(json.dumps(output, indent=2))
+
+    print(f"\nSaved {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
