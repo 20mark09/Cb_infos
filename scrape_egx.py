@@ -2,7 +2,7 @@ import json
 import re
 from datetime import datetime, timezone
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
+from curl_cffi import requests
 
 OUTPUT_FILE = "egx.json"
 
@@ -11,10 +11,33 @@ def now_utc():
     return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
 
-def parse_panel_metrics(html_content):
-    """Parses out numerical metrics from the actively visible tab panel."""
-    text = BeautifulSoup(html_content, "html.parser").get_text("\n", strip=True)
+def get_index_summary(type_id):
+    """
+    Fetches raw data directly from EGX's unprotected charting engine component.
+    type=1 (EGX30), type=2 (EGX70), type=3 (EGX100), type=13 (Shariah)
+    """
+    url = f"https://www.egx.com.eg/en/indexdata.aspx?type={type_id}&nav=1"
+    
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://www.egx.com.eg/"
+    }
+    
+    # curl_cffi mimics a real browser TLS handshake to slip past basic filters
+    response = requests.get(url, headers=headers, impersonate="chrome124", timeout=20)
+    return response.text
 
+
+def parse_metrics(html_content):
+    """Extracts data values from the specific data layout."""
+    soup = BeautifulSoup(html_content, "html.parser")
+    
+    # Locate all data rows or labels dynamically
+    text = soup.get_text("\n", strip=True)
+
+    # Use flexible regular expressions to grab fields regardless of surrounding whitespace
     date_match = re.search(r"Date\s*:\s*(\d{2}/\d{2}/\d{4})", text, re.IGNORECASE)
     value_match = re.search(r"Value\s*:\s*([\d,.]+)", text, re.IGNORECASE)
     open_match = re.search(r"Open\s*:\s*([\d,.]+)", text, re.IGNORECASE)
@@ -46,63 +69,31 @@ def parse_panel_metrics(html_content):
 
 
 def main():
+    print("Beginning connection-bypass scrape...")
+    
+    # Map index tracking labels directly to internal tracking ID values
+    target_map = {
+        "EGX30": 1,
+        "EGX70": 2,
+        "EGX100": 3,
+        "SHARIAH": 13
+    }
+    
     indices_output = {}
 
-    with sync_playwright() as p:
-        print("Launching secure browser session...")
-        browser = p.chromium.launch(
-            headless=True,
-            args=[
-                "--disable-blink-features=AutomationControlled",
-                "--no-sandbox",
-                "--disable-setuid-sandbox"
-            ]
-        )
-
-        context = browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-            viewport={"width": 1920, "height": 1080}
-        )
-
-        page = context.new_page()
-        page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-
-        print("Navigating to EGX Indices Portal...")
-        page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="networkidle", timeout=60000)
-        
-        # Map indices to their exact HTML IDs from the source code
-        tabs_to_click = {
-            "EGX30": "#ctl00_C_M_lnkEGX30",
-            "SHARIAH": "#ctl00_C_M_lnkSHARIAH",
-            "EGX70": "#ctl00_C_M_lnkEGX70EWI",
-            "EGX100": "#ctl00_C_M_lnkEGX100EWI"
-        }
-
-        for tracking_name, css_selector in tabs_to_click.items():
-            try:
-                print(f"Waiting for and clicking tab: {tracking_name} ({css_selector})...")
-                
-                # Wait for the element to be visible on the DOM to ensure JS scripts are initialized
-                page.wait_for_selector(css_selector, timeout=15000)
-                
-                # Force click the element to bypass visibility overlays
-                page.click(css_selector, force=True)
-                
-                # Wait for the dynamic postback network reaction to complete
-                page.wait_for_load_state("networkidle")
-                page.wait_for_timeout(3000)
-
-                # Extract data panel text
-                updated_html = page.content()
-                indices_output[tracking_name] = parse_panel_metrics(updated_html)
-                print(f"[+] Successfully extracted {tracking_name} metrics.")
-
-            except Exception as click_err:
-                print(f"[-] Failed to switch or extract tab {tracking_name}: {click_err}")
-                indices_output[tracking_name] = {k: None for k in ["date", "value", "open", "high", "low", "change_pct", "ytd_pct"]}
-
-        context.close()
-        browser.close()
+    for name, type_id in target_map.items():
+        try:
+            print(f"Requesting background stream for {name} (ID: {type_id})...")
+            html_content = get_index_summary(type_id)
+            
+            # Extract data parameters cleanly
+            metrics = parse_metrics(html_content)
+            indices_output[name] = metrics
+            print(f"[+] Successfully gathered values for {name}")
+            
+        except Exception as err:
+            print(f"[-] Failed streaming data feed for {name}: {err}")
+            indices_output[name] = {k: None for k in ["date", "value", "open", "high", "low", "change_pct", "ytd_pct"]}
 
     output = {
         "source": "https://www.egx.com.eg",
@@ -115,7 +106,7 @@ def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"\nSaved accurate metrics completely to {OUTPUT_FILE}")
+    print(f"\nSaved accurate data metrics successfully to {OUTPUT_FILE}!")
     print(json.dumps(output, indent=2))
 
 
