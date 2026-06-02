@@ -37,7 +37,7 @@ def parse_panel_metrics(html_content):
     return {
         "date": safe_str(date_match),
         "value": safe_num(value_match),
-        "open": safe_num(open_match),
+        "open": safe_num(safe_num(open_match)), # Fallback layer
         "high": safe_num(high_match),
         "low": safe_num(low_match),
         "change_pct": safe_num(change_match),
@@ -68,36 +68,36 @@ def main():
         page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
         print("Navigating to EGX Indices Portal...")
-        page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="domcontentloaded", timeout=60000)
+        page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="networkidle", timeout=60000)
         page.wait_for_timeout(3000)
 
-        # Map out the exact text targets on the page tabs
-        # Playwright will locate these strings and issue the required ASP postbacks
-        tabs_to_scrape = {
-            "EGX30": "EGX30",
-            "SHARIAH": "SHARIAH",
-            "EGX70": "EGX70 EWI",
-            "EGX100": "EGX100 EWI"
+        # Map index tracking keys directly to their explicit __doPostBack script calls!
+        # This completely avoids searching for dynamic UI components.
+        postback_scripts = {
+            "EGX30": "__doPostBack('ctl00$C$M$lnkEGX30','')",
+            "SHARIAH": "__doPostBack('ctl00$C$M$lnkSHARIAH','')",
+            "EGX70": "__doPostBack('ctl00$C$M$lnkEGX70EWI','')",
+            "EGX100": "__doPostBack('ctl00$C$M$lnkEGX100EWI','')"
         }
 
-        for tracking_name, label_text in tabs_to_scrape.items():
+        for tracking_name, js_command in postback_scripts.items():
             try:
-                print(f"Switching view to panel tab: [{label_text}]")
+                print(f"Triggering PostBack state for: {tracking_name}...")
                 
-                # Locate the specific tab by text match and click it to fire the __doPostBack script
-                tab_element = page.get_by_role("link", name=label_text, exact=True)
-                tab_element.click()
+                # Evaluate the raw JavaScript directly on the page window object
+                page.evaluate(js_command)
                 
-                # Allow the ASP webform engine time to fetch and redraw the inner panel contents
-                page.wait_for_timeout(2500)
+                # Wait for the network requests triggered by the postback to finish completely
+                page.wait_for_load_state("networkidle")
+                page.wait_for_timeout(2000)
 
-                # Process the newly loaded dynamic data panel
+                # Extract the freshly updated layout state
                 updated_html = page.content()
                 indices_output[tracking_name] = parse_panel_metrics(updated_html)
                 print(f"[+] Successfully extracted {tracking_name} metrics.")
 
-            except Exception as panel_err:
-                print(f"[-] Failed to switch or extract tab {label_text}: {panel_err}")
+            except Exception as js_err:
+                print(f"[-] Failed to execute postback for {tracking_name}: {js_err}")
                 indices_output[tracking_name] = {k: None for k in ["date", "value", "open", "high", "low", "change_pct", "ytd_pct"]}
 
         context.close()
