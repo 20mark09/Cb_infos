@@ -46,10 +46,9 @@ def parse_panel_metrics(html_content):
 
 
 def parse_gl_table(soup, index_position):
-    """Finds tables on Top_GL.aspx safely by structural order to avoid missing them."""
+    """Finds tables on Top_GL.aspx safely by structural order to extract rows."""
     tables = soup.find_all("table", {"class": "table"})
     if not tables:
-        # Fallback if class names match server modifications
         tables = soup.find_all("table", id=lambda x: x and ("gvGainer" in x or "gvLoser" in x))
         
     stocks = []
@@ -57,7 +56,7 @@ def parse_gl_table(soup, index_position):
         return stocks
 
     target_table = tables[index_position]
-    rows = target_table.find_all("tr")[1:]  # Drop headers safely
+    rows = target_table.find_all("tr")[1:]  # Drop header row safely
     
     for row in rows:
         cols = row.find_all("td")
@@ -100,26 +99,30 @@ def main():
         )
 
         # --- PART 1: SCRAPE INDICES ---
-        # We use a single page context loop, exactly how it worked for you before.
         page = context.new_page()
         print("Navigating to Portal Landing View...")
-        page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="commit", timeout=60000)
+        # Use wait_until="load" to ensure all underlying JavaScript objects are fully ready
+        page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="load", timeout=60000)
         
-        print("Pausing 10 seconds to let JavaScript firewall challenge pass...")
-        page.wait_for_timeout(10000)
+        print("Pausing 5 seconds to let page scripts settle...")
+        page.wait_for_timeout(5000)
 
-        postback_actions = {
-            "EGX30": "ctl00$C$M$lnkEGX30",
-            "SHARIAH": "ctl00$C$M$lnkSHARIAH",
-            "EGX70": "ctl00$C$M$lnkEGX70EWI",
-            "EGX100": "ctl00$C$M$lnkEGX100EWI"
+        # Mapping indices to their hardcoded click elements to avoid Javascript evaluation errors
+        click_targets = {
+            "EGX30": "#ctl00_C_M_lnkEGX30",
+            "SHARIAH": "#ctl00_C_M_lnkSHARIAH",
+            "EGX70": "#ctl00_C_M_lnkEGX70EWI",
+            "EGX100": "#ctl00_C_M_lnkEGX100EWI"
         }
 
-        for tracking_name, event_target in postback_actions.items():
-            print(f"Requesting data compilation state for {tracking_name}...")
+        for tracking_name, selector in click_targets.items():
+            print(f"Clicking tab view for {tracking_name}...")
             try:
-                # Direct postback call without using falling-back element selectors
-                page.evaluate(f"__doPostBack('{event_target}', '');")
+                # Wait for the selector to be fully actionable, then simulate a clean user click
+                page.wait_for_selector(selector, timeout=10000)
+                page.click(selector, force=True)
+                
+                # Wait 4 seconds for the ASP panel update data to apply
                 page.wait_for_timeout(4000)
 
                 updated_html = page.content()
@@ -135,12 +138,13 @@ def main():
         # --- PART 2: SCRAPE TOP GAINERS & LOSERS ---
         print("\nNavigating to Top Gainers/Losers Desk...")
         try:
+            # Open a completely fresh virtual tab to bypass the connection firewall limit
             gl_page = context.new_page()
-            gl_page.goto("https://www.egx.com.eg/en/Top_GL.aspx", wait_until="commit", timeout=60000)
-            gl_page.wait_for_timeout(10000)  # Wait for JavaScript shield to settle
+            gl_page.goto("https://www.egx.com.eg/en/Top_GL.aspx", wait_until="load", timeout=60000)
+            gl_page.wait_for_timeout(6000)
 
             try:
-                gl_page.wait_for_selector("table", timeout=15000)
+                gl_page.wait_for_selector("table", timeout=10000)
             except Exception:
                 pass
 
