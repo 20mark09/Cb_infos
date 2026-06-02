@@ -12,92 +12,107 @@ def now_utc():
 
 
 def get_html(url):
-    print(f"Requesting Feed: {url}...")
+    print(f"Requesting Main Portal: {url}...")
     response = requests.get(
         url,
         impersonate="chrome124",
         timeout=30,
         headers={
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
             "Accept-Language": "en-US,en;q=0.9",
-            "Referer": "https://www.egx.com.eg/"
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
+            "Referer": "https://www.google.com/"
         }
     )
     return response.text
 
 
-def parse_single_index(html, index_name):
-    text = BeautifulSoup(html, "html.parser").get_text("\n", strip=True)
-
-    # --- DEBUGGING LAYER ---
-    # This will print exactly what the script reads for each index to your GitHub Actions logs
-    print(f"\n--- RAW TEXT FOR {index_name} ---")
-    print(text[:800])  # Show the first 800 characters
-    print(f"---------------------------------\n")
-
-    # Flexible matching patterns that ignore extra lines, spaces, or tabs
-    date_match = re.search(r"Date\s*:\s*(\d{2}/\d{2}/\d{4})", text, re.IGNORECASE)
+def parse_all_indices(html):
+    soup = BeautifulSoup(html, "html.parser")
+    text_content = soup.get_text("\n", strip=True)
     
-    # If the endpoint doesn't use standard labels, we can fall back to catching sequences of numbers
-    value_match = re.search(r"Value\s*:\s*([\d,.]+)", text, re.IGNORECASE)
-    open_match = re.search(r"Open\s*:\s*([\d,.]+)", text, re.IGNORECASE)
-    high_match = re.search(r"High\s*:\s*([\d,.]+)", text, re.IGNORECASE)
-    low_match = re.search(r"Low\s*:\s*([\d,.]+)", text, re.IGNORECASE)
-    change_match = re.search(r"Change\s*:\s*(-?[\d,.]+)", text, re.IGNORECASE)
-    ytd_match = re.search(r"YTD%\s*Change\s*:\s*(-?[\d,.]+)", text, re.IGNORECASE)
-
-    def safe_str(match):
-        return match.group(1) if match else None
-
-    def num(match):
-        if not match:
-            return None
-        return float(match.group(1).replace(",", ""))
-
-    return {
-        "date": safe_str(date_match),
-        "value": num(value_match),
-        "open": num(open_match),
-        "high": num(high_match),
-        "low": num(low_match),
-        "change_pct": num(change_match),
-        "ytd_pct": num(ytd_match)
+    # Define cleaner matching targets inside the entire page string
+    # We locate sections by their specific index headers
+    indices_to_track = {
+        "EGX30": r"EGX30\b",
+        "EGX70": r"EGX70\s*EWI",
+        "EGX100": r"EGX100\s*EWI",
+        "SHARIAH": r"SHARIAH|EGX\s*33\s*Shariah"
     }
+    
+    results = {}
+    
+    for key, pattern in indices_to_track.items():
+        # Find the index context inside the page text blob
+        match_anchor = re.search(pattern, text_content, re.IGNORECASE)
+        
+        if not match_anchor:
+            print(f"[-] Could not find text anchor for {key}")
+            results[key] = {k: None for k in ["date", "value", "open", "high", "low", "change_pct", "ytd_pct"]}
+            continue
+            
+        # Extract a window of text right after the index name to grab its data values
+        start_pos = match_anchor.end()
+        snippet = text_content[start_pos:start_pos + 1500]
+        
+        # Parse numbers cleanly using relative patterns
+        date_m = re.search(r"Date\s*:\s*(\d{2}/\d{2}/\d{4})", snippet, re.IGNORECASE)
+        val_m = re.search(r"Value\s*:\s*([\d,.]+)", snippet, re.IGNORECASE)
+        open_m = re.search(r"Open\s*:\s*([\d,.]+)", snippet, re.IGNORECASE)
+        high_m = re.search(r"High\s*:\s*([\d,.]+)", snippet, re.IGNORECASE)
+        low_m = re.search(r"Low\s*:\s*([\d,.]+)", snippet, re.IGNORECASE)
+        change_m = re.search(r"Change\s*:\s*(-?[\d,.]+)", snippet, re.IGNORECASE)
+        ytd_m = re.search(r"YTD%\s*Change\s*:\s*(-?[\d,.]+)", snippet, re.IGNORECASE)
+        
+        def safe_str(m):
+            return m.group(1) if m else None
+
+        def safe_num(m):
+            if not m:
+                return None
+            try:
+                return float(m.group(1).replace(",", ""))
+            except ValueError:
+                return None
+
+        results[key] = {
+            "date": safe_str(date_m),
+            "value": safe_num(val_m),
+            "open": safe_num(open_m),
+            "high": safe_num(high_m),
+            "low": safe_num(low_m),
+            "change_pct": safe_num(change_m),
+            "ytd_pct": safe_num(ytd_m)
+        }
+        print(f"[+] Successfully extracted {key} metrics.")
+
+    return results
 
 
 def main():
-    # Attempting endpoints for the main components
-    target_indices = {
-        "EGX30": "https://www.egx.com.eg/en/indexdata.aspx?type=1&nav=1",
-        "EGX70": "https://www.egx.com.eg/en/indexdata.aspx?type=2&nav=1",
-        "EGX100": "https://www.egx.com.eg/en/indexdata.aspx?type=3&nav=1",
-        "SHARIAH": "https://www.egx.com.eg/en/indexdata.aspx?type=13&nav=1"
-    }
-
-    indices_output = {}
-
-    print("Loading all market indices...")
-    for name, url in target_indices.items():
-        try:
-            html_content = get_html(url)
-            indices_output[name] = parse_single_index(html_content, name)
-        except Exception as e:
-            print(f"Failed to fetch or parse {name}: {e}")
-            indices_output[name] = {k: None for k in ["date", "value", "open", "high", "low", "change_pct", "ytd_pct"]}
-
-    gainers, losers = [], []
+    print("Initializing tracking run...")
+    try:
+        # Load the main dashboard directly
+        html_data = get_html("https://www.egx.com.eg/en/Indices.aspx")
+        indices = parse_all_indices(html_data)
+    except Exception as e:
+        print(f"Critical execution error: {e}")
+        indices = {}
 
     output = {
         "source": "https://www.egx.com.eg",
         "lastUpdated": now_utc(),
-        "indices": indices_output,
-        "gainers": gainers,
-        "losers": losers
+        "indices": indices,
+        "gainers": [],
+        "losers": []
     }
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
         
-    print(f"\nSaved tracking updates successfully to {OUTPUT_FILE}!")
+    print(f"\nSaved combined data to {OUTPUT_FILE}")
+    print(json.dumps(output, indent=2))
 
 
 if __name__ == "__main__":
