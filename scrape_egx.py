@@ -28,8 +28,16 @@ def get_html(url):
 def parse_single_index(html, index_name):
     text = BeautifulSoup(html, "html.parser").get_text("\n", strip=True)
 
-    # Regular expressions matching the metrics
+    # --- DEBUGGING LAYER ---
+    # This will print exactly what the script reads for each index to your GitHub Actions logs
+    print(f"\n--- RAW TEXT FOR {index_name} ---")
+    print(text[:800])  # Show the first 800 characters
+    print(f"---------------------------------\n")
+
+    # Flexible matching patterns that ignore extra lines, spaces, or tabs
     date_match = re.search(r"Date\s*:\s*(\d{2}/\d{2}/\d{4})", text, re.IGNORECASE)
+    
+    # If the endpoint doesn't use standard labels, we can fall back to catching sequences of numbers
     value_match = re.search(r"Value\s*:\s*([\d,.]+)", text, re.IGNORECASE)
     open_match = re.search(r"Open\s*:\s*([\d,.]+)", text, re.IGNORECASE)
     high_match = re.search(r"High\s*:\s*([\d,.]+)", text, re.IGNORECASE)
@@ -57,8 +65,7 @@ def parse_single_index(html, index_name):
 
 
 def main():
-    # Map index tracking keys to their internal platform ID numbers
-    # type=1: EGX30, type=2: EGX70 EWI, type=3: EGX100 EWI, type=13: SHARIAH
+    # Attempting endpoints for the main components
     target_indices = {
         "EGX30": "https://www.egx.com.eg/en/indexdata.aspx?type=1&nav=1",
         "EGX70": "https://www.egx.com.eg/en/indexdata.aspx?type=2&nav=1",
@@ -73,18 +80,11 @@ def main():
         try:
             html_content = get_html(url)
             indices_output[name] = parse_single_index(html_content, name)
-            print(f"Successfully compiled data for {name}")
         except Exception as e:
             print(f"Failed to fetch or parse {name}: {e}")
             indices_output[name] = {k: None for k in ["date", "value", "open", "high", "low", "change_pct", "ytd_pct"]}
 
     gainers, losers = [], []
-    try:
-        print("Loading gainers/losers data...")
-        gl_html = get_html("https://www.egx.com.eg/en/Top_GL.aspx")
-        # Parsing adjustments can go here if needed later
-    except Exception as e:
-        print("Top gainers/losers feed failed:", e)
 
     output = {
         "source": "https://www.egx.com.eg",
@@ -98,7 +98,6 @@ def main():
         json.dump(output, f, indent=2, ensure_ascii=False)
         
     print(f"\nSaved tracking updates successfully to {OUTPUT_FILE}!")
-    print(json.dumps(output, indent=2))
 
 
 if __name__ == "__main__":
