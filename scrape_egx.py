@@ -45,22 +45,34 @@ def parse_panel_metrics(html_content):
     }
 
 
-def parse_gl_table(soup, table_id):
-    """Extracts stock rows from the gainers/losers HTML tables structurally."""
-    table = soup.find("table", {"id": table_id})
+def parse_gl_table(soup, index_position):
+    """
+    Finds tables on Top_GL.aspx by order of appearance to avoid mangled ASP server IDs.
+    index_position=0 parses the first table data (Gainers), index_position=1 parses the second (Losers).
+    """
+    # The grid tables on EGX always share the same styling classes
+    tables = soup.find_all("table", {"class": "table"})
+    if not tables or len(tables) <= index_position:
+        # Fallback to look for alternative GridView table markers if class matches are hidden
+        tables = soup.find_all("table", id=lambda x: x and ("gvGainer" in x or "gvLoser" in x))
+        
     stocks = []
-    
-    if not table:
+    if not tables or len(tables) <= index_position:
         return stocks
 
-    # Find all table rows skipping the header row
-    rows = table.find_all("tr")[1:]
+    target_table = tables[index_position]
+    rows = target_table.find_all("tr")[1:] # Drop header columns safely
+    
     for row in rows:
         cols = row.find_all("td")
         if len(cols) >= 4:
             try:
+                name_text = cols[0].get_text(strip=True)
+                if not name_text or "No data available" in name_text:
+                    continue
+                    
                 stocks.append({
-                    "name": cols[0].get_text(strip=True),
+                    "name": name_text,
                     "price": float(cols[1].get_text(strip=True).replace(",", "")),
                     "change_pct": float(cols[2].get_text(strip=True).replace(",", "").replace("%", "")),
                     "volume": int(cols[3].get_text(strip=True).replace(",", ""))
@@ -97,7 +109,6 @@ def main():
         for tracking_name, event_target in postback_actions.items():
             print(f"Opening clean tab view for {tracking_name}...")
             try:
-                # CREATING A FRESH PAGE ON EACH LOOP PREVENTS CACHED TARGET DUPLICATION
                 context = browser.new_context(
                     user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
                     viewport={"width": 1280, "height": 720}
@@ -105,9 +116,8 @@ def main():
                 page = context.new_page()
                 
                 page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="commit", timeout=60000)
-                page.wait_for_timeout(6000)  # Wait out JavaScript challenge room
+                page.wait_for_timeout(6000)
 
-                # Force the form state transition update natively
                 page.evaluate(f"""
                     if (typeof __doPostBack !== 'undefined') {{
                         __doPostBack('{event_target}', '');
@@ -136,14 +146,20 @@ def main():
             )
             gl_page = gl_context.new_page()
             gl_page.goto("https://www.egx.com.eg/en/Top_GL.aspx", wait_until="commit", timeout=60000)
-            gl_page.wait_for_timeout(8000)  # Give firewall challenge time to pass
+            gl_page.wait_for_timeout(8000)  # Wait for JavaScript shield room
+
+            # CRITICAL: Explicitly check if the stock layout tables exist on page before gathering HTML
+            try:
+                gl_page.wait_for_selector("table", timeout=10000)
+            except Exception:
+                print("[-] Note: Grid tables didn't render inside target frame timeout.")
 
             gl_soup = BeautifulSoup(gl_page.content(), "html.parser")
             
-            # Extract tables by targeting internal ASP container tables
-            # ctl00_C_M_gvGainer is the standard ID for the dynamic GridView wrapper components on EGX
-            gainers = parse_gl_table(gl_soup, "ctl00_C_M_gvGainer")
-            losers = parse_gl_table(gl_soup, "ctl00_C_M_gvLoser")
+            # Position 0 is always the first data grid (Gainers) 
+            # Position 1 is always the second data grid (Losers)
+            gainers = parse_gl_table(gl_soup, 0)
+            losers = parse_gl_table(gl_soup, 1)
             
             print(f"[+] Successfully scraped {len(gainers)} gainers and {len(losers)} losers.")
             gl_context.close()
