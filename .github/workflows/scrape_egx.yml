@@ -2,8 +2,8 @@ name: Scrape EGX Stock Data
 
 on:
   schedule:
-    - cron: "0 14 * * 0-4"   # 2 PM UTC = 4 PM Cairo (after EGX closes at 3:30 PM)
-    - cron: "30 9 * * 0-4"   # 9:30 AM UTC = 11:30 AM Cairo (midday snapshot)
+    - cron: "0 14 * * 0-4"    # 4 PM Cairo — after EGX close (3:30 PM)
+    - cron: "30 9 * * 0-4"    # 11:30 AM Cairo — midday snapshot
   workflow_dispatch:
 
 env:
@@ -14,34 +14,24 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Install dependencies
-        run: pip install requests beautifulsoup4 lxml
-
-      - name: Scrape EGX data
+      - run: pip install requests beautifulsoup4 lxml
+      - name: Scrape EGX
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scrape_egx.py
-
-      - name: Commit and push if changed
+      - name: Commit if changed
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add egx.json
           if git diff --cached --quiet; then
-            echo "ℹ️  No changes."
+            echo "No changes."
           else
-            TIMESTAMP=$(date -u "+%Y-%m-%d %H:%M UTC")
-            git commit -m "chore: EGX data [$TIMESTAMP]"
+            git commit -m "chore: EGX data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
             git push
-            echo "✅ Pushed updated egx.json"
           fi
