@@ -22,9 +22,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install beautifulsoup4 playwright
-          playwright install chromium
-          playwright install-deps chromium
+          pip install beautifulsoup4 curl_cffi
 
       - name: Run Scraper
         run: python scrape_egx.py
