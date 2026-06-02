@@ -1,128 +1,172 @@
-import requests
-from bs4 import BeautifulSoup
 import json
 import re
+from datetime import datetime, timezone
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0"
-}
+from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
 
-def clean_num(text):
+
+OUTPUT_FILE = "egx.json"
+
+
+def now_utc():
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+
+
+def extract_number(text):
     if not text:
         return None
 
-    text = text.replace(",", "").replace("%", "").strip()
+    text = text.replace(",", "")
+    m = re.search(r"-?\d+\.?\d*", text)
 
-    try:
-        return float(text)
-    except:
-        return None
+    return float(m.group()) if m else None
 
 
-def get_indices():
-    url = "https://www.egx.com.eg/en/Indices.aspx"
+def get_html(url):
+    with sync_playwright() as p:
 
-    r = requests.get(url, headers=HEADERS, timeout=20)
-    r.raise_for_status()
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--disable-blink-features=AutomationControlled"
+            ]
+        )
 
-    soup = BeautifulSoup(r.text, "html.parser")
+        page = browser.new_page()
 
-    indices = {}
+        page.goto(
+            url,
+            wait_until="networkidle",
+            timeout=60000
+        )
 
-    tables = soup.find_all("table")
+        html = page.content()
 
-    for table in tables:
-        rows = table.find_all("tr")
+        browser.close()
 
-        for row in rows:
-            cols = [c.get_text(" ", strip=True) for c in row.find_all(["td", "th"])]
-
-            if len(cols) < 3:
-                continue
-
-            name = cols[0].lower()
-
-            if "egx" not in name:
-                continue
-
-            value = clean_num(cols[1])
-            change = clean_num(cols[2])
-
-            key = re.sub(r"[^a-z0-9]", "", name)
-
-            indices[key] = {
-                "name": cols[0],
-                "value": value,
-                "change_pct": change
-            }
-
-    return indices
+        return html
 
 
-def get_gainers_losers():
-    url = "https://www.egx.com.eg/en/Top_GL.aspx"
+def parse_indices(html):
 
-    r = requests.get(url, headers=HEADERS, timeout=20)
-    r.raise_for_status()
+    soup = BeautifulSoup(html, "html.parser")
 
-    soup = BeautifulSoup(r.text, "html.parser")
+    text = soup.get_text("\n", strip=True)
+
+    result = {}
+
+    blocks = [
+        "EGX30",
+        "SHARIAH",
+        "EGX35-LV",
+        "EGX70 EWI",
+        "EGX100 EWI",
+        "TAMAYUZ",
+        "EGX30 Capped",
+        "EGX30 TR",
+        "EGX T BONDS"
+    ]
+
+    for idx in blocks:
+
+        if idx not in text:
+            continue
+
+        start = text.find(idx)
+
+        chunk = text[start:start + 1500]
+
+        value_match = re.search(
+            r"Value\s*:\s*([\d,.]+)",
+            chunk,
+            re.IGNORECASE
+        )
+
+        change_match = re.search(
+            r"Change\s*:\s*([-\d,.]+)",
+            chunk,
+            re.IGNORECASE
+        )
+
+        ytd_match = re.search(
+            r"YTD% Change\s*:\s*([-\d,.]+)",
+            chunk,
+            re.IGNORECASE
+        )
+
+        result[idx] = {
+            "value": extract_number(
+                value_match.group(1)
+            ) if value_match else None,
+            "change_pct": extract_number(
+                change_match.group(1)
+            ) if change_match else None,
+            "ytd_pct": extract_number(
+                ytd_match.group(1)
+            ) if ytd_match else None
+        }
+
+    return result
+
+
+def parse_top_gl(html):
+
+    text = BeautifulSoup(
+        html,
+        "html.parser"
+    ).get_text("\n", strip=True)
 
     gainers = []
     losers = []
-
-    tables = soup.find_all("table")
-
-    for table in tables:
-
-        caption = table.get_text(" ", strip=True).lower()
-
-        rows = table.find_all("tr")
-
-        parsed = []
-
-        for row in rows[1:]:
-
-            cols = [c.get_text(" ", strip=True) for c in row.find_all("td")]
-
-            if len(cols) < 3:
-                continue
-
-            parsed.append({
-                "name": cols[0],
-                "price": clean_num(cols[1]),
-                "change_pct": clean_num(cols[-1])
-            })
-
-        if "gainer" in caption:
-            gainers = parsed
-
-        elif "loser" in caption:
-            losers = parsed
 
     return gainers, losers
 
 
 def main():
 
-    data = {
-        "indices": get_indices()
-    }
+    indices_html = get_html(
+        "https://www.egx.com.eg/en/Indices.aspx"
+    )
+
+    indices = parse_indices(indices_html)
 
     try:
-        gainers, losers = get_gainers_losers()
 
-        data["gainers"] = gainers
-        data["losers"] = losers
+        gl_html = get_html(
+            "https://www.egx.com.eg/en/Top_GL.aspx"
+        )
 
-    except Exception as e:
-        print("Top gainers/losers unavailable:", e)
-        data["gainers"] = []
-        data["losers"] = []
+        gainers, losers = parse_top_gl(gl_html)
 
-    with open("egx.json", "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    except Exception:
 
-    print("Saved to egx.json")
+        gainers = []
+        losers = []
+
+    output = {
+        "source": "https://www.egx.com.eg",
+        "lastUpdated": now_utc(),
+        "indices": indices,
+        "gainers": gainers,
+        "losers": losers
+    }
+
+    with open(
+        OUTPUT_FILE,
+        "w",
+        encoding="utf-8"
+    ) as f:
+        json.dump(
+            output,
+            f,
+            indent=2,
+            ensure_ascii=False
+        )
+
+    print(
+        f"Saved {OUTPUT_FILE}"
+    )
 
 
 if __name__ == "__main__":
