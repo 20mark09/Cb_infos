@@ -45,23 +45,21 @@ def parse_panel_metrics(html_content):
     }
 
 
-def parse_gl_table(soup, index_position):
-    """Finds tables on Top_GL.aspx safely by structural order to avoid missing them."""
-    tables = soup.find_all("table", {"class": "table"})
-    if not tables:
-        # Fallback if class names match server modifications
-        tables = soup.find_all("table", id=lambda x: x and ("gvGainer" in x or "gvLoser" in x))
-        
+def parse_gl_table(soup, table_id):
+    """Finds tables on Top_GL.aspx using their precise client IDs and maps the 6 columns layout."""
+    table = soup.find("table", {"id": table_id})
     stocks = []
-    if not tables or len(tables) <= index_position:
+    
+    if not table:
         return stocks
 
-    target_table = tables[index_position]
-    rows = target_table.find_all("tr")[1:]  # Drop headers safely
+    # Find all table rows, safely skipping the first row containing the headers
+    rows = table.find_all("tr")[1:]
     
     for row in rows:
         cols = row.find_all("td")
-        if len(cols) >= 4:
+        # Ensure we have the full 6 columns present (Company Name, Currency, Prev Close, Open, Close, %CHG)
+        if len(cols) >= 6:
             try:
                 name_text = cols[0].get_text(strip=True)
                 if not name_text or "No data available" in name_text:
@@ -69,9 +67,8 @@ def parse_gl_table(soup, index_position):
                     
                 stocks.append({
                     "name": name_text,
-                    "price": float(cols[1].get_text(strip=True).replace(",", "")),
-                    "change_pct": float(cols[2].get_text(strip=True).replace(",", "").replace("%", "")),
-                    "volume": int(cols[3].get_text(strip=True).replace(",", ""))
+                    "price": float(cols[4].get_text(strip=True).replace(",", "")),       # Close column
+                    "change_pct": float(cols[5].get_text(strip=True).replace(",", "").replace("%", ""))  # %CHG column
                 })
             except Exception:
                 continue
@@ -100,7 +97,6 @@ def main():
         )
 
         # --- PART 1: SCRAPE INDICES ---
-        # We use a single page context loop, exactly how it worked for you before.
         page = context.new_page()
         print("Navigating to Portal Landing View...")
         page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="commit", timeout=60000)
@@ -118,7 +114,6 @@ def main():
         for tracking_name, event_target in postback_actions.items():
             print(f"Requesting data compilation state for {tracking_name}...")
             try:
-                # Direct postback call without using falling-back element selectors
                 page.evaluate(f"__doPostBack('{event_target}', '');")
                 page.wait_for_timeout(4000)
 
@@ -139,14 +134,17 @@ def main():
             gl_page.goto("https://www.egx.com.eg/en/Top_GL.aspx", wait_until="commit", timeout=60000)
             gl_page.wait_for_timeout(10000)  # Wait for JavaScript shield to settle
 
+            # Wait for the specific GridView container element to ensure data has rendered
             try:
-                gl_page.wait_for_selector("table", timeout=15000)
+                gl_page.wait_for_selector("#ctl00_C_Top_GL1_GridView1", timeout=15000)
             except Exception:
                 pass
 
             gl_soup = BeautifulSoup(gl_page.content(), "html.parser")
-            gainers = parse_gl_table(gl_soup, 0)
-            losers = parse_gl_table(gl_soup, 1)
+            
+            # Scrape using the specific IDs seen directly in your raw layout response
+            gainers = parse_gl_table(gl_soup, "ctl00_C_Top_GL1_GridView1")
+            losers = parse_gl_table(gl_soup, "ctl00_C_Top_GL1_GridView2")
             
             print(f"[+] Successfully scraped {len(gainers)} gainers and {len(losers)} losers.")
             gl_page.close()
