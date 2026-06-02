@@ -46,14 +46,10 @@ def parse_panel_metrics(html_content):
 
 
 def parse_gl_table(soup, index_position):
-    """
-    Finds tables on Top_GL.aspx by order of appearance to avoid mangled ASP server IDs.
-    index_position=0 parses the first table data (Gainers), index_position=1 parses the second (Losers).
-    """
-    # The grid tables on EGX always share the same styling classes
+    """Finds tables on Top_GL.aspx safely by structural order to avoid missing them."""
     tables = soup.find_all("table", {"class": "table"})
-    if not tables or len(tables) <= index_position:
-        # Fallback to look for alternative GridView table markers if class matches are hidden
+    if not tables:
+        # Fallback if class names match server modifications
         tables = soup.find_all("table", id=lambda x: x and ("gvGainer" in x or "gvLoser" in x))
         
     stocks = []
@@ -61,7 +57,7 @@ def parse_gl_table(soup, index_position):
         return stocks
 
     target_table = tables[index_position]
-    rows = target_table.find_all("tr")[1:] # Drop header columns safely
+    rows = target_table.find_all("tr")[1:]  # Drop headers safely
     
     for row in rows:
         cols = row.find_all("td")
@@ -98,7 +94,20 @@ def main():
             ]
         )
 
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            viewport={"width": 1280, "height": 720}
+        )
+
         # --- PART 1: SCRAPE INDICES ---
+        # We use a single page context loop, exactly how it worked for you before.
+        page = context.new_page()
+        print("Navigating to Portal Landing View...")
+        page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="commit", timeout=60000)
+        
+        print("Pausing 10 seconds to let JavaScript firewall challenge pass...")
+        page.wait_for_timeout(10000)
+
         postback_actions = {
             "EGX30": "ctl00$C$M$lnkEGX30",
             "SHARIAH": "ctl00$C$M$lnkSHARIAH",
@@ -107,66 +116,45 @@ def main():
         }
 
         for tracking_name, event_target in postback_actions.items():
-            print(f"Opening clean tab view for {tracking_name}...")
+            print(f"Requesting data compilation state for {tracking_name}...")
             try:
-                context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-                    viewport={"width": 1280, "height": 720}
-                )
-                page = context.new_page()
-                
-                page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="commit", timeout=60000)
-                page.wait_for_timeout(6000)
-
-                page.evaluate(f"""
-                    if (typeof __doPostBack !== 'undefined') {{
-                        __doPostBack('{event_target}', '');
-                    }} else {{
-                        document.getElementById('aspnetForm').submit();
-                    }}
-                """)
-                
+                # Direct postback call without using falling-back element selectors
+                page.evaluate(f"__doPostBack('{event_target}', '');")
                 page.wait_for_timeout(4000)
 
                 updated_html = page.content()
                 indices_output[tracking_name] = parse_panel_metrics(updated_html)
-                print(f"[+] Successfully extracted true metrics for {tracking_name}")
-                context.close()
+                print(f"[+] Extracted values completely for {tracking_name}")
 
             except Exception as loop_error:
-                print(f"[-] Failed tracking loop on {tracking_name}: {loop_error}")
+                print(f"[-] Error on index loop {tracking_name}: {loop_error}")
                 indices_output[tracking_name] = {k: None for k in ["date", "value", "open", "high", "low", "change_pct", "ytd_pct"]}
+
+        page.close()
 
         # --- PART 2: SCRAPE TOP GAINERS & LOSERS ---
         print("\nNavigating to Top Gainers/Losers Desk...")
         try:
-            gl_context = browser.new_context(
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-                viewport={"width": 1280, "height": 720}
-            )
-            gl_page = gl_context.new_page()
+            gl_page = context.new_page()
             gl_page.goto("https://www.egx.com.eg/en/Top_GL.aspx", wait_until="commit", timeout=60000)
-            gl_page.wait_for_timeout(8000)  # Wait for JavaScript shield room
+            gl_page.wait_for_timeout(10000)  # Wait for JavaScript shield to settle
 
-            # CRITICAL: Explicitly check if the stock layout tables exist on page before gathering HTML
             try:
-                gl_page.wait_for_selector("table", timeout=10000)
+                gl_page.wait_for_selector("table", timeout=15000)
             except Exception:
-                print("[-] Note: Grid tables didn't render inside target frame timeout.")
+                pass
 
             gl_soup = BeautifulSoup(gl_page.content(), "html.parser")
-            
-            # Position 0 is always the first data grid (Gainers) 
-            # Position 1 is always the second data grid (Losers)
             gainers = parse_gl_table(gl_soup, 0)
             losers = parse_gl_table(gl_soup, 1)
             
             print(f"[+] Successfully scraped {len(gainers)} gainers and {len(losers)} losers.")
-            gl_context.close()
+            gl_page.close()
             
         except Exception as gl_error:
             print(f"[-] Failed to fetch Top Gainers/Losers: {gl_error}")
 
+        context.close()
         browser.close()
 
     # --- SAVE STRUCTURED RESULTS ---
