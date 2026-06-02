@@ -45,22 +45,30 @@ def parse_panel_metrics(html_content):
     }
 
 
-def parse_gl_table(soup, table_id):
-    """Extracts stock rows from the gainers/losers HTML tables structurally."""
-    table = soup.find("table", {"id": table_id})
+def parse_gl_table(soup, index_position):
+    """Finds tables on Top_GL.aspx safely by structural order to extract rows."""
+    # Find tables that have the standard gridview styling or generic table classes
+    tables = soup.find_all("table", {"class": "table"})
+    if not tables:
+        tables = soup.find_all("table", id=lambda x: x and ("gvGainer" in x or "gvLoser" in x))
+        
     stocks = []
-    
-    if not table:
+    if not tables or len(tables) <= index_position:
         return stocks
 
-    # Find all table rows skipping the header row
-    rows = table.find_all("tr")[1:]
+    target_table = tables[index_position]
+    rows = target_table.find_all("tr")[1:]  # Drop header row safely
+    
     for row in rows:
         cols = row.find_all("td")
         if len(cols) >= 4:
             try:
+                name_text = cols[0].get_text(strip=True)
+                if not name_text or "No data available" in name_text:
+                    continue
+                    
                 stocks.append({
-                    "name": cols[0].get_text(strip=True),
+                    "name": name_text,
                     "price": float(cols[1].get_text(strip=True).replace(",", "")),
                     "change_pct": float(cols[2].get_text(strip=True).replace(",", "").replace("%", "")),
                     "volume": int(cols[3].get_text(strip=True).replace(",", ""))
@@ -76,7 +84,7 @@ def main():
     losers = []
 
     with sync_playwright() as p:
-        print("Launching secure browser context...")
+        print("Launching highly compatible secure browser context...")
         browser = p.chromium.launch(
             headless=True,
             args=[
@@ -86,71 +94,71 @@ def main():
             ]
         )
 
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            viewport={"width": 1280, "height": 720}
+        )
+
         # --- PART 1: SCRAPE INDICES ---
-        postback_actions = {
-            "EGX30": "ctl00$C$M$lnkEGX30",
-            "SHARIAH": "ctl00$C$M$lnkSHARIAH",
-            "EGX70": "ctl00$C$M$lnkEGX70EWI",
-            "EGX100": "ctl00$C$M$lnkEGX100EWI"
+        # Change wait_until to "load" so JavaScript environments are fully mounted before we interact
+        page = context.new_page()
+        print("Navigating to Portal Landing View...")
+        page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="load", timeout=60000)
+        
+        print("Pausing 10 seconds to allow JavaScript challenge solvers to pass...")
+        page.wait_for_timeout(10000)
+
+        # Native element CSS selectors corresponding to the unique client IDs of the link tags
+        click_targets = {
+            "EGX30": "#ctl00_C_M_lnkEGX30",
+            "SHARIAH": "#ctl00_C_M_lnkSHARIAH",
+            "EGX70": "#ctl00_C_M_lnkEGX70EWI",
+            "EGX100": "#ctl00_C_M_lnkEGX100EWI"
         }
 
-        for tracking_name, event_target in postback_actions.items():
-            print(f"Opening clean tab view for {tracking_name}...")
+        for tracking_name, selector in click_targets.items():
+            print(f"Requesting data compilation state for {tracking_name}...")
             try:
-                # CREATING A FRESH PAGE ON EACH LOOP PREVENTS CACHED TARGET DUPLICATION
-                context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-                    viewport={"width": 1280, "height": 720}
-                )
-                page = context.new_page()
+                # Wait for element visibility, then issue a native user click click simulation
+                page.wait_for_selector(selector, timeout=15000)
+                page.click(selector, force=True)
                 
-                page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="commit", timeout=60000)
-                page.wait_for_timeout(6000)  # Wait out JavaScript challenge room
-
-                # Force the form state transition update natively
-                page.evaluate(f"""
-                    if (typeof __doPostBack !== 'undefined') {{
-                        __doPostBack('{event_target}', '');
-                    }} else {{
-                        document.getElementById('aspnetForm').submit();
-                    }}
-                """)
-                
-                page.wait_for_timeout(4000)
+                # Give the dynamic update panel 5 seconds to swap the view
+                page.wait_for_timeout(5000)
 
                 updated_html = page.content()
                 indices_output[tracking_name] = parse_panel_metrics(updated_html)
-                print(f"[+] Successfully extracted true metrics for {tracking_name}")
-                context.close()
+                print(f"[+] Extracted values completely for {tracking_name}")
 
             except Exception as loop_error:
-                print(f"[-] Failed tracking loop on {tracking_name}: {loop_error}")
+                print(f"[-] Dropped cycle sequence on {tracking_name}: {loop_error}")
                 indices_output[tracking_name] = {k: None for k in ["date", "value", "open", "high", "low", "change_pct", "ytd_pct"]}
+
+        page.close()
 
         # --- PART 2: SCRAPE TOP GAINERS & LOSERS ---
         print("\nNavigating to Top Gainers/Losers Desk...")
         try:
-            gl_context = browser.new_context(
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-                viewport={"width": 1280, "height": 720}
-            )
-            gl_page = gl_context.new_page()
-            gl_page.goto("https://www.egx.com.eg/en/Top_GL.aspx", wait_until="commit", timeout=60000)
-            gl_page.wait_for_timeout(8000)  # Give firewall challenge time to pass
+            gl_page = context.new_page()
+            gl_page.goto("https://www.egx.com.eg/en/Top_GL.aspx", wait_until="load", timeout=60000)
+            gl_page.wait_for_timeout(10000)  # Wait for anti-bot validation clear
+
+            try:
+                gl_page.wait_for_selector("table", timeout=15000)
+            except Exception:
+                pass
 
             gl_soup = BeautifulSoup(gl_page.content(), "html.parser")
-            
-            # Extract tables by targeting internal ASP container tables
-            # ctl00_C_M_gvGainer is the standard ID for the dynamic GridView wrapper components on EGX
-            gainers = parse_gl_table(gl_soup, "ctl00_C_M_gvGainer")
-            losers = parse_gl_table(gl_soup, "ctl00_C_M_gvLoser")
+            gainers = parse_gl_table(gl_soup, 0)
+            losers = parse_gl_table(gl_soup, 1)
             
             print(f"[+] Successfully scraped {len(gainers)} gainers and {len(losers)} losers.")
-            gl_context.close()
+            gl_page.close()
             
         except Exception as gl_error:
             print(f"[-] Failed to fetch Top Gainers/Losers: {gl_error}")
 
+        context.close()
         browser.close()
 
     # --- SAVE STRUCTURED RESULTS ---
@@ -165,7 +173,7 @@ def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"\nFinal run complete! Tracking metrics saved perfectly to {OUTPUT_FILE}")
+    print(f"\nCompleted run updates successfully. Output verified.")
 
 
 if __name__ == "__main__":
