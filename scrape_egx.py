@@ -1,8 +1,8 @@
 import json
 import re
-import requests
 from datetime import datetime, timezone
 from bs4 import BeautifulSoup
+from curl_cffi import requests
 
 OUTPUT_FILE = "egx.json"
 
@@ -10,25 +10,18 @@ def now_utc():
     return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
 def get_html(url):
-    # Standard desktop headers to blend in
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9,ar;q=0.8",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Connection": "keep-alive",
-        "Upgrade-Insecure-Requests": "1",
-        "Cache-Control": "max-age=0"
-    }
+    print(f"Requesting via Spoofed Chrome Client: {url}...")
     
-    print(f"Requesting via requests: {url}...")
-    # Using a session keeps cookies active, which firewalls look for
-    session = requests.Session()
-    response = session.get(url, headers=headers, timeout=30)
-    
-    if response.status_code != 200:
-        print(f"Warning: Got status code {response.status_code}")
-        
+    # impersonate="chrome124" mimics the exact network handshake of Chrome
+    response = requests.get(
+        url, 
+        impersonate="chrome124", 
+        timeout=30,
+        headers={
+            "Accept-Language": "en-US,en;q=0.9",
+            "Referer": "https://www.google.com/"
+        }
+    )
     return response.text
 
 def parse_indices(html):
