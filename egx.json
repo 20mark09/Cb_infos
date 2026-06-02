@@ -1,17 +1,8 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-02 10:57 UTC",
+  "lastUpdated": "2026-06-02 11:03 UTC",
   "indices": {
     "EGX30": {
-      "date": null,
-      "value": null,
-      "open": null,
-      "high": null,
-      "low": null,
-      "change_pct": null,
-      "ytd_pct": null
-    },
-    "SHARIAH": {
       "date": null,
       "value": null,
       "open": null,
@@ -30,6 +21,15 @@
       "ytd_pct": null
     },
     "EGX100": {
+      "date": null,
+      "value": null,
+      "open": null,
+      "high": null,
+      "low": null,
+      "change_pct": null,
+      "ytd_pct": null
+    },
+    "SHARIAH": {
       "date": null,
       "value": null,
       "open": null,
