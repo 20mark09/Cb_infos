@@ -23,13 +23,17 @@ jobs:
         with:
           python-version: "3.12"
 
+
       - name: Install Dependencies
         run: |
           pip install playwright beautifulsoup4
           playwright install chromium
+          playwright install-deps chromium  # <-- CRITICAL FOR GITHUB ACTIONS
 
       - name: Run Scraper
         run: python scrape_egx.py
+        
+
 
       - name: Commit JSON
         run: |
