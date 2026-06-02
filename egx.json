@@ -1,13 +1,7 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-01 06:30 UTC",
-  "indices": {
-    "EGX30": {
-      "value": 5960.78,
-      "change_pct": 1.24,
-      "ytd_pct": 29.64
-    }
-  },
+  "lastUpdated": "2026-06-02 06:52 UTC",
+  "indices": {},
   "gainers": [],
   "losers": []
 }
