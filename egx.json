@@ -1,102 +1,13 @@
 {
-  "source": "https://www.egx.com.eg/",
-  "lastUpdated": "2026-06-02 06:11 UTC",
+  "source": "https://www.egx.com.eg",
+  "lastUpdated": "2026-06-01 06:30 UTC",
   "indices": {
-    "egx30": {
-      "value": 52853.94,
-      "change_pct": null,
-      "date": "2026-06-02"
-    },
-    "egx70": {
-      "value": 14584,
-      "change_pct": 1.29,
-      "date": "2026-05-24"
-    },
-    "egx100": {
-      "value": 20388,
-      "change_pct": 1.25,
-      "date": "2026-05-24"
-    },
-    "egx35lv": {
-      "value": 5872,
+    "EGX30": {
+      "value": 5960.78,
       "change_pct": 1.24,
-      "date": "2026-05-24"
-    },
-    "sharia": {
-      "value": 5847,
-      "change_pct": 0.81,
-      "date": "2026-05-24"
+      "ytd_pct": 29.64
     }
   },
-  "market": {
-    "market_cap_egp_bn": 3762,
-    "turnover_egp_bn": 12.9,
-    "shares_traded_bn": 1.9,
-    "transactions": 170000,
-    "date": "2026-05-24"
-  },
-  "gainers": [
-    {
-      "name": "Arab Aluminum",
-      "ticker": "ARAL",
-      "price": null,
-      "change_pct": 9.82
-    },
-    {
-      "name": "Prime Holding",
-      "ticker": "PRMH",
-      "price": null,
-      "change_pct": 9.41
-    },
-    {
-      "name": "GlaxoSmithKline",
-      "ticker": "GLSM",
-      "price": null,
-      "change_pct": 8.26
-    },
-    {
-      "name": "—",
-      "ticker": "—",
-      "price": null,
-      "change_pct": null
-    },
-    {
-      "name": "—",
-      "ticker": "—",
-      "price": null,
-      "change_pct": null
-    }
-  ],
-  "losers": [
-    {
-      "name": "Eg. Const. Dev.",
-      "ticker": "ECCD",
-      "price": null,
-      "change_pct": -13.51
-    },
-    {
-      "name": "Gulf Canadian RE",
-      "ticker": "GCRE",
-      "price": null,
-      "change_pct": -9.96
-    },
-    {
-      "name": "Nasr Civil Works",
-      "ticker": "NSCW",
-      "price": null,
-      "change_pct": -8.11
-    },
-    {
-      "name": "—",
-      "ticker": "—",
-      "price": null,
-      "change_pct": null
-    },
-    {
-      "name": "—",
-      "ticker": "—",
-      "price": null,
-      "change_pct": null
-    }
-  ]
+  "gainers": [],
+  "losers": []
 }
