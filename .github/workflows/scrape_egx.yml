@@ -20,11 +20,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      # ... (rest of your settings stay identical up to the setup block)
-      
       - name: Install Dependencies
         run: |
-          pip install beautifulsoup4 requests
+          pip install beautifulsoup4 playwright
+          playwright install chromium
+          playwright install-deps chromium
 
       - name: Run Scraper
         run: python scrape_egx.py
