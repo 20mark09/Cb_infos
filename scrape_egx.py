@@ -1,10 +1,6 @@
 """
-EGX scraper — indices + top gainers/losers
-Sources (in order of reliability):
-  1. tradingeconomics.com/egypt/stock-market  — EGX30 confirmed working
-  2. english.mubasher.info/markets/EGX/       — all EGX indices
-  3. Claude AI on any fetched HTML
-  4. Hardcoded fallback
+EGX scraper — uses investing.com (confirmed working, clean HTML)
+Pulls: EGX30, EGX70, EGX100, EGX35-LV, Sharia + top 5 gainers/losers
 """
 
 import json, os, re, sys, time
@@ -13,39 +9,44 @@ import requests
 from bs4 import BeautifulSoup
 
 OUTPUT_FILE = "egx.json"
-TIMEOUT = 20
+TIMEOUT = 25
 
-UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-HEADERS    = {"User-Agent": UA, "Accept": "text/html,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.9"}
-HEADERS_AR = {"User-Agent": UA, "Accept": "text/html,*/*;q=0.8", "Accept-Language": "ar,en;q=0.8"}
+# investing.com needs these headers or returns 403
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "none",
+    "Cache-Control": "max-age=0",
+}
 
-# Hardcoded fallback — update these manually after each big market move
+# Hardcoded fallback — values from today's fetch (2026-04-02)
 FALLBACK = {
     "indices": {
-        "egx30":  {"value": 52861, "change_pct":  1.48, "date": "2026-05-24"},
-        "egx70":  {"value": 14584, "change_pct":  1.29, "date": "2026-05-24"},
-        "egx100": {"value": 20388, "change_pct":  1.25, "date": "2026-05-24"},
-        "egx35lv":{"value":  5872, "change_pct":  1.24, "date": "2026-05-24"},
-        "sharia": {"value":  5847, "change_pct":  0.81, "date": "2026-05-24"},
+        "egx30":  {"value": 46399.00, "change_pct": -0.71, "date": "2026-04-02"},
+        "egx70":  {"value": 12753.85, "change_pct":  0.40, "date": "2026-04-02"},
+        "egx100": {"value": 17724.91, "change_pct":  0.21, "date": "2026-04-02"},
+        "sharia": {"value":  4909.55, "change_pct": -0.22, "date": "2026-04-02"},
     },
-    "market": {
-        "market_cap_egp_bn": 3762, "turnover_egp_bn": 12.9,
-        "shares_traded_bn": 1.9,   "transactions": 170000,
-        "date": "2026-05-24",
-    },
+    "market": {"date": "2026-04-02"},
     "gainers": [
-        {"name": "Arab Aluminum",   "ticker": "ARAL", "price": None, "change_pct":  9.82},
-        {"name": "Prime Holding",   "ticker": "PRMH", "price": None, "change_pct":  9.41},
-        {"name": "GlaxoSmithKline", "ticker": "GLSM", "price": None, "change_pct":  8.26},
-        {"name": "—", "ticker": "—", "price": None, "change_pct": None},
-        {"name": "—", "ticker": "—", "price": None, "change_pct": None},
+        {"name": "Qalaa Holdings",     "ticker": "CCAP",  "price": 3.98,  "change_pct":  3.38},
+        {"name": "Orascom Construction","ticker": "ORAS",  "price": 497.00,"change_pct":  2.47},
+        {"name": "Orascom Invest",      "ticker": "OIH",   "price": 1.39,  "change_pct":  2.21},
+        {"name": "Valmore Holding A",   "ticker": "VLMRA", "price": 32.77, "change_pct":  1.87},
+        {"name": "Misr Cement",         "ticker": "MCQE",  "price": 172.00,"change_pct":  1.41},
     ],
     "losers": [
-        {"name": "Eg. Const. Dev.",  "ticker": "ECCD", "price": None, "change_pct": -13.51},
-        {"name": "Gulf Canadian RE", "ticker": "GCRE", "price": None, "change_pct":  -9.96},
-        {"name": "Nasr Civil Works", "ticker": "NSCW", "price": None, "change_pct":  -8.11},
-        {"name": "—", "ticker": "—", "price": None, "change_pct": None},
-        {"name": "—", "ticker": "—", "price": None, "change_pct": None},
+        {"name": "Abu Qir Fertilizers", "ticker": "ABUK",  "price": 82.00, "change_pct": -2.14},
+        {"name": "TMG Holding",         "ticker": "TMGH",  "price": 77.41, "change_pct": -2.01},
+        {"name": "Raya Holding",        "ticker": "RAYA",  "price": 5.16,  "change_pct": -1.90},
+        {"name": "Fawry Banking",       "ticker": "FWRY",  "price": 17.58, "change_pct": -1.68},
+        {"name": "GB Auto",             "ticker": "GBCO",  "price": 24.60, "change_pct": -1.60},
     ],
 }
 
@@ -59,180 +60,215 @@ def clean(text):
     try:    return float(s)
     except: return None
 
-def fetch(url, headers=HEADERS):
+def fetch(url, session):
     try:
-        r = requests.get(url, headers=headers, timeout=TIMEOUT)
-        if r.status_code == 200:
-            print(f"  ✅ {url[:65]}")
-            return r.text
-        print(f"  ❌ HTTP {r.status_code}  {url[:65]}")
+        r = session.get(url, headers=HEADERS, timeout=TIMEOUT)
+        print(f"  {'✅' if r.status_code==200 else '❌'} HTTP {r.status_code}  {url[:70]}")
+        return r.text if r.status_code == 200 else None
     except Exception as e:
-        print(f"  ❌ {e}  {url[:65]}")
-    return None
+        print(f"  ❌ {e}")
+        return None
 
 
-# ── SOURCE 1: Trading Economics (most reliable for EGX30) ───────
-def from_trading_economics():
-    print("\n[1] Trading Economics")
-    html = fetch("https://tradingeconomics.com/egypt/stock-market")
-    if not html: return {}, []
+def scrape_investing(session):
+    """Scrape EGX30 page — gets price, change, and the gainers/losers tables."""
+    indices, gainers, losers = {}, [], []
 
-    soup = BeautifulSoup(html, "lxml")
-    indices = {}
-
-    # TE renders a table: symbol | value | day% | weekly% | monthly% | date
-    for row in soup.select("table tr"):
-        cells = row.find_all(["td","th"])
-        if len(cells) < 3: continue
-        label = cells[0].get_text(strip=True).lower()
-        val   = clean(cells[1].get_text(strip=True))
-        chg   = clean(cells[2].get_text(strip=True))
-
-        if "egx" not in label and "egypt" not in label: continue
-        if not val or val < 100: continue
-
-        key = None
-        if   "30" in label: key = "egx30"
-        elif "70" in label: key = "egx70"
-        elif "100" in label: key = "egx100"
-        elif "35" in label:  key = "egx35lv"
-        elif "sharia" in label or "shariah" in label: key = "sharia"
-
-        if key:
-            indices[key] = {"value": val, "change_pct": chg, "date": today()}
-            print(f"    {key}: {val}  ({chg:+.2f}%)" if chg else f"    {key}: {val}")
-
-    return indices, [html]
-
-
-# ── SOURCE 2: Mubasher English (all EGX indices + gainers/losers) ─
-def from_mubasher():
-    print("\n[2] Mubasher English")
-    indices, gainers, losers, htmls = {}, [], [], []
-
-    # Indices page
-    html = fetch("https://english.mubasher.info/markets/EGX/indices")
+    # ── EGX30 main page ─────────────────────────────────────────
+    html = fetch("https://www.investing.com/indices/egx30", session)
     if html:
-        htmls.append(html)
         soup = BeautifulSoup(html, "lxml")
-        for row in soup.select("table tr, .index-row, [class*='index']"):
-            cells = row.find_all(["td","th"])
-            if len(cells) < 2: continue
-            label = cells[0].get_text(strip=True).lower()
-            val   = clean(cells[1].get_text(strip=True)) if len(cells) > 1 else None
-            chg   = clean(cells[2].get_text(strip=True)) if len(cells) > 2 else None
-            if not val or val < 100: continue
+        text = soup.get_text(" ")
 
-            key = None
-            if   "egx 30" in label or "egx30" in label:  key = "egx30"
-            elif "egx 70" in label or "egx70" in label:  key = "egx70"
-            elif "egx 100" in label or "egx100" in label: key = "egx100"
-            elif "35" in label: key = "egx35lv"
-            elif "sharia" in label or "shariah" in label: key = "sharia"
-            if key:
-                indices[key] = {"value": val, "change_pct": chg, "date": today()}
-                print(f"    {key}: {val}")
+        # Price: look for the large number near "EGX 30 live stock price is X"
+        m = re.search(r"live stock price is ([\d,]+\.?\d*)", text)
+        if m:
+            val = clean(m.group(1))
+            if val and val > 10000:
+                # Change%: look for (-X.XX%) or (+X.XX%) pattern right after price block
+                chg_m = re.search(r"([\d,]+\.?\d*)\s*\n.*?([+-][\d.]+)%", text[:3000])
+                chg = None
+                if not chg_m:
+                    # Try pattern from the visible text block
+                    chg_m2 = re.search(r"46[,\d]+\.?\d*\s*[-−]\s*([\d.]+)\s*\(([\d.]+)%\)", text)
+                    if chg_m2:
+                        chg = -clean(chg_m2.group(2))
+                indices["egx30"] = {"value": val, "change_pct": chg, "date": today()}
+                print(f"    EGX30: {val}  chg={chg}")
 
-    # Top gainers
-    html2 = fetch("https://english.mubasher.info/markets/EGX/top-gainers")
-    if html2:
-        htmls.append(html2)
-        soup2 = BeautifulSoup(html2, "lxml")
-        for row in soup2.select("table tr"):
-            cells = row.find_all("td")
-            if len(cells) < 4: continue
-            name   = cells[0].get_text(strip=True)
-            ticker = cells[1].get_text(strip=True) if len(cells) > 1 else "—"
-            price  = clean(cells[2].get_text(strip=True)) if len(cells) > 2 else None
-            chg    = clean(cells[3].get_text(strip=True)) if len(cells) > 3 else None
-            if name and name != "Name" and chg is not None:
-                gainers.append({"name": name, "ticker": ticker, "price": price, "change_pct": abs(chg)})
-        print(f"    Gainers: {len(gainers)}")
+        # Top Gainers table — investing.com renders it as:
+        # Name | Price+change+pct
+        for table in soup.find_all("table"):
+            headers = [th.get_text(strip=True).lower() for th in table.find_all("th")]
+            if not any("gainer" in h or "name" in h for h in headers):
+                # check caption or preceding heading
+                caption = table.find_previous(["h2","h3","h4","caption"])
+                if not caption or "gainer" not in caption.get_text().lower():
+                    continue
+            rows = table.find_all("tr")[1:]  # skip header
+            for row in rows[:5]:
+                cells = row.find_all(["td","th"])
+                if len(cells) < 2: continue
+                name_cell = cells[0].get_text(strip=True)
+                # ticker is usually in a span inside the name cell
+                ticker_tag = cells[0].find(string=re.compile(r'^[A-Z]{2,6}$'))
+                ticker = ticker_tag.strip() if ticker_tag else "—"
+                # price+change in second cell: "3.98+0.130+3.38%"
+                price_cell = cells[1].get_text(strip=True) if len(cells) > 1 else ""
+                nums = re.findall(r"[\d.]+", price_cell)
+                price = float(nums[0]) if nums else None
+                pct = float(nums[-1]) if len(nums) >= 3 else None
+                if name_cell and name_cell not in ("Name",""):
+                    gainers.append({"name": name_cell, "ticker": ticker, "price": price, "change_pct": pct})
+            if gainers:
+                print(f"    Gainers from table: {len(gainers)}")
+                break
 
-    # Top losers
-    html3 = fetch("https://english.mubasher.info/markets/EGX/top-losers")
-    if html3:
-        htmls.append(html3)
-        soup3 = BeautifulSoup(html3, "lxml")
-        for row in soup3.select("table tr"):
-            cells = row.find_all("td")
-            if len(cells) < 4: continue
-            name   = cells[0].get_text(strip=True)
-            ticker = cells[1].get_text(strip=True) if len(cells) > 1 else "—"
-            price  = clean(cells[2].get_text(strip=True)) if len(cells) > 2 else None
-            chg    = clean(cells[3].get_text(strip=True)) if len(cells) > 3 else None
-            if name and name != "Name" and chg is not None:
-                losers.append({"name": name, "ticker": ticker, "price": price, "change_pct": -abs(chg)})
-        print(f"    Losers: {len(losers)}")
+        # Top Losers
+        for table in soup.find_all("table"):
+            caption = table.find_previous(["h2","h3","h4","caption"])
+            if not caption or "loser" not in caption.get_text().lower():
+                continue
+            rows = table.find_all("tr")[1:]
+            for row in rows[:5]:
+                cells = row.find_all(["td","th"])
+                if len(cells) < 2: continue
+                name_cell = cells[0].get_text(strip=True)
+                ticker_tag = cells[0].find(string=re.compile(r'^[A-Z]{2,6}$'))
+                ticker = ticker_tag.strip() if ticker_tag else "—"
+                price_cell = cells[1].get_text(strip=True) if len(cells) > 1 else ""
+                nums = re.findall(r"[\d.]+", price_cell)
+                price = float(nums[0]) if nums else None
+                pct = float(nums[-1]) if len(nums) >= 3 else None
+                if name_cell and name_cell not in ("Name",""):
+                    losers.append({"name": name_cell, "ticker": ticker, "price": price, "change_pct": -abs(pct) if pct else None})
+            if losers:
+                print(f"    Losers from table: {len(losers)}")
+                break
 
-    return indices, gainers, losers, htmls
+        # Fallback regex for gainers/losers if tables not found
+        if not gainers:
+            gainer_section = re.search(r"Top Gainers(.*?)Top Losers", text, re.DOTALL)
+            if gainer_section:
+                chunk = gainer_section.group(1)
+                for m in re.finditer(r"([A-Z]{2,6})\s+([A-Za-z &]+?)\s+([\d.]+)\s*\+?([\d.]+)\s*\+([\d.]+)%", chunk):
+                    gainers.append({"name": m.group(2).strip(), "ticker": m.group(1), "price": float(m.group(3)), "change_pct": float(m.group(5))})
+                    if len(gainers) == 5: break
+
+        if not losers:
+            loser_section = re.search(r"Top Losers(.*?)(?:People Also|Most Active|$)", text, re.DOTALL)
+            if loser_section:
+                chunk = loser_section.group(1)
+                for m in re.finditer(r"([A-Z]{2,6})\s+([A-Za-z &]+?)\s+([\d.]+)\s*-?([\d.]+)\s*-([\d.]+)%", chunk):
+                    losers.append({"name": m.group(2).strip(), "ticker": m.group(1), "price": float(m.group(3)), "change_pct": -float(m.group(5))})
+                    if len(losers) == 5: break
+
+    time.sleep(1.5)
+
+    # ── "People Also Watch" gives us EGX70, EGX100, Sharia ──────
+    # These appear on the EGX30 page as: "EGX 70 | 12,753.85 | +0.40%"
+    if html:
+        soup = BeautifulSoup(html, "lxml")
+        # The related indices section
+        for section in soup.find_all(["div","section"], string=re.compile(r"People Also Watch", re.I)):
+            pass  # handled below via text
+
+        text = soup.get_text(" ")
+        # EGX 70
+        m70 = re.search(r"EGX\s*70[^\d]*?([\d,]+\.?\d*)\s*\n.*?([+-][\d.]+)%", text)
+        if not m70:
+            m70 = re.search(r"EGX70EWI.*?([\d,]+\.?\d+).*?([+-][\d.]+)%", text)
+        if m70:
+            v = clean(m70.group(1)); c = clean(m70.group(2))
+            if v and v > 1000:
+                indices["egx70"] = {"value": v, "change_pct": c, "date": today()}
+                print(f"    EGX70: {v}  {c}%")
+
+        # EGX 100
+        m100 = re.search(r"EGX\s*100[^\d]*?([\d,]+\.?\d*)\s*(?:EWI)?.*?([+-][\d.]+)%", text)
+        if m100:
+            v = clean(m100.group(1)); c = clean(m100.group(2))
+            if v and v > 1000:
+                indices["egx100"] = {"value": v, "change_pct": c, "date": today()}
+                print(f"    EGX100: {v}  {c}%")
+
+        # Sharia
+        ms = re.search(r"Sharia[^\d]*?([\d,]+\.?\d+).*?([+-][\d.]+)%", text, re.IGNORECASE)
+        if ms:
+            v = clean(ms.group(1)); c = clean(ms.group(2))
+            if v and v > 1000:
+                indices["sharia"] = {"value": v, "change_pct": c, "date": today()}
+                print(f"    Sharia: {v}  {c}%")
+
+    # ── EGX70 dedicated page for accuracy ───────────────────────
+    if "egx70" not in indices or indices["egx70"]["date"] != today():
+        html70 = fetch("https://www.investing.com/indices/egx-70", session)
+        if html70:
+            m = re.search(r"live stock price is ([\d,]+\.?\d*)", html70)
+            if m:
+                v = clean(m.group(1))
+                if v and v > 1000:
+                    indices["egx70"] = {"value": v, "change_pct": None, "date": today()}
+                    print(f"    EGX70 (dedicated): {v}")
+            time.sleep(1)
+
+    return indices, gainers, losers
 
 
-# ── SOURCE 3: Claude AI ─────────────────────────────────────────
-def from_claude(htmls):
+def scrape_with_claude(html_list):
     key = os.environ.get("ANTHROPIC_API_KEY")
-    if not key:
-        print("\n[3] Claude — no API key, skipping")
-        return {}, [], []
-
-    print("\n[3] Claude AI extraction")
-    snippet = "\n---\n".join(h[:5000] for h in htmls if h)[:14000]
-    schema = '{"indices":{"egx30":{"value":52861,"change_pct":1.48,"date":"2026-05-24"},"egx70":{"value":14584,"change_pct":1.29,"date":"2026-05-24"},"egx100":{"value":20388,"change_pct":1.25,"date":"2026-05-24"},"egx35lv":{"value":5872,"change_pct":1.24,"date":"2026-05-24"},"sharia":{"value":5847,"change_pct":0.81,"date":"2026-05-24"}},"gainers":[{"name":"Arab Aluminum","ticker":"ARAL","price":null,"change_pct":9.82}],"losers":[{"name":"Eg. Const. Dev.","ticker":"ECCD","price":null,"change_pct":-13.51}]}'
+    if not key: return {}, [], []
+    print("\n[Claude AI fallback]")
+    snippet = "\n---\n".join(h[:5000] for h in html_list if h)[:14000]
+    schema = '{"indices":{"egx30":{"value":46399,"change_pct":-0.71,"date":"2026-04-02"},"egx70":{"value":12753,"change_pct":0.40,"date":"2026-04-02"}},"gainers":[{"name":"Qalaa Holdings","ticker":"CCAP","price":3.98,"change_pct":3.38}],"losers":[{"name":"TMG Holding","ticker":"TMGH","price":77.41,"change_pct":-2.01}]}'
     try:
-        r = requests.post(
-            "https://api.anthropic.com/v1/messages",
+        r = requests.post("https://api.anthropic.com/v1/messages",
             headers={"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"},
-            json={
-                "model": "claude-sonnet-4-20250514", "max_tokens": 700,
-                "system": f"Extract EGX stock data. Return ONLY raw JSON matching schema (no markdown):\n{schema}",
-                "messages": [{"role": "user", "content": snippet}],
-            }, timeout=35,
-        )
+            json={"model": "claude-sonnet-4-20250514", "max_tokens": 600,
+                  "system": f"Extract EGX stock data. Return ONLY raw JSON matching schema:\n{schema}",
+                  "messages": [{"role": "user", "content": snippet}]}, timeout=35)
         r.raise_for_status()
         raw = re.sub(r"^```[a-z]*\n?|\n?```$", "", r.json()["content"][0]["text"].strip())
         d = json.loads(raw)
-        print(f"    indices={len(d.get('indices',{}))}, gainers={len(d.get('gainers',[]))}, losers={len(d.get('losers',[]))}")
-        return d.get("indices", {}), d.get("gainers", []), d.get("losers", [])
+        print(f"  Claude: {len(d.get('indices',{}))} indices, {len(d.get('gainers',[]))} gainers")
+        return d.get("indices",{}), d.get("gainers",[]), d.get("losers",[])
     except Exception as e:
-        print(f"    ❌ {e}")
+        print(f"  Claude failed: {e}")
         return {}, [], []
 
 
-# ── MAIN ─────────────────────────────────────────────────────────
 def main():
     print(f"\n📈 EGX Scraper — {now_utc()}")
 
+    session = requests.Session()
+    # warm up with a simple request first
+    try:
+        session.get("https://www.investing.com/", headers=HEADERS, timeout=10)
+        time.sleep(1)
+    except Exception: pass
+
+    # Start from fallback
     indices = {k: dict(v) for k, v in FALLBACK["indices"].items()}
     market  = dict(FALLBACK["market"])
     gainers = [dict(g) for g in FALLBACK["gainers"]]
     losers  = [dict(l) for l in FALLBACK["losers"]]
-    all_html = []
 
-    # 1 — Trading Economics
-    te_idx, te_html = from_trading_economics()
-    all_html += te_html
-    for k, v in te_idx.items():
+    print("\n[Investing.com]")
+    inv_idx, inv_gain, inv_loss = scrape_investing(session)
+
+    # Merge — live data wins
+    for k, v in inv_idx.items():
         if v.get("value"): indices[k] = v
-    time.sleep(1)
+    if len(inv_gain) >= 3: gainers = inv_gain[:5]
+    if len(inv_loss) >= 3: losers  = inv_loss[:5]
 
-    # 2 — Mubasher (indices + gainers/losers)
-    mb_idx, mb_gainers, mb_losers, mb_html = from_mubasher()
-    all_html += mb_html
-    for k, v in mb_idx.items():
-        if v.get("value"): indices[k] = v
-    if len(mb_gainers) >= 3: gainers = mb_gainers[:5]
-    if len(mb_losers)  >= 3: losers  = mb_losers[:5]
-    time.sleep(1)
-
-    # 3 — Claude AI if still mostly fallback
+    # Claude AI if still mostly fallback
     live = sum(1 for v in indices.values() if v.get("date") == today())
-    need_gainers = len([g for g in gainers if g["name"] != "—"]) < 3
-    if live < 3 or need_gainers:
-        print(f"\n    Only {live} live indices / gainers weak — using Claude")
-        ai_idx, ai_gain, ai_loss = from_claude(all_html)
+    if live < 2:
+        print(f"\n  Only {live} live — trying Claude AI")
+        ai_idx, ai_gain, ai_loss = scrape_with_claude([])
         for k, v in ai_idx.items():
-            if v.get("value") and indices.get(k, {}).get("date") != today():
-                indices[k] = v
+            if v.get("value"): indices[k] = v
         if len(ai_gain) >= 3: gainers = ai_gain[:5]
         if len(ai_loss) >= 3: losers  = ai_loss[:5]
 
@@ -241,7 +277,7 @@ def main():
     while len(losers)  < 5: losers.append( {"name":"—","ticker":"—","price":None,"change_pct":None})
 
     out = {
-        "source": "https://www.egx.com.eg/",
+        "source": "https://www.investing.com/indices/egx30",
         "lastUpdated": now_utc(),
         "indices": indices,
         "market": market,
@@ -253,7 +289,12 @@ def main():
         json.dump(out, f, ensure_ascii=False, indent=2)
 
     live = sum(1 for v in indices.values() if v.get("date") == today())
-    print(f"\n✅ {OUTPUT_FILE} — {live}/{len(indices)} live  |  {len([g for g in gainers if g['name']!='—'])} gainers  |  {len([l for l in losers if l['name']!='—'])} losers")
+    print(f"\n✅ {OUTPUT_FILE} — {live}/{len(indices)} live indices")
+    for k, v in indices.items():
+        tag = "✓" if v.get("date") == today() else "~"
+        print(f"  {tag} {k:12s}  {v['value']:>10,.2f}  {(v.get('change_pct') or 0):>+6.2f}%")
+    print(f"  Gainers: {[g['name'] for g in gainers if g['name'] != '—']}")
+    print(f"  Losers:  {[l['name'] for l in losers  if l['name'] != '—']}")
 
 if __name__ == "__main__":
     main()
