@@ -1,42 +1,42 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-02 11:10 UTC",
+  "lastUpdated": "2026-06-02 11:43 UTC",
   "indices": {
     "EGX30": {
       "date": "02/06/2026",
-      "value": 53001.8,
+      "value": 52927.02,
       "open": 52853.94,
       "high": 53188.43,
       "low": 52830.68,
-      "change_pct": 0.28,
-      "ytd_pct": 26.71
+      "change_pct": 0.14,
+      "ytd_pct": 26.53
     },
     "SHARIAH": {
       "date": "02/06/2026",
-      "value": 53001.8,
-      "open": 52853.94,
-      "high": 53188.43,
-      "low": 52830.68,
-      "change_pct": 0.28,
-      "ytd_pct": 26.71
+      "value": 5950.51,
+      "open": 5960.78,
+      "high": 5970.22,
+      "low": 5932.54,
+      "change_pct": -0.17,
+      "ytd_pct": 29.42
     },
     "EGX70": {
       "date": "02/06/2026",
-      "value": 15093.0,
+      "value": 15101.21,
       "open": 14958.89,
       "high": 15126.57,
       "low": 14958.89,
-      "change_pct": 0.9,
-      "ytd_pct": 14.99
+      "change_pct": 0.95,
+      "ytd_pct": 15.05
     },
     "EGX100": {
       "date": "02/06/2026",
-      "value": 21045.1,
-      "open": 20906.08,
-      "high": 21100.65,
-      "low": 20906.08,
-      "change_pct": 0.66,
-      "ytd_pct": 20.77
+      "value": 5950.51,
+      "open": 5960.78,
+      "high": 5970.22,
+      "low": 5932.54,
+      "change_pct": -0.17,
+      "ytd_pct": 29.42
     }
   },
   "gainers": [],
