@@ -1,93 +1,102 @@
 {
-  "source": "https://www.investing.com/indices/egx30",
-  "lastUpdated": "2026-06-02 05:54 UTC",
+  "source": "https://www.egx.com.eg/",
+  "lastUpdated": "2026-06-02 06:11 UTC",
   "indices": {
     "egx30": {
-      "value": 46399.0,
-      "change_pct": -0.71,
-      "date": "2026-04-02"
+      "value": 52853.94,
+      "change_pct": null,
+      "date": "2026-06-02"
     },
     "egx70": {
-      "value": 12753.85,
-      "change_pct": 0.4,
-      "date": "2026-04-02"
+      "value": 14584,
+      "change_pct": 1.29,
+      "date": "2026-05-24"
     },
     "egx100": {
-      "value": 17724.91,
-      "change_pct": 0.21,
-      "date": "2026-04-02"
+      "value": 20388,
+      "change_pct": 1.25,
+      "date": "2026-05-24"
+    },
+    "egx35lv": {
+      "value": 5872,
+      "change_pct": 1.24,
+      "date": "2026-05-24"
     },
     "sharia": {
-      "value": 4909.55,
-      "change_pct": -0.22,
-      "date": "2026-04-02"
+      "value": 5847,
+      "change_pct": 0.81,
+      "date": "2026-05-24"
     }
   },
   "market": {
-    "date": "2026-04-02"
+    "market_cap_egp_bn": 3762,
+    "turnover_egp_bn": 12.9,
+    "shares_traded_bn": 1.9,
+    "transactions": 170000,
+    "date": "2026-05-24"
   },
   "gainers": [
     {
-      "name": "Qalaa Holdings",
-      "ticker": "CCAP",
-      "price": 3.98,
-      "change_pct": 3.38
+      "name": "Arab Aluminum",
+      "ticker": "ARAL",
+      "price": null,
+      "change_pct": 9.82
     },
     {
-      "name": "Orascom Construction",
-      "ticker": "ORAS",
-      "price": 497.0,
-      "change_pct": 2.47
+      "name": "Prime Holding",
+      "ticker": "PRMH",
+      "price": null,
+      "change_pct": 9.41
     },
     {
-      "name": "Orascom Invest",
-      "ticker": "OIH",
-      "price": 1.39,
-      "change_pct": 2.21
+      "name": "GlaxoSmithKline",
+      "ticker": "GLSM",
+      "price": null,
+      "change_pct": 8.26
     },
     {
-      "name": "Valmore Holding A",
-      "ticker": "VLMRA",
-      "price": 32.77,
-      "change_pct": 1.87
+      "name": "—",
+      "ticker": "—",
+      "price": null,
+      "change_pct": null
     },
     {
-      "name": "Misr Cement",
-      "ticker": "MCQE",
-      "price": 172.0,
-      "change_pct": 1.41
+      "name": "—",
+      "ticker": "—",
+      "price": null,
+      "change_pct": null
     }
   ],
   "losers": [
     {
-      "name": "Abu Qir Fertilizers",
-      "ticker": "ABUK",
-      "price": 82.0,
-      "change_pct": -2.14
+      "name": "Eg. Const. Dev.",
+      "ticker": "ECCD",
+      "price": null,
+      "change_pct": -13.51
     },
     {
-      "name": "TMG Holding",
-      "ticker": "TMGH",
-      "price": 77.41,
-      "change_pct": -2.01
+      "name": "Gulf Canadian RE",
+      "ticker": "GCRE",
+      "price": null,
+      "change_pct": -9.96
     },
     {
-      "name": "Raya Holding",
-      "ticker": "RAYA",
-      "price": 5.16,
-      "change_pct": -1.9
+      "name": "Nasr Civil Works",
+      "ticker": "NSCW",
+      "price": null,
+      "change_pct": -8.11
     },
     {
-      "name": "Fawry Banking",
-      "ticker": "FWRY",
-      "price": 17.58,
-      "change_pct": -1.68
+      "name": "—",
+      "ticker": "—",
+      "price": null,
+      "change_pct": null
     },
     {
-      "name": "GB Auto",
-      "ticker": "GBCO",
-      "price": 24.6,
-      "change_pct": -1.6
+      "name": "—",
+      "ticker": "—",
+      "price": null,
+      "change_pct": null
     }
   ]
 }
