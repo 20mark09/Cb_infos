@@ -14,34 +14,58 @@ def now_utc():
 
 def get_html(url):
     with sync_playwright() as p:
-
+        # Launch with arguments that bypass generic sandboxing issues in Docker/VMs
         browser = p.chromium.launch(
             headless=True,
-            args=["--disable-blink-features=AutomationControlled"]
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-infobars",
+                "--window-position=0,0",
+                "--ignore-certificate-errors"
+            ]
         )
 
-        page = browser.new_page()
+        # Set a standard desktop User-Agent and viewport size
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+            viewport={"width": 1920, "height": 1080},
+            locale="en-US",
+            timezone_id="Africa/Cairo"
+        )
 
+        page = context.new_page()
+
+        # Masking webdriver properties
+        page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+
+        print(f"Navigating to {url}...")
         page.goto(
             url,
-            wait_until="networkidle",
+            wait_until="domcontentloaded", 
             timeout=60000
         )
 
-        html = page.content()
+        # Give dynamic JavaScript a tiny moment to settle down
+        page.wait_for_timeout(3000) 
 
+        html = page.content()
+        context.close()
         browser.close()
 
         return html
 
 
 def parse_indices(html):
-
-    text = BeautifulSoup(
-        html,
-        "html.parser"
-    ).get_text("\n", strip=True)
-
+    text = BeautifulSoup(html, "html.parser").get_text("\n", strip=True)
+    
+    # Troubleshooting safeguard for GitHub Actions console logs
+    if "EGX30" not in text:
+        print("--- DEBUG TEXT SNIPPET ---")
+        print(text[:1000]) 
+        print("--------------------------")
+        
     print("Contains EGX30:", "EGX30" in text)
     print("Contains Value :", "Value" in text)
 
@@ -87,18 +111,18 @@ def parse_indices(html):
         re.IGNORECASE
     )
 
+    # Safe extraction helpers
+    def safe_str(match):
+        return match.group(1) if match else None
+
     def num(match):
         if not match:
             return None
-
-        return float(
-            match.group(1)
-            .replace(",", "")
-        )
+        return float(match.group(1).replace(",", ""))
 
     return {
         "EGX30": {
-            "date": date_match.group(1) if date_match else None,
+            "date": safe_str(date_match),
             "value": num(value_match),
             "open": num(open_match),
             "high": num(high_match),
@@ -110,47 +134,27 @@ def parse_indices(html):
 
 
 def parse_top_gl(html):
-
-    text = BeautifulSoup(
-        html,
-        "html.parser"
-    ).get_text("\n", strip=True)
-
+    text = BeautifulSoup(html, "html.parser").get_text("\n", strip=True)
     gainers = []
     losers = []
-
-    # We'll add parsing later once the market page is populated.
-
+    # Dynamic table parsing to be added here later
     return gainers, losers
 
 
 def main():
-
     print("Loading indices page...")
-
-    indices_html = get_html(
-        "https://www.egx.com.eg/en/Indices.aspx"
-    )
-
+    indices_html = get_html("https://www.egx.com.eg/en/Indices.aspx")
     indices = parse_indices(indices_html)
 
     print("Parsed indices:")
     print(json.dumps(indices, indent=2))
 
     try:
-
         print("Loading gainers/losers page...")
-
-        gl_html = get_html(
-            "https://www.egx.com.eg/en/Top_GL.aspx"
-        )
-
+        gl_html = get_html("https://www.egx.com.eg/en/Top_GL.aspx")
         gainers, losers = parse_top_gl(gl_html)
-
     except Exception as e:
-
         print("Top gainers/losers failed:", e)
-
         gainers = []
         losers = []
 
@@ -162,21 +166,11 @@ def main():
         "losers": losers
     }
 
-    with open(
-        OUTPUT_FILE,
-        "w",
-        encoding="utf-8"
-    ) as f:
-        json.dump(
-            output,
-            f,
-            indent=2,
-            ensure_ascii=False
-        )
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
     print("\nGenerated JSON:")
     print(json.dumps(output, indent=2))
-
     print(f"\nSaved {OUTPUT_FILE}")
 
 
