@@ -1,7 +1,17 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-02 06:52 UTC",
-  "indices": {},
+  "lastUpdated": "2026-06-02 09:24 UTC",
+  "indices": {
+    "EGX30": {
+      "date": null,
+      "value": null,
+      "open": null,
+      "high": null,
+      "low": null,
+      "change_pct": null,
+      "ytd_pct": null
+    }
+  },
   "gainers": [],
   "losers": []
 }
