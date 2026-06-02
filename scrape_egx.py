@@ -11,8 +11,8 @@ def now_utc():
     return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
 
-def parse_panel_metrics(html_content, name):
-    """Parses out numerical metrics from the returned structural HTML content."""
+def parse_panel_metrics(html_content):
+    """Parses out numerical metrics from the actively visible tab panel."""
     text = BeautifulSoup(html_content, "html.parser").get_text("\n", strip=True)
 
     date_match = re.search(r"Date\s*:\s*(\d{2}/\d{2}/\d{4})", text, re.IGNORECASE)
@@ -45,11 +45,46 @@ def parse_panel_metrics(html_content, name):
     }
 
 
+def parse_gl_table(soup, index_position):
+    """Finds tables on Top_GL.aspx safely by structural order to avoid missing them."""
+    tables = soup.find_all("table", {"class": "table"})
+    if not tables:
+        # Fallback if class names match server modifications
+        tables = soup.find_all("table", id=lambda x: x and ("gvGainer" in x or "gvLoser" in x))
+        
+    stocks = []
+    if not tables or len(tables) <= index_position:
+        return stocks
+
+    target_table = tables[index_position]
+    rows = target_table.find_all("tr")[1:]  # Drop headers safely
+    
+    for row in rows:
+        cols = row.find_all("td")
+        if len(cols) >= 4:
+            try:
+                name_text = cols[0].get_text(strip=True)
+                if not name_text or "No data available" in name_text:
+                    continue
+                    
+                stocks.append({
+                    "name": name_text,
+                    "price": float(cols[1].get_text(strip=True).replace(",", "")),
+                    "change_pct": float(cols[2].get_text(strip=True).replace(",", "").replace("%", "")),
+                    "volume": int(cols[3].get_text(strip=True).replace(",", ""))
+                })
+            except Exception:
+                continue
+    return stocks
+
+
 def main():
     indices_output = {}
+    gainers = []
+    losers = []
 
     with sync_playwright() as p:
-        print("Launching highly compatible secure browser context...")
+        print("Launching secure browser context...")
         browser = p.chromium.launch(
             headless=True,
             args=[
@@ -64,16 +99,15 @@ def main():
             viewport={"width": 1280, "height": 720}
         )
 
+        # --- PART 1: SCRAPE INDICES ---
+        # We use a single page context loop, exactly how it worked for you before.
         page = context.new_page()
-        
         print("Navigating to Portal Landing View...")
-        # Use wait_until="commit" so the page doesn't hang forever on background tracking assets
         page.goto("https://www.egx.com.eg/en/Indices.aspx", wait_until="commit", timeout=60000)
         
-        print("Pausing 10 seconds to allow JavaScript challenge solvers to pass...")
+        print("Pausing 10 seconds to let JavaScript firewall challenge pass...")
         page.wait_for_timeout(10000)
 
-        # Target postback operations directly from ASP layout
         postback_actions = {
             "EGX30": "ctl00$C$M$lnkEGX30",
             "SHARIAH": "ctl00$C$M$lnkSHARIAH",
@@ -84,41 +118,58 @@ def main():
         for tracking_name, event_target in postback_actions.items():
             print(f"Requesting data compilation state for {tracking_name}...")
             try:
-                # Force the form submission action natively inside the context window frame
-                page.evaluate(f"""
-                    if (typeof __doPostBack !== 'undefined') {{
-                        __doPostBack('{event_target}', '');
-                    }} else {{
-                        document.getElementById('aspnetForm').submit();
-                    }}
-                """)
-                
-                # Give it a safe multi-second processing slot
+                # Direct postback call without using falling-back element selectors
+                page.evaluate(f"__doPostBack('{event_target}', '');")
                 page.wait_for_timeout(4000)
 
                 updated_html = page.content()
-                indices_output[tracking_name] = parse_panel_metrics(updated_html, tracking_name)
+                indices_output[tracking_name] = parse_panel_metrics(updated_html)
                 print(f"[+] Extracted values completely for {tracking_name}")
 
             except Exception as loop_error:
-                print(f"[-] Dropped cycle sequence on {tracking_name}: {loop_error}")
+                print(f"[-] Error on index loop {tracking_name}: {loop_error}")
                 indices_output[tracking_name] = {k: None for k in ["date", "value", "open", "high", "low", "change_pct", "ytd_pct"]}
+
+        page.close()
+
+        # --- PART 2: SCRAPE TOP GAINERS & LOSERS ---
+        print("\nNavigating to Top Gainers/Losers Desk...")
+        try:
+            gl_page = context.new_page()
+            gl_page.goto("https://www.egx.com.eg/en/Top_GL.aspx", wait_until="commit", timeout=60000)
+            gl_page.wait_for_timeout(10000)  # Wait for JavaScript shield to settle
+
+            try:
+                gl_page.wait_for_selector("table", timeout=15000)
+            except Exception:
+                pass
+
+            gl_soup = BeautifulSoup(gl_page.content(), "html.parser")
+            gainers = parse_gl_table(gl_soup, 0)
+            losers = parse_gl_table(gl_soup, 1)
+            
+            print(f"[+] Successfully scraped {len(gainers)} gainers and {len(losers)} losers.")
+            gl_page.close()
+            
+        except Exception as gl_error:
+            print(f"[-] Failed to fetch Top Gainers/Losers: {gl_error}")
 
         context.close()
         browser.close()
 
+    # --- SAVE STRUCTURED RESULTS ---
     output = {
         "source": "https://www.egx.com.eg",
         "lastUpdated": now_utc(),
         "indices": indices_output,
-        "gainers": [],
-        "losers": []
+        "gainers": gainers,
+        "losers": losers
     }
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"\nCompleted run updates successfully. Output verified.")
+    print(f"\nFinal run complete! Tracking metrics saved perfectly to {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
