@@ -1,44 +1,96 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-03 07:06 UTC",
+  "lastUpdated": "2026-06-03 12:08 UTC",
   "indices": {
     "EGX30": {
       "date": "03/06/2026",
-      "value": 52927.02,
+      "value": 52564.42,
       "open": 52927.02,
-      "high": 52927.02,
-      "low": 52927.02,
-      "change_pct": 0.0,
-      "ytd_pct": 26.53
+      "high": 53085.78,
+      "low": 52363.48,
+      "change_pct": -0.69,
+      "ytd_pct": 25.67
     },
     "SHARIAH": {
       "date": "03/06/2026",
-      "value": 52927.02,
+      "value": 52564.42,
       "open": 52927.02,
-      "high": 52927.02,
-      "low": 52927.02,
-      "change_pct": 0.0,
-      "ytd_pct": 26.53
+      "high": 53085.78,
+      "low": 52363.48,
+      "change_pct": -0.69,
+      "ytd_pct": 25.67
     },
     "EGX70": {
       "date": "03/06/2026",
-      "value": 15101.21,
+      "value": 15210.52,
       "open": 15101.21,
-      "high": 15101.21,
-      "low": 15101.21,
-      "change_pct": 0.0,
-      "ytd_pct": 15.05
+      "high": 15255.38,
+      "low": 15091.37,
+      "change_pct": 0.72,
+      "ytd_pct": 15.89
     },
     "EGX100": {
       "date": "03/06/2026",
-      "value": 21050.8,
+      "value": 21117.72,
       "open": 21050.8,
-      "high": 21050.8,
-      "low": 21050.8,
-      "change_pct": 0.0,
-      "ytd_pct": 20.8
+      "high": 21211.03,
+      "low": 20973.15,
+      "change_pct": 0.32,
+      "ytd_pct": 21.19
     }
   },
-  "gainers": [],
-  "losers": []
+  "gainers": [
+    {
+      "name": "Subscription Rights Of Aspire Cap Hold for Financ Invest-3",
+      "price": 0.11,
+      "change_pct": 96.43
+    },
+    {
+      "name": "Aspire Capital Holding For Financial Investments",
+      "price": 0.33,
+      "change_pct": 20.0
+    },
+    {
+      "name": "ASEC Company For Mining - ASCOM",
+      "price": 57.05,
+      "change_pct": 14.1
+    },
+    {
+      "name": "Egyptians Housing Development & Reconstruction",
+      "price": 2.61,
+      "change_pct": 7.41
+    },
+    {
+      "name": "El Shams Housing & Urbanization",
+      "price": 11.89,
+      "change_pct": 6.83
+    }
+  ],
+  "losers": [
+    {
+      "name": "Misr Duty Free Shops",
+      "price": 48.27,
+      "change_pct": -5.89
+    },
+    {
+      "name": "Saudi Egyptian Investment & Finance",
+      "price": 188.68,
+      "change_pct": -5.66
+    },
+    {
+      "name": "Amer Group Holding",
+      "price": 2.79,
+      "change_pct": -4.78
+    },
+    {
+      "name": "Ceramic & Porcelain",
+      "price": 23.33,
+      "change_pct": -4.66
+    },
+    {
+      "name": "National Printing",
+      "price": 25.14,
+      "change_pct": -3.83
+    }
+  ]
 }
