@@ -1,96 +1,44 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-03 02:05 UTC",
+  "lastUpdated": "2026-06-03 07:06 UTC",
   "indices": {
     "EGX30": {
-      "date": "02/06/2026",
+      "date": "03/06/2026",
       "value": 52927.02,
-      "open": 52853.94,
-      "high": 53188.43,
-      "low": 52830.68,
-      "change_pct": 0.14,
+      "open": 52927.02,
+      "high": 52927.02,
+      "low": 52927.02,
+      "change_pct": 0.0,
       "ytd_pct": 26.53
     },
     "SHARIAH": {
-      "date": "02/06/2026",
+      "date": "03/06/2026",
       "value": 52927.02,
-      "open": 52853.94,
-      "high": 53188.43,
-      "low": 52830.68,
-      "change_pct": 0.14,
+      "open": 52927.02,
+      "high": 52927.02,
+      "low": 52927.02,
+      "change_pct": 0.0,
       "ytd_pct": 26.53
     },
     "EGX70": {
-      "date": "02/06/2026",
+      "date": "03/06/2026",
       "value": 15101.21,
-      "open": 14958.89,
-      "high": 15126.57,
-      "low": 14958.89,
-      "change_pct": 0.95,
+      "open": 15101.21,
+      "high": 15101.21,
+      "low": 15101.21,
+      "change_pct": 0.0,
       "ytd_pct": 15.05
     },
     "EGX100": {
-      "date": "02/06/2026",
+      "date": "03/06/2026",
       "value": 21050.8,
-      "open": 20906.08,
-      "high": 21100.65,
-      "low": 20906.08,
-      "change_pct": 0.69,
+      "open": 21050.8,
+      "high": 21050.8,
+      "low": 21050.8,
+      "change_pct": 0.0,
       "ytd_pct": 20.8
     }
   },
-  "gainers": [
-    {
-      "name": "El Shams Housing & Urbanization",
-      "price": 11.13,
-      "change_pct": 19.94
-    },
-    {
-      "name": "Prime Holding",
-      "price": 2.61,
-      "change_pct": 14.98
-    },
-    {
-      "name": "Mena Touristic & Real Estate Investment",
-      "price": 7.29,
-      "change_pct": 14.62
-    },
-    {
-      "name": "Saudi Egyptian Investment & Finance",
-      "price": 200.0,
-      "change_pct": 10.59
-    },
-    {
-      "name": "A Capital Holding",
-      "price": 9.59,
-      "change_pct": 10.23
-    }
-  ],
-  "losers": [
-    {
-      "name": "GMC GROUP FOR INDUSTRIAL COMMERCIAL & FINANCIAL INVESTMENTS",
-      "price": 1.69,
-      "change_pct": -3.98
-    },
-    {
-      "name": "Palm Hills Development Company",
-      "price": 15.55,
-      "change_pct": -2.57
-    },
-    {
-      "name": "Grand Investment Capital",
-      "price": 57.21,
-      "change_pct": -2.42
-    },
-    {
-      "name": "Orascom Development Egypt",
-      "price": 38.02,
-      "change_pct": -2.29
-    },
-    {
-      "name": "Memphis Pharmaceuticals",
-      "price": 206.47,
-      "change_pct": -2.15
-    }
-  ]
+  "gainers": [],
+  "losers": []
 }
