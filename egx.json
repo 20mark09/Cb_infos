@@ -1,96 +1,96 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-03 12:08 UTC",
+  "lastUpdated": "2026-06-04 10:40 UTC",
   "indices": {
     "EGX30": {
-      "date": "03/06/2026",
-      "value": 52564.42,
-      "open": 52927.02,
-      "high": 53085.78,
-      "low": 52363.48,
-      "change_pct": -0.69,
-      "ytd_pct": 25.67
+      "date": "04/06/2026",
+      "value": 5911.95,
+      "open": 5898.85,
+      "high": 5914.6,
+      "low": 5889.98,
+      "change_pct": 0.22,
+      "ytd_pct": 28.58
     },
     "SHARIAH": {
-      "date": "03/06/2026",
-      "value": 52564.42,
-      "open": 52927.02,
-      "high": 53085.78,
-      "low": 52363.48,
-      "change_pct": -0.69,
-      "ytd_pct": 25.67
+      "date": "04/06/2026",
+      "value": 5911.95,
+      "open": 5898.85,
+      "high": 5914.6,
+      "low": 5889.98,
+      "change_pct": 0.22,
+      "ytd_pct": 28.58
     },
     "EGX70": {
-      "date": "03/06/2026",
-      "value": 15210.52,
-      "open": 15101.21,
-      "high": 15255.38,
-      "low": 15091.37,
-      "change_pct": 0.72,
-      "ytd_pct": 15.89
+      "date": "04/06/2026",
+      "value": 15447.99,
+      "open": 15210.52,
+      "high": 15465.32,
+      "low": 15210.52,
+      "change_pct": 1.56,
+      "ytd_pct": 17.7
     },
     "EGX100": {
-      "date": "03/06/2026",
-      "value": 21117.72,
-      "open": 21050.8,
-      "high": 21211.03,
-      "low": 20973.15,
-      "change_pct": 0.32,
-      "ytd_pct": 21.19
+      "date": "04/06/2026",
+      "value": 21370.77,
+      "open": 21117.72,
+      "high": 21386.19,
+      "low": 21117.72,
+      "change_pct": 1.2,
+      "ytd_pct": 22.64
     }
   },
   "gainers": [
     {
       "name": "Subscription Rights Of Aspire Cap Hold for Financ Invest-3",
-      "price": 0.11,
-      "change_pct": 96.43
+      "price": 0.176,
+      "change_pct": 60.0
     },
     {
       "name": "Aspire Capital Holding For Financial Investments",
-      "price": 0.33,
-      "change_pct": 20.0
+      "price": 0.386,
+      "change_pct": 16.97
     },
     {
-      "name": "ASEC Company For Mining - ASCOM",
-      "price": 57.05,
-      "change_pct": 14.1
+      "name": "Nasr Company for Civil Works",
+      "price": 5.96,
+      "change_pct": 12.24
     },
     {
-      "name": "Egyptians Housing Development & Reconstruction",
-      "price": 2.61,
-      "change_pct": 7.41
+      "name": "Prime Holding",
+      "price": 2.85,
+      "change_pct": 11.33
     },
     {
-      "name": "El Shams Housing & Urbanization",
-      "price": 11.89,
-      "change_pct": 6.83
+      "name": "Osool ESB Securities Brokerage",
+      "price": 2.01,
+      "change_pct": 9.84
     }
   ],
   "losers": [
     {
-      "name": "Misr Duty Free Shops",
-      "price": 48.27,
-      "change_pct": -5.89
+      "name": "ASEC Company For Mining - ASCOM",
+      "price": 54.77,
+      "change_pct": -4.0
     },
     {
-      "name": "Saudi Egyptian Investment & Finance",
-      "price": 188.68,
-      "change_pct": -5.66
+      "name": "TAWASOA For Factoring",
+      "price": 6.06,
+      "change_pct": -3.81
     },
     {
-      "name": "Amer Group Holding",
-      "price": 2.79,
-      "change_pct": -4.78
+      "name": "A Capital Holding",
+      "price": 9.71,
+      "change_pct": -3.09
     },
     {
-      "name": "Ceramic & Porcelain",
-      "price": 23.33,
-      "change_pct": -4.66
+      "name": "Egyptian for Tourism Resorts",
+      "price": 20.38,
+      "change_pct": -2.95
     },
     {
-      "name": "National Printing",
-      "price": 25.14,
-      "change_pct": -3.83
+      "name": "Fawry For Banking Technology And Electronic Payment",
+      "price": 19.55,
+      "change_pct": -2.93
     }
   ]
 }
