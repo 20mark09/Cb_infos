@@ -20,6 +20,8 @@
     },
     {
       "name": "National Bank of Egypt",
+      "nameAr": "البنك الأهلي المصري",
+      "logoUrl": "https://raw.githubusercontent.com/20mark09/Cb_infos/main/logos/NBE.png",
       "products": [
         { "name": "Platinum Fixed — Monthly 3yr", "rates": [16.0, 16.0, 16.0] },
         { "name": "Platinum Descending — Monthly", "rates": [21.0, 15.25, 12.0] },
@@ -30,6 +32,8 @@
     },
     {
       "name": "CIB Egypt",
+      "nameAr": "البنك التجاري الدولي",
+      "logoUrl": "https://raw.githubusercontent.com/20mark09/Cb_infos/main/logos/CIB.jpeg",
       "products": [
         { "name": "Triple Fixed — Monthly (Standard)", "rates": [17.25, 17.25, 17.25] },
         { "name": "Triple Fixed — Monthly (Prime, min 100K)", "rates": [17.5, 17.5, 17.5] },
@@ -43,6 +47,8 @@
     },
     {
       "name": "QNB Egypt",
+      "nameAr": "بنك قطر الوطني مصر",
+      "logoUrl": "https://raw.githubusercontent.com/20mark09/Cb_infos/main/logos/QNB.jpeg",
       "products": [
         { "name": "Fixed CD 3yr — Monthly (Standard, min 1K)", "rates": [16.0, 16.0, 16.0] },
         { "name": "Fixed CD 3yr — Monthly (First, min 500K)", "rates": [16.5, 16.5, 16.5] },
@@ -53,6 +59,8 @@
     },
     {
       "name": "Abu Dhabi Islamic Bank",
+      "nameAr": "بنك ابوظبي الاسلامي",
+      "logoUrl": "https://raw.githubusercontent.com/20mark09/Cb_infos/main/logos/ADIB.jpeg",
       "products": [
         { "name": "Al Ghina Sukuk — Monthly (up to 19%)", "rates": [19.0, 19.0, 19.0] },
         { "name": "Floating Rate Sukuk (up to 18.5%)", "rates": [18.5, 18.5, 18.5] },
@@ -62,6 +70,8 @@
     },
     {
       "name": "Banque du Caire",
+     "nameAr": "بنك القاهرة",
+      "logoUrl": "https://raw.githubusercontent.com/20mark09/Cb_infos/main/logos/CAIRE.png",
       "products": [
         { "name": "Primo Step Down 3yr — Monthly", "rates": [18.0, 16.0, 14.0] },
         { "name": "Primo Mass 3yr — Monthly", "rates": [15.0, 15.0, 15.0] },
