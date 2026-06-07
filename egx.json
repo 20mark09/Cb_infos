@@ -1,96 +1,96 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-06 13:45 UTC",
+  "lastUpdated": "2026-06-07 10:06 UTC",
   "indices": {
     "EGX30": {
-      "date": "04/06/2026",
-      "value": 52652.53,
-      "open": 52564.42,
-      "high": 52699.9,
-      "low": 52422.01,
-      "change_pct": 0.17,
-      "ytd_pct": 25.88
+      "date": "07/06/2026",
+      "value": 52281.09,
+      "open": 52652.53,
+      "high": 52652.53,
+      "low": 52101.58,
+      "change_pct": -0.71,
+      "ytd_pct": 24.99
     },
     "SHARIAH": {
-      "date": "04/06/2026",
-      "value": 52652.53,
-      "open": 52564.42,
-      "high": 52699.9,
-      "low": 52422.01,
-      "change_pct": 0.17,
-      "ytd_pct": 25.88
+      "date": null,
+      "value": null,
+      "open": null,
+      "high": null,
+      "low": null,
+      "change_pct": null,
+      "ytd_pct": null
     },
     "EGX70": {
-      "date": "04/06/2026",
-      "value": 15450.2,
-      "open": 15210.52,
-      "high": 15466.44,
-      "low": 15210.52,
-      "change_pct": 1.58,
-      "ytd_pct": 17.71
+      "date": "07/06/2026",
+      "value": 15473.27,
+      "open": 15450.2,
+      "high": 15509.42,
+      "low": 15371.6,
+      "change_pct": 0.15,
+      "ytd_pct": 17.89
     },
     "EGX100": {
-      "date": "04/06/2026",
-      "value": 21357.7,
-      "open": 21117.72,
-      "high": 21386.19,
-      "low": 21117.72,
-      "change_pct": 1.14,
-      "ytd_pct": 22.56
+      "date": "07/06/2026",
+      "value": 21342.66,
+      "open": 21357.7,
+      "high": 21389.02,
+      "low": 21224.03,
+      "change_pct": -0.07,
+      "ytd_pct": 22.48
     }
   },
   "gainers": [
     {
-      "name": "Subscription Rights Of Aspire Cap Hold for Financ Invest-3",
-      "price": 0.176,
-      "change_pct": 60.0
+      "name": "Lotus For Agricultural Investments And Development",
+      "price": 0.641,
+      "change_pct": 10.33
     },
     {
-      "name": "Aspire Capital Holding For Financial Investments",
-      "price": 0.382,
-      "change_pct": 15.76
+      "name": "Egyptian Real Estate Group",
+      "price": 1.53,
+      "change_pct": 8.51
     },
     {
-      "name": "Nasr Company for Civil Works",
-      "price": 6.12,
-      "change_pct": 15.25
+      "name": "Tycoon Holding Company For Financial Investments",
+      "price": 15.1,
+      "change_pct": 7.47
     },
     {
-      "name": "Mansourah Poultry",
-      "price": 1.85,
-      "change_pct": 11.45
+      "name": "El-Nile Co. For Pharmaceuticals And Chemical Industries",
+      "price": 172.88,
+      "change_pct": 6.06
     },
     {
-      "name": "Prime Holding",
-      "price": 2.84,
-      "change_pct": 10.94
+      "name": "Egyptian Gulf Marseilia For Real Estate Investment",
+      "price": 6.09,
+      "change_pct": 5.91
     }
   ],
   "losers": [
     {
-      "name": "Egyptian for Tourism Resorts",
-      "price": 19.85,
-      "change_pct": -5.48
+      "name": "Subscription Rights Of Aspire Cap Hold for Financ Invest-3",
+      "price": 0.142,
+      "change_pct": -19.32
     },
     {
-      "name": "A Capital Holding",
-      "price": 9.61,
-      "change_pct": -4.09
+      "name": "Aspire Capital Holding For Financial Investments",
+      "price": 0.353,
+      "change_pct": -7.59
     },
     {
-      "name": "Creast Mark For Contracting And Real Estate Development",
-      "price": 1.24,
-      "change_pct": -3.88
+      "name": "GTEX For Commercial And Industrial",
+      "price": 0.033,
+      "change_pct": -5.71
     },
     {
-      "name": "Egyptian Chemical Industries (Kima)",
-      "price": 14.63,
-      "change_pct": -3.75
+      "name": "Grand Investment Capital",
+      "price": 55.67,
+      "change_pct": -3.9
     },
     {
-      "name": "ASEC Company For Mining - ASCOM",
-      "price": 55.0,
-      "change_pct": -3.59
+      "name": "El Shams Housing & Urbanization",
+      "price": 11.61,
+      "change_pct": -3.33
     }
   ]
 }
