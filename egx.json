@@ -1,15 +1,15 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-07 10:06 UTC",
+  "lastUpdated": "2026-06-07 13:54 UTC",
   "indices": {
     "EGX30": {
       "date": "07/06/2026",
-      "value": 52281.09,
+      "value": 52164.6,
       "open": 52652.53,
       "high": 52652.53,
-      "low": 52101.58,
-      "change_pct": -0.71,
-      "ytd_pct": 24.99
+      "low": 52057.03,
+      "change_pct": -0.93,
+      "ytd_pct": 24.71
     },
     "SHARIAH": {
       "date": null,
@@ -22,75 +22,75 @@
     },
     "EGX70": {
       "date": "07/06/2026",
-      "value": 15473.27,
+      "value": 15349.53,
       "open": 15450.2,
       "high": 15509.42,
-      "low": 15371.6,
-      "change_pct": 0.15,
-      "ytd_pct": 17.89
+      "low": 15344.12,
+      "change_pct": -0.65,
+      "ytd_pct": 16.95
     },
     "EGX100": {
       "date": "07/06/2026",
-      "value": 21342.66,
+      "value": 21213.15,
       "open": 21357.7,
       "high": 21389.02,
-      "low": 21224.03,
-      "change_pct": -0.07,
-      "ytd_pct": 22.48
+      "low": 21213.09,
+      "change_pct": -0.68,
+      "ytd_pct": 21.73
     }
   },
   "gainers": [
     {
       "name": "Lotus For Agricultural Investments And Development",
-      "price": 0.641,
-      "change_pct": 10.33
-    },
-    {
-      "name": "Egyptian Real Estate Group",
-      "price": 1.53,
-      "change_pct": 8.51
+      "price": 0.657,
+      "change_pct": 13.08
     },
     {
       "name": "Tycoon Holding Company For Financial Investments",
-      "price": 15.1,
-      "change_pct": 7.47
+      "price": 15.7,
+      "change_pct": 11.74
     },
     {
-      "name": "El-Nile Co. For Pharmaceuticals And Chemical Industries",
-      "price": 172.88,
-      "change_pct": 6.06
+      "name": "Export Development Bank of Egypt",
+      "price": 19.79,
+      "change_pct": 6.97
     },
     {
-      "name": "Egyptian Gulf Marseilia For Real Estate Investment",
-      "price": 6.09,
-      "change_pct": 5.91
+      "name": "QALAA For Financial Investments",
+      "price": 5.7,
+      "change_pct": 6.34
+    },
+    {
+      "name": "Ceramic & Porcelain",
+      "price": 24.8,
+      "change_pct": 5.76
     }
   ],
   "losers": [
     {
       "name": "Subscription Rights Of Aspire Cap Hold for Financ Invest-3",
-      "price": 0.142,
-      "change_pct": -19.32
+      "price": 0.156,
+      "change_pct": -11.36
+    },
+    {
+      "name": "Egyptian for Tourism Resorts",
+      "price": 17.61,
+      "change_pct": -11.28
     },
     {
       "name": "Aspire Capital Holding For Financial Investments",
-      "price": 0.353,
-      "change_pct": -7.59
+      "price": 0.356,
+      "change_pct": -6.81
+    },
+    {
+      "name": "El Shams Housing & Urbanization",
+      "price": 11.32,
+      "change_pct": -5.75
     },
     {
       "name": "GTEX For Commercial And Industrial",
       "price": 0.033,
       "change_pct": -5.71
-    },
-    {
-      "name": "Grand Investment Capital",
-      "price": 55.67,
-      "change_pct": -3.9
-    },
-    {
-      "name": "El Shams Housing & Urbanization",
-      "price": 11.61,
-      "change_pct": -3.33
     }
   ]
 }
