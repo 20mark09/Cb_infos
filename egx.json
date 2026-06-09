@@ -1,72 +1,77 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-09 10:36 UTC",
+  "lastUpdated": "2026-06-09 14:53 UTC",
   "indices": {
     "EGX30": {
       "date": "09/06/2026",
-      "value": 52312.42,
+      "value": 52374.8,
       "open": 51882.81,
       "high": 52533.78,
       "low": 51882.81,
-      "change_pct": 0.83,
-      "ytd_pct": 25.06
+      "change_pct": 0.95,
+      "ytd_pct": 25.21
     },
     "SHARIAH": {
       "date": "09/06/2026",
-      "value": 52312.42,
+      "value": 52374.8,
       "open": 51882.81,
       "high": 52533.78,
       "low": 51882.81,
-      "change_pct": 0.83,
-      "ytd_pct": 25.06
+      "change_pct": 0.95,
+      "ytd_pct": 25.21
     },
     "EGX70": {
       "date": "09/06/2026",
-      "value": 15535.91,
+      "value": 15580.61,
       "open": 15344.29,
       "high": 15614.5,
       "low": 15344.29,
-      "change_pct": 1.25,
-      "ytd_pct": 18.37
+      "change_pct": 1.54,
+      "ytd_pct": 18.71
     },
     "EGX100": {
       "date": "09/06/2026",
-      "value": 21408.68,
+      "value": 21458.81,
       "open": 21180.6,
       "high": 21502.16,
       "low": 21180.6,
-      "change_pct": 1.08,
-      "ytd_pct": 22.86
+      "change_pct": 1.31,
+      "ytd_pct": 23.14
     }
   },
   "gainers": [
     {
       "name": "Tycoon Holding Company For Financial Investments",
-      "price": 18.36,
-      "change_pct": 18.3
-    },
-    {
-      "name": "Egyptian for Tourism Resorts",
-      "price": 19.84,
-      "change_pct": 12.6
+      "price": 18.62,
+      "change_pct": 19.97
     },
     {
       "name": "Arabia Investments Holding",
-      "price": 0.429,
-      "change_pct": 12.01
+      "price": 0.458,
+      "change_pct": 19.58
+    },
+    {
+      "name": "International Co For Investment & Development",
+      "price": 6.92,
+      "change_pct": 13.07
+    },
+    {
+      "name": "Egyptian for Tourism Resorts",
+      "price": 19.9,
+      "change_pct": 12.94
     },
     {
       "name": "AJWA for Food Industries company    Egypt",
-      "price": 151.04,
-      "change_pct": 11.88
-    },
-    {
-      "name": "A Capital Holding",
-      "price": 9.98,
-      "change_pct": 8.95
+      "price": 150.56,
+      "change_pct": 11.53
     }
   ],
   "losers": [
+    {
+      "name": "El Shams Housing & Urbanization",
+      "price": 12.94,
+      "change_pct": -4.15
+    },
     {
       "name": "Ceramic & Porcelain",
       "price": 25.49,
@@ -74,23 +79,18 @@
     },
     {
       "name": "CI Capital Holding For Financial Investments",
-      "price": 11.81,
-      "change_pct": -2.4
+      "price": 11.82,
+      "change_pct": -2.31
     },
     {
-      "name": "Arab Valves Company",
-      "price": 11.11,
-      "change_pct": -2.29
+      "name": "Suez Canal Bank S.A.E",
+      "price": 37.22,
+      "change_pct": -2.26
     },
     {
-      "name": "Cleopatra Hospital Company",
-      "price": 14.87,
-      "change_pct": -2.17
-    },
-    {
-      "name": "El Ahram Co. For Printing And Packing",
-      "price": 12.25,
-      "change_pct": -2.0
+      "name": "GMC GROUP FOR INDUSTRIAL COMMERCIAL & FINANCIAL INVESTMENTS",
+      "price": 1.74,
+      "change_pct": -2.25
     }
   ]
 }
