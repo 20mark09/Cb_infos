@@ -1,18 +1,6 @@
 {
   "source": "https://www.cbe.org.eg/en/economic-research/statistics/exchange-rates",
-  "lastUpdated": "2026-06-08 06:00 UTC",
-  "scrape_error": null,
-  "rates": {
-    "USD": { "buy": 49.85, "sell": 49.60, "mid": 49.725 },
-    "EUR": { "buy": 54.20, "sell": 53.90, "mid": 54.05 },
-    "GBP": { "buy": 63.10, "sell": 62.75, "mid": 62.925 },
-    "SAR": { "buy": 13.30, "sell": 13.22, "mid": 13.26 },
-    "AED": { "buy": 13.58, "sell": 13.50, "mid": 13.54 },
-    "KWD": { "buy": 162.5, "sell": 161.8, "mid": 162.15 },
-    "QAR": { "buy": 13.70, "sell": 13.62, "mid": 13.66 },
-    "JPY": { "buy": 0.334, "sell": 0.330, "mid": 0.332 },
-    "CNY": { "buy": 6.87,  "sell": 6.83,  "mid": 6.85 },
-    "CHF": { "buy": 55.80, "sell": 55.50, "mid": 55.65 },
-    "TRY": { "buy": 1.48,  "sell": 1.46,  "mid": 1.47 }
-  }
+  "lastUpdated": "2026-06-09 08:03 UTC",
+  "scrape_error": "No rates found",
+  "rates": {}
 }
