@@ -2,9 +2,9 @@ name: Update Market Data
 
 on:
   schedule:
-    - cron: '0 */2 * * 1-5'   # every 2 hours on weekdays (for markets)
-    - cron: '0 6 * * *'        # every day at 6 AM UTC (for exchange rates)
-  workflow_dispatch:            # allow manual trigger from GitHub Actions tab
+    - cron: '0 */2 * * 1-5'   # every 2 hours on weekdays
+    - cron: '0 6 * * *'        # every day at 6 AM UTC
+  workflow_dispatch:            # manual trigger from Actions tab
 
 jobs:
 
@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -31,13 +33,18 @@ jobs:
         with:
           commit_message: "auto: update exchange_rates.json"
           file_pattern: exchange_rates.json
+          pull_before_commit: true
+          push_options: '--force-with-lease'
 
   update-global-markets:
     name: Scrape Global Markets
     runs-on: ubuntu-latest
+    needs: update-exchange-rates      # runs AFTER exchange rates to avoid push conflicts
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -55,3 +62,5 @@ jobs:
         with:
           commit_message: "auto: update global_markets.json"
           file_pattern: global_markets.json
+          pull_before_commit: true
+          push_options: '--force-with-lease'
