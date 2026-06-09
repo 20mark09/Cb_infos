@@ -1,0 +1,57 @@
+name: Update Market Data
+
+on:
+  schedule:
+    - cron: '0 */2 * * 1-5'   # every 2 hours on weekdays (for markets)
+    - cron: '0 6 * * *'        # every day at 6 AM UTC (for exchange rates)
+  workflow_dispatch:            # allow manual trigger from GitHub Actions tab
+
+jobs:
+
+  update-exchange-rates:
+    name: Scrape CBE Exchange Rates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run scraper
+        run: python scrape_exchange_rates.py
+
+      - name: Commit updated file
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "auto: update exchange_rates.json"
+          file_pattern: exchange_rates.json
+
+  update-global-markets:
+    name: Scrape Global Markets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install yfinance
+
+      - name: Run scraper
+        run: python scrape_global_markets.py
+
+      - name: Commit updated file
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "auto: update global_markets.json"
+          file_pattern: global_markets.json
