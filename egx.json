@@ -1,69 +1,69 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-10 10:57 UTC",
+  "lastUpdated": "2026-06-10 15:36 UTC",
   "indices": {
     "EGX30": {
       "date": "10/06/2026",
-      "value": 51655.04,
+      "value": 51256.65,
       "open": 52374.8,
       "high": 52437.19,
-      "low": 51651.98,
-      "change_pct": -1.37,
-      "ytd_pct": 23.49
+      "low": 51229.6,
+      "change_pct": -2.13,
+      "ytd_pct": 22.54
     },
     "SHARIAH": {
       "date": "10/06/2026",
-      "value": 51655.04,
+      "value": 51256.65,
       "open": 52374.8,
       "high": 52437.19,
-      "low": 51651.98,
-      "change_pct": -1.37,
-      "ytd_pct": 23.49
+      "low": 51229.6,
+      "change_pct": -2.13,
+      "ytd_pct": 22.54
     },
     "EGX70": {
       "date": "10/06/2026",
-      "value": 15437.38,
+      "value": 15206.48,
       "open": 15580.61,
       "high": 15670.38,
-      "low": 15437.38,
-      "change_pct": -0.92,
-      "ytd_pct": 17.62
+      "low": 15206.48,
+      "change_pct": -2.4,
+      "ytd_pct": 15.86
     },
     "EGX100": {
       "date": "10/06/2026",
-      "value": 21200.12,
+      "value": 20911.03,
       "open": 21458.81,
       "high": 21539.03,
-      "low": 21200.12,
-      "change_pct": -1.21,
-      "ytd_pct": 21.66
+      "low": 20911.03,
+      "change_pct": -2.55,
+      "ytd_pct": 20.0
     }
   },
   "gainers": [
     {
+      "name": "El Shams Housing & Urbanization",
+      "price": 14.07,
+      "change_pct": 8.73
+    },
+    {
       "name": "Egyptians Real Estate Fund Certificates",
-      "price": 15.13,
-      "change_pct": 8.77
+      "price": 14.98,
+      "change_pct": 7.69
     },
     {
       "name": "Tycoon Holding Company For Financial Investments",
-      "price": 20.16,
-      "change_pct": 8.27
-    },
-    {
-      "name": "El Shams Housing & Urbanization",
-      "price": 13.99,
-      "change_pct": 8.11
+      "price": 19.75,
+      "change_pct": 6.07
     },
     {
       "name": "Taqa Arabia",
-      "price": 15.68,
-      "change_pct": 7.77
+      "price": 15.38,
+      "change_pct": 5.7
     },
     {
       "name": "El Nasr For Manufacturing Agricultural Crops",
-      "price": 41.4,
-      "change_pct": 4.7
+      "price": 41.26,
+      "change_pct": 4.35
     }
   ],
   "losers": [
@@ -73,24 +73,24 @@
       "change_pct": -14.39
     },
     {
-      "name": "Creast Mark For Contracting And Real Estate Development",
-      "price": 1.23,
-      "change_pct": -6.82
+      "name": "General Company For Land Reclamation,Development & Reconstru",
+      "price": 200.18,
+      "change_pct": -9.17
     },
     {
       "name": "Egyptian for Tourism Resorts",
-      "price": 18.68,
-      "change_pct": -6.13
+      "price": 18.23,
+      "change_pct": -8.39
     },
     {
-      "name": "Misr Duty Free Shops",
-      "price": 44.33,
-      "change_pct": -5.48
+      "name": "Egyptians Housing Development & Reconstruction",
+      "price": 2.61,
+      "change_pct": -7.45
     },
     {
-      "name": "Aspire Capital Holding For Financial Investments",
-      "price": 0.335,
-      "change_pct": -5.1
+      "name": "Raya Holding For Financial Investments",
+      "price": 6.94,
+      "change_pct": -6.97
     }
   ]
 }
