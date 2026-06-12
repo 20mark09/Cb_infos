@@ -1,6 +1,6 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-11 16:03 UTC",
+  "lastUpdated": "2026-06-12 15:16 UTC",
   "indices": {
     "EGX30": {
       "date": "11/06/2026",
@@ -31,12 +31,12 @@
     },
     "EGX100": {
       "date": "11/06/2026",
-      "value": 14986.99,
-      "open": 15206.48,
-      "high": 15220.93,
-      "low": 14937.93,
-      "change_pct": -1.44,
-      "ytd_pct": 14.18
+      "value": 20616.31,
+      "open": 20911.03,
+      "high": 20921.15,
+      "low": 20552.39,
+      "change_pct": -1.41,
+      "ytd_pct": 18.31
     }
   },
   "gainers": [
