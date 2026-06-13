@@ -33,7 +33,7 @@ jobs:
         with:
           commit_message: "auto: update exchange_rates.json"
           file_pattern: exchange_rates.json
-          pull_before_commit: true
+          skip_fetch: false
           push_options: '--force-with-lease'
 
   update-global-markets:
@@ -62,5 +62,5 @@ jobs:
         with:
           commit_message: "auto: update global_markets.json"
           file_pattern: global_markets.json
-          pull_before_commit: true
+          skip_fetch: false
           push_options: '--force-with-lease'
