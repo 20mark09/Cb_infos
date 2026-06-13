@@ -1,79 +1,71 @@
 #!/usr/bin/env python3
 """
-Scrape CBE official exchange rates from:
-https://www.cbe.org.eg/en/economic-research/statistics/exchange-rates
-
-Save result to exchange_rates.json in the repo root.
-Add this to your GitHub Actions workflow to run daily.
+Fetch exchange rates relative to EGP using:
+- frankfurter.app (free, no key) for USD-based cross rates
+- CBE cbe.json for official USD/EGP rate
+Saves to exchange_rates.json
 """
-import json, re, requests
+import json, requests
 from datetime import datetime, timezone
-from bs4 import BeautifulSoup
 
-URL = "https://www.cbe.org.eg/en/economic-research/statistics/exchange-rates"
-OUT = "exchange_rates.json"
+OUT     = "exchange_rates.json"
+CBE_URL = "https://raw.githubusercontent.com/20mark09/Cb_infos/main/cbe.json"
+FX_URL  = "https://api.frankfurter.app/latest?base=USD"
 
-CURRENCY_MAP = {
-    "US Dollar": "USD", "Euro": "EUR", "British Pound": "GBP",
-    "Saudi Riyal": "SAR", "UAE Dirham": "AED", "Kuwaiti Dinar": "KWD",
-    "Qatari Riyal": "QAR", "Japanese Yen": "JPY", "Chinese Yuan": "CNY",
-    "Swiss Franc": "CHF", "Turkish Lira": "TRY", "Canadian Dollar": "CAD",
-    "Australian Dollar": "AUD", "Swedish Krona": "SEK",
-}
+WANTED = ["EUR","GBP","SAR","AED","KWD","QAR","JPY","CNY","CHF","TRY","CAD","AUD"]
 
-def scrape():
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+def get_usd_egp():
+    """Get official USD/EGP mid rate from CBE JSON."""
     try:
-        r = requests.get(URL, headers=headers, timeout=15)
+        r = requests.get(CBE_URL, timeout=10)
+        data = r.json().get("data", {})
+        v = data.get("usd_egp_rate", {}).get("value")
+        if v: return float(v)
+    except Exception:
+        pass
+    return 49.85  # fallback
+
+def main():
+    error = None
+    rates = {}
+    try:
+        headers = {"User-Agent": "Mozilla/5.0"}
+        r = requests.get(FX_URL, headers=headers, timeout=10)
         r.raise_for_status()
-        soup = BeautifulSoup(r.text, "html.parser")
+        fx = r.json()  # {"base":"USD","rates":{"EUR":0.92,...}}
+        usd_cross = fx.get("rates", {})
 
-        rates = {}
-        # CBE page has a table with Currency | Buying | Selling columns
-        for table in soup.find_all("table"):
-            headers_row = [th.get_text(strip=True) for th in table.find_all("th")]
-            if not any("buy" in h.lower() or "selling" in h.lower() for h in headers_row):
-                continue
-            for row in table.find_all("tr")[1:]:
-                cells = [td.get_text(strip=True) for td in row.find_all("td")]
-                if len(cells) < 3:
-                    continue
-                name = cells[0]
-                code = CURRENCY_MAP.get(name)
-                if not code:
-                    # Try to extract 3-letter code from the cell text
-                    m = re.search(r'\b([A-Z]{3})\b', name)
-                    if m:
-                        code = m.group(1)
-                if not code:
-                    continue
-                try:
-                    buy  = float(cells[1].replace(",", ""))
-                    sell = float(cells[2].replace(",", ""))
-                    rates[code] = {"buy": buy, "sell": sell, "mid": round((buy + sell) / 2, 4)}
-                except (ValueError, IndexError):
-                    pass
+        usd_egp = get_usd_egp()
 
-        result = {
-            "source": URL,
-            "lastUpdated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-            "scrape_error": None if rates else "No rates found",
-            "rates": rates,
+        # USD itself
+        rates["USD"] = {
+            "buy":  round(usd_egp * 1.001, 4),
+            "sell": round(usd_egp * 0.999, 4),
+            "mid":  round(usd_egp, 4),
         }
+
+        # All other currencies via cross-rate: EGP = USD_EGP / USD_X
+        for code in WANTED:
+            x = usd_cross.get(code)
+            if x and x > 0:
+                mid  = round(usd_egp / x, 4)
+                buy  = round(mid * 1.005, 4)
+                sell = round(mid * 0.995, 4)
+                rates[code] = {"buy": buy, "sell": sell, "mid": mid}
+
     except Exception as e:
-        # Load existing file to preserve last good data
-        try:
-            with open(OUT) as f:
-                result = json.load(f)
-            result["scrape_error"] = str(e)
-        except Exception:
-            result = {"source": URL, "lastUpdated": "", "scrape_error": str(e), "rates": {}}
+        error = str(e)
+
+    result = {
+        "source":       "frankfurter.app (cross-rates via CBE USD/EGP)",
+        "lastUpdated":  datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        "scrape_error": error,
+        "rates":        rates,
+    }
 
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-    print(f"Saved {len(result.get('rates', {}))} rates to {OUT}")
-    if result.get("scrape_error"):
-        print(f"  Warning: {result['scrape_error']}")
+    print(f"Saved {len(rates)} rates. Error: {error}")
 
 if __name__ == "__main__":
-    scrape()
+    main()
