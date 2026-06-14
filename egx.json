@@ -1,76 +1,76 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-14 10:26 UTC",
+  "lastUpdated": "2026-06-14 14:04 UTC",
   "indices": {
     "EGX30": {
       "date": "14/06/2026",
-      "value": 51935.35,
+      "value": 51994.63,
       "open": 50818.84,
       "high": 52201.54,
       "low": 50818.84,
-      "change_pct": 2.2,
-      "ytd_pct": 24.16
+      "change_pct": 2.31,
+      "ytd_pct": 24.3
     },
     "SHARIAH": {
       "date": "14/06/2026",
-      "value": 51935.35,
+      "value": 51994.63,
       "open": 50818.84,
       "high": 52201.54,
       "low": 50818.84,
-      "change_pct": 2.2,
-      "ytd_pct": 24.16
+      "change_pct": 2.31,
+      "ytd_pct": 24.3
     },
     "EGX70": {
       "date": "14/06/2026",
-      "value": 15308.92,
+      "value": 15396.24,
       "open": 14986.99,
-      "high": 15348.74,
+      "high": 15429.53,
       "low": 14986.99,
-      "change_pct": 2.15,
-      "ytd_pct": 16.64
+      "change_pct": 2.73,
+      "ytd_pct": 17.3
     },
     "EGX100": {
       "date": "14/06/2026",
-      "value": 21073.17,
+      "value": 21179.3,
       "open": 20616.31,
-      "high": 21123.6,
+      "high": 21203.51,
       "low": 20616.31,
-      "change_pct": 2.22,
-      "ytd_pct": 20.93
+      "change_pct": 2.73,
+      "ytd_pct": 21.54
     }
   },
   "gainers": [
+    {
+      "name": "Egyptian Arabian(Themar)Comp. For Securities&Bonds Brok. EAC",
+      "price": 6.12,
+      "change_pct": 20.0
+    },
     {
       "name": "Misr Oils & Soap",
       "price": 298.21,
       "change_pct": 20.0
     },
     {
-      "name": "Egyptian Arabian(Themar)Comp. For Securities&Bonds Brok. EAC",
-      "price": 6.03,
-      "change_pct": 18.24
+      "name": "Lotus For Agricultural Investments And Development",
+      "price": 0.729,
+      "change_pct": 11.81
+    },
+    {
+      "name": "GPI For Urban Growth",
+      "price": 1.14,
+      "change_pct": 11.76
     },
     {
       "name": "Tycoon Holding Company For Financial Investments",
-      "price": 23.6,
-      "change_pct": 9.01
-    },
-    {
-      "name": "Palm Hills Development Company",
-      "price": 15.78,
-      "change_pct": 8.83
-    },
-    {
-      "name": "El Obour Real Estate Investment",
-      "price": 36.88,
-      "change_pct": 7.8
+      "price": 23.96,
+      "change_pct": 10.67
     }
   ],
   "losers": [
     {
       "name": "Middle & West Delta Flour Mills",
-      "price": 505.6,
-      "change_pct": -6.34
+      "price": 507.59,
+      "change_pct": -5.97
     },
     {
       "name": "Subscription Rights Of Aspire Cap Hold for Financ Invest-3",
@@ -79,18 +79,18 @@
     },
     {
       "name": "Abou Kir Fertilizers",
-      "price": 72.91,
-      "change_pct": -4.69
+      "price": 72.75,
+      "change_pct": -4.9
     },
     {
       "name": "El Nasr For Manufacturing Agricultural Crops",
-      "price": 37.65,
-      "change_pct": -4.39
+      "price": 37.74,
+      "change_pct": -4.16
     },
     {
       "name": "Misr Fertilizers Production Company - Mopco",
-      "price": 38.32,
-      "change_pct": -4.15
+      "price": 38.42,
+      "change_pct": -3.9
     }
   ]
 }
