@@ -1,54 +1,54 @@
 {
   "source": "https://goldbullioneg.com/%d8%a3%d8%b3%d8%b9%d8%a7%d8%b1-%d8%a7%d9%84%d8%b0%d9%87%d8%a8/",
-  "lastUpdated": "2026-06-22 02:13 UTC",
+  "lastUpdated": "2026-06-22 09:35 UTC",
   "scrape_error": null,
   "prices": {
     "k24": {
       "label_ar": "عيار 24",
-      "buy": 6829.0,
-      "sell": 6795.0,
+      "buy": 6857.0,
+      "sell": 6811.0,
       "unit": "EGP/g"
     },
     "k22": {
       "label_ar": "عيار 22",
-      "buy": 6260.0,
-      "sell": 6229.0,
+      "buy": 6286.0,
+      "sell": 6243.0,
       "unit": "EGP/g"
     },
     "k21": {
       "label_ar": "عيار 21",
-      "buy": 5975.0,
-      "sell": 5945.0,
+      "buy": 6000.0,
+      "sell": 5960.0,
       "unit": "EGP/g"
     },
     "k18": {
       "label_ar": "عيار 18",
-      "buy": 5121.0,
-      "sell": 5095.0,
+      "buy": 5143.0,
+      "sell": 5107.0,
       "unit": "EGP/g"
     },
     "k14": {
       "label_ar": "عيار 14",
-      "buy": 3983.0,
-      "sell": 3963.0,
+      "buy": 4000.0,
+      "sell": 3970.0,
       "unit": "EGP/g"
     },
     "usd_egp": {
       "label_ar": "الدولار",
-      "buy": 49.95,
-      "sell": 49.85,
+      "buy": 49.9,
+      "sell": 49.8,
       "unit": "EGP/USD"
     },
     "ounce_usd": {
       "label_ar": "الأونصة",
-      "buy": 4155.0,
-      "sell": 4154.5,
+      "buy": 4207.0,
+      "sell": 4206.5,
       "unit": "USD/oz"
     },
     "gold_pound": {
       "label_ar": "الجنيه الذهب",
-      "buy": 47800.0,
-      "sell": 47560.0,
+      "buy": 48000.0,
+      "sell": 47680.0,
       "unit": "EGP"
     }
   }
