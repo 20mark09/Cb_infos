@@ -1,96 +1,96 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-21 14:12 UTC",
+  "lastUpdated": "2026-06-22 12:51 UTC",
   "indices": {
     "EGX30": {
-      "date": "21/06/2026",
-      "value": 52679.45,
-      "open": 52621.84,
-      "high": 52859.35,
-      "low": 52619.29,
-      "change_pct": 0.11,
-      "ytd_pct": 25.94
+      "date": "22/06/2026",
+      "value": 52585.72,
+      "open": 52679.45,
+      "high": 52789.86,
+      "low": 52469.7,
+      "change_pct": -0.18,
+      "ytd_pct": 25.72
     },
     "SHARIAH": {
-      "date": "21/06/2026",
-      "value": 52679.45,
-      "open": 52621.84,
-      "high": 52859.35,
-      "low": 52619.29,
-      "change_pct": 0.11,
-      "ytd_pct": 25.94
+      "date": "22/06/2026",
+      "value": 52585.72,
+      "open": 52679.45,
+      "high": 52789.86,
+      "low": 52469.7,
+      "change_pct": -0.18,
+      "ytd_pct": 25.72
     },
     "EGX70": {
-      "date": "21/06/2026",
-      "value": 15759.79,
-      "open": 15543.54,
-      "high": 15759.79,
-      "low": 15543.54,
-      "change_pct": 1.39,
-      "ytd_pct": 20.07
+      "date": "22/06/2026",
+      "value": 15728.02,
+      "open": 15759.79,
+      "high": 15861.63,
+      "low": 15697.46,
+      "change_pct": -0.2,
+      "ytd_pct": 19.83
     },
     "EGX100": {
-      "date": "21/06/2026",
-      "value": 21591.9,
-      "open": 21354.78,
-      "high": 21591.9,
-      "low": 21354.78,
-      "change_pct": 1.11,
-      "ytd_pct": 23.91
+      "date": "22/06/2026",
+      "value": 21550.86,
+      "open": 21591.9,
+      "high": 21705.08,
+      "low": 21515.38,
+      "change_pct": -0.19,
+      "ytd_pct": 23.67
     }
   },
   "gainers": [
     {
-      "name": "Housing & Development Bank",
-      "price": 160.0,
-      "change_pct": 10.03
+      "name": "ASEC Company For Mining - ASCOM",
+      "price": 67.13,
+      "change_pct": 13.57
     },
     {
-      "name": "Naeem Real Estate Holding Group",
-      "price": 14.0,
-      "change_pct": 9.03
+      "name": "Misr Hotels",
+      "price": 36.01,
+      "change_pct": 11.07
     },
     {
-      "name": "Lotus For Agricultural Investments And Development",
-      "price": 0.785,
-      "change_pct": 8.43
+      "name": "Ceramic & Porcelain",
+      "price": 29.77,
+      "change_pct": 8.65
     },
     {
-      "name": "The Arab Dairy Products Co. Arab Dairy - Panda",
-      "price": 3.92,
-      "change_pct": 7.99
+      "name": "GB Corp",
+      "price": 31.3,
+      "change_pct": 7.89
     },
     {
-      "name": "Aspire Capital Holding For Financial Investments",
-      "price": 0.33,
-      "change_pct": 7.84
+      "name": "El Ahli Investment and Development",
+      "price": 47.0,
+      "change_pct": 6.0
     }
   ],
   "losers": [
     {
-      "name": "Pioneers Properties For Urban Development - PRE Group",
-      "price": 7.91,
-      "change_pct": -9.6
+      "name": "Tycoon Holding Company For Financial Investments",
+      "price": 33.12,
+      "change_pct": -20.0
     },
     {
-      "name": "Egyptian Arabian(Themar)Comp. For Securities&Bonds Brok. EAC",
-      "price": 8.02,
-      "change_pct": -5.65
+      "name": "Pioneers Properties For Urban Development - PRE Group",
+      "price": 6.9,
+      "change_pct": -12.77
+    },
+    {
+      "name": "Subscription Rights Of Aspire Cap Hold for Financ Invest-3",
+      "price": 0.091,
+      "change_pct": -8.08
     },
     {
       "name": "El Kahera El Watania Investment",
-      "price": 74.61,
-      "change_pct": -5.0
+      "price": 69.63,
+      "change_pct": -6.67
     },
     {
-      "name": "AJWA for Food Industries company    Egypt",
-      "price": 176.15,
-      "change_pct": -4.7
-    },
-    {
-      "name": "Ismailia National Food Industries",
-      "price": 93.23,
-      "change_pct": -3.67
+      "name": "Bonyan for Development and Trade",
+      "price": 4.8,
+      "change_pct": -5.7
     }
   ]
 }
