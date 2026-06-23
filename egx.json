@@ -1,69 +1,69 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-23 10:37 UTC",
+  "lastUpdated": "2026-06-23 14:50 UTC",
   "indices": {
     "EGX30": {
       "date": "23/06/2026",
-      "value": 51936.88,
+      "value": 51769.74,
       "open": 52585.72,
       "high": 52674.7,
-      "low": 51810.6,
-      "change_pct": -1.23,
-      "ytd_pct": 24.16
+      "low": 51769.74,
+      "change_pct": -1.55,
+      "ytd_pct": 23.77
     },
     "SHARIAH": {
       "date": "23/06/2026",
-      "value": 51936.88,
+      "value": 51769.74,
       "open": 52585.72,
       "high": 52674.7,
-      "low": 51810.6,
-      "change_pct": -1.23,
-      "ytd_pct": 24.16
+      "low": 51769.74,
+      "change_pct": -1.55,
+      "ytd_pct": 23.77
     },
     "EGX70": {
       "date": "23/06/2026",
-      "value": 15627.77,
+      "value": 15596.17,
       "open": 15728.02,
       "high": 15812.01,
       "low": 15509.32,
-      "change_pct": -0.64,
-      "ytd_pct": 19.07
+      "change_pct": -0.84,
+      "ytd_pct": 18.82
     },
     "EGX100": {
       "date": "23/06/2026",
-      "value": 21370.38,
+      "value": 21324.44,
       "open": 21550.86,
       "high": 21638.24,
       "low": 21226.56,
-      "change_pct": -0.84,
-      "ytd_pct": 22.64
+      "change_pct": -1.05,
+      "ytd_pct": 22.37
     }
   },
   "gainers": [
     {
       "name": "TAWASOA For Factoring",
-      "price": 5.83,
-      "change_pct": 10.63
+      "price": 6.1,
+      "change_pct": 15.75
+    },
+    {
+      "name": "Contact Financial Holding",
+      "price": 5.14,
+      "change_pct": 8.9
     },
     {
       "name": "Misr Duty Free Shops",
-      "price": 51.64,
-      "change_pct": 10.48
+      "price": 50.63,
+      "change_pct": 8.32
     },
     {
-      "name": "Cleopatra Hospital Company",
-      "price": 16.66,
-      "change_pct": 7.28
-    },
-    {
-      "name": "Memphis Pharmaceuticals",
-      "price": 250.24,
-      "change_pct": 6.49
+      "name": "Ceramic & Porcelain",
+      "price": 32.2,
+      "change_pct": 8.16
     },
     {
       "name": "Naeem Real Estate Holding Group",
-      "price": 14.12,
-      "change_pct": 5.93
+      "price": 14.34,
+      "change_pct": 7.58
     }
   ],
   "losers": [
@@ -74,23 +74,23 @@
     },
     {
       "name": "Subscription Rights Of Aspire Cap Hold for Financ Invest-3",
-      "price": 0.085,
-      "change_pct": -6.59
+      "price": 0.083,
+      "change_pct": -8.79
     },
     {
       "name": "Egyptian Arabian(Themar)Comp. For Securities&Bonds Brok. EAC",
-      "price": 7.51,
-      "change_pct": -4.94
+      "price": 7.41,
+      "change_pct": -6.2
     },
     {
-      "name": "El Kahera El Watania Investment",
-      "price": 66.35,
-      "change_pct": -4.71
+      "name": "ASEC Company For Mining - ASCOM",
+      "price": 63.01,
+      "change_pct": -6.14
     },
     {
-      "name": "FERCHEM MISR CO. FOR FERTILLIZERS & CHEMICALS",
-      "price": 76.52,
-      "change_pct": -4.35
+      "name": "North Cairo Mills",
+      "price": 130.29,
+      "change_pct": -5.51
     }
   ]
 }
