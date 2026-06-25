@@ -1,42 +1,42 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-25 10:16 UTC",
+  "lastUpdated": "2026-06-25 14:34 UTC",
   "indices": {
     "EGX30": {
       "date": "25/06/2026",
-      "value": 51372.32,
+      "value": 51443.07,
       "open": 51710.9,
       "high": 51912.16,
-      "low": 51363.41,
-      "change_pct": -0.65,
-      "ytd_pct": 22.82
+      "low": 51211.44,
+      "change_pct": -0.52,
+      "ytd_pct": 22.98
     },
     "SHARIAH": {
       "date": "25/06/2026",
-      "value": 51372.32,
+      "value": 51443.07,
       "open": 51710.9,
       "high": 51912.16,
-      "low": 51363.41,
-      "change_pct": -0.65,
-      "ytd_pct": 22.82
+      "low": 51211.44,
+      "change_pct": -0.52,
+      "ytd_pct": 22.98
     },
     "EGX70": {
       "date": "25/06/2026",
-      "value": 15570.37,
+      "value": 15511.38,
       "open": 15566.28,
       "high": 15632.14,
-      "low": 15562.05,
-      "change_pct": 0.03,
-      "ytd_pct": 18.63
+      "low": 15480.49,
+      "change_pct": -0.35,
+      "ytd_pct": 18.18
     },
     "EGX100": {
       "date": "25/06/2026",
-      "value": 21256.95,
+      "value": 21196.51,
       "open": 21317.59,
       "high": 21380.8,
-      "low": 21248.41,
-      "change_pct": -0.28,
-      "ytd_pct": 21.98
+      "low": 21148.05,
+      "change_pct": -0.57,
+      "ytd_pct": 21.64
     }
   },
   "gainers": [
@@ -46,51 +46,51 @@
       "change_pct": 20.0
     },
     {
+      "name": "Egyptian Transport & Commercial Services Co. -EGYTRANS NOSCO",
+      "price": 11.3,
+      "change_pct": 10.68
+    },
+    {
       "name": "Golden Textiles & Clothes Wool",
-      "price": 65.69,
-      "change_pct": 14.08
+      "price": 63.05,
+      "change_pct": 9.5
     },
     {
       "name": "Lecico Egypt",
-      "price": 30.51,
-      "change_pct": 11.64
+      "price": 29.72,
+      "change_pct": 8.74
     },
     {
-      "name": "El Kahera El Watania Investment",
-      "price": 71.71,
-      "change_pct": 8.31
-    },
-    {
-      "name": "Egyptian Transport & Commercial Services Co. -EGYTRANS NOSCO",
-      "price": 10.83,
-      "change_pct": 6.07
+      "name": "International Co For Investment & Development",
+      "price": 8.05,
+      "change_pct": 6.62
     }
   ],
   "losers": [
     {
       "name": "Subscription Rights Of Aspire Cap Hold for Financ Invest-3",
-      "price": 0.069,
-      "change_pct": -14.81
-    },
-    {
-      "name": "Catalyst Partners Middle East –CPME",
-      "price": 18.16,
-      "change_pct": -5.66
-    },
-    {
-      "name": "Extracted Oils",
-      "price": 10.9,
-      "change_pct": -4.8
+      "price": 0.072,
+      "change_pct": -11.11
     },
     {
       "name": "Orascom Construction PLC",
-      "price": 753.17,
-      "change_pct": -4.57
+      "price": 734.0,
+      "change_pct": -6.99
     },
     {
-      "name": "Arab Aluminum",
-      "price": 21.84,
-      "change_pct": -3.75
+      "name": "Natural Gas & Mining Project (Egypt Gas)",
+      "price": 49.14,
+      "change_pct": -5.48
+    },
+    {
+      "name": "Remco for Touristic Villages Construction",
+      "price": 3.63,
+      "change_pct": -4.97
+    },
+    {
+      "name": "El Ahli Investment and Development",
+      "price": 44.41,
+      "change_pct": -4.9
     }
   ]
 }
