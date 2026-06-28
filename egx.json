@@ -1,96 +1,96 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-27 13:44 UTC",
+  "lastUpdated": "2026-06-28 09:57 UTC",
   "indices": {
     "EGX30": {
-      "date": "25/06/2026",
-      "value": 51443.07,
-      "open": 51710.9,
-      "high": 51912.16,
-      "low": 51211.44,
-      "change_pct": -0.52,
-      "ytd_pct": 22.98
+      "date": "28/06/2026",
+      "value": 50771.83,
+      "open": 51443.07,
+      "high": 51493.05,
+      "low": 50761.97,
+      "change_pct": -1.3,
+      "ytd_pct": 21.38
     },
     "SHARIAH": {
-      "date": "25/06/2026",
-      "value": 51443.07,
-      "open": 51710.9,
-      "high": 51912.16,
-      "low": 51211.44,
-      "change_pct": -0.52,
-      "ytd_pct": 22.98
+      "date": "28/06/2026",
+      "value": 50771.83,
+      "open": 51443.07,
+      "high": 51493.05,
+      "low": 50761.97,
+      "change_pct": -1.3,
+      "ytd_pct": 21.38
     },
     "EGX70": {
-      "date": "25/06/2026",
-      "value": 15511.38,
-      "open": 15566.28,
-      "high": 15632.14,
-      "low": 15480.49,
-      "change_pct": -0.35,
-      "ytd_pct": 18.18
+      "date": "28/06/2026",
+      "value": 15371.89,
+      "open": 15511.38,
+      "high": 15550.83,
+      "low": 15341.78,
+      "change_pct": -0.9,
+      "ytd_pct": 17.12
     },
     "EGX100": {
-      "date": "25/06/2026",
-      "value": 21196.51,
-      "open": 21317.59,
-      "high": 21380.8,
-      "low": 21148.05,
-      "change_pct": -0.57,
-      "ytd_pct": 21.64
+      "date": "28/06/2026",
+      "value": 20978.06,
+      "open": 21196.51,
+      "high": 21221.96,
+      "low": 20930.99,
+      "change_pct": -1.03,
+      "ytd_pct": 20.38
     }
   },
   "gainers": [
     {
       "name": "Tycoon Holding Company For Financial Investments",
-      "price": 25.44,
-      "change_pct": 20.0
+      "price": 30.52,
+      "change_pct": 19.97
     },
     {
-      "name": "Egyptian Transport & Commercial Services Co. -EGYTRANS NOSCO",
-      "price": 11.3,
-      "change_pct": 10.68
+      "name": "Iron And Steel for Mines and Quarries",
+      "price": 9.21,
+      "change_pct": 6.35
     },
     {
-      "name": "Golden Textiles & Clothes Wool",
-      "price": 63.05,
-      "change_pct": 9.5
+      "name": "Rubex International for Plastic and Acrylic Manufacturing",
+      "price": 11.12,
+      "change_pct": 5.8
     },
     {
-      "name": "Lecico Egypt",
-      "price": 29.72,
-      "change_pct": 8.74
+      "name": "Engineering Industries (ICON)",
+      "price": 37.48,
+      "change_pct": 5.25
     },
     {
-      "name": "International Co For Investment & Development",
-      "price": 8.05,
-      "change_pct": 6.62
+      "name": "GMC GROUP FOR INDUSTRIAL COMMERCIAL & FINANCIAL INVESTMENTS",
+      "price": 1.79,
+      "change_pct": 4.68
     }
   ],
   "losers": [
     {
       "name": "Subscription Rights Of Aspire Cap Hold for Financ Invest-3",
-      "price": 0.072,
-      "change_pct": -11.11
+      "price": 0.063,
+      "change_pct": -12.5
+    },
+    {
+      "name": "Egyptian Arabian(Themar)Comp. For Securities&Bonds Brok. EAC",
+      "price": 7.65,
+      "change_pct": -5.67
     },
     {
       "name": "Orascom Construction PLC",
-      "price": 734.0,
-      "change_pct": -6.99
+      "price": 697.6,
+      "change_pct": -4.96
     },
     {
-      "name": "Natural Gas & Mining Project (Egypt Gas)",
-      "price": 49.14,
-      "change_pct": -5.48
+      "name": "Ibnsina Pharma",
+      "price": 11.48,
+      "change_pct": -4.73
     },
     {
-      "name": "Remco for Touristic Villages Construction",
-      "price": 3.63,
-      "change_pct": -4.97
-    },
-    {
-      "name": "El Ahli Investment and Development",
-      "price": 44.41,
-      "change_pct": -4.9
+      "name": "Six of October Development & Investment (SODIC)",
+      "price": 24.2,
+      "change_pct": -4.69
     }
   ]
 }
