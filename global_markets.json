@@ -1,28 +1,28 @@
 {
   "source": "Yahoo Finance via yfinance",
-  "lastUpdated": "2026-06-29 19:19 UTC",
+  "lastUpdated": "2026-06-29 21:02 UTC",
   "scrape_error": null,
   "indices": {
     "SP500": {
-      "value": 7436.1401,
-      "change_pct": 1.12,
-      "change_pts": 82.1201,
+      "value": 7440.4302,
+      "change_pct": 1.18,
+      "change_pts": 86.4102,
       "open": 7391.8799,
-      "high": 7440.6401,
+      "high": 7444.3198,
       "low": 7348.8799
     },
     "NASDAQ": {
-      "value": 29744.3477,
-      "change_pct": 2.15,
-      "change_pts": 626.1097,
+      "value": 29774.752,
+      "change_pct": 2.25,
+      "change_pts": 656.514,
       "open": 29310.2578,
-      "high": 29785.2988,
+      "high": 29792.6328,
       "low": 28991.5234
     },
     "DOW": {
-      "value": 52202.4805,
-      "change_pct": 0.63,
-      "change_pts": 326.3705,
+      "value": 52182.7383,
+      "change_pct": 0.59,
+      "change_pts": 306.6283,
       "open": 51995.1406,
       "high": 52311.6289,
       "low": 51949.5391
@@ -86,49 +86,49 @@
   },
   "commodities": {
     "GOLD_USD": {
-      "value": 4026.1001,
-      "change_pct": -1.4,
-      "change_pts": -57.0999,
+      "value": 4031.0,
+      "change_pct": -1.28,
+      "change_pts": -52.2,
       "open": 4101.1001,
       "high": 4102.8999,
       "low": 4012.0
     },
     "SILVER_USD": {
-      "value": 58.585,
-      "change_pct": -0.79,
-      "change_pts": -0.465,
+      "value": 58.705,
+      "change_pct": -0.58,
+      "change_pts": -0.345,
       "open": 59.3,
       "high": 59.925,
       "low": 57.84
     },
     "OIL_BRENT": {
-      "value": 73.72,
-      "change_pct": 0.59,
-      "change_pts": 0.43,
+      "value": 73.64,
+      "change_pct": 0.48,
+      "change_pts": 0.35,
       "open": 73.6,
       "high": 74.24,
       "low": 72.58
     },
     "OIL_WTI": {
-      "value": 70.52,
-      "change_pct": 0.66,
-      "change_pts": 0.46,
+      "value": 70.45,
+      "change_pct": 0.56,
+      "change_pts": 0.39,
       "open": 70.5,
       "high": 71.15,
       "low": 69.32
     },
     "NAT_GAS": {
-      "value": 3.173,
-      "change_pct": -4.05,
-      "change_pts": -0.134,
+      "value": 3.174,
+      "change_pct": -4.02,
+      "change_pts": -0.133,
       "open": 3.281,
       "high": 3.313,
       "low": 3.163
     },
     "COPPER": {
-      "value": 6.174,
-      "change_pct": -0.44,
-      "change_pts": -0.0275,
+      "value": 6.1735,
+      "change_pct": -0.45,
+      "change_pts": -0.028,
       "open": 6.186,
       "high": 6.2405,
       "low": 6.1335
@@ -144,39 +144,39 @@
   },
   "crypto": {
     "BTC": {
-      "price_usd": 60129.0,
-      "change_24h_pct": 1.1,
-      "change_24h_pts": 656.6992
+      "price_usd": 60226.0,
+      "change_24h_pct": 1.27,
+      "change_24h_pts": 753.6992
     },
     "ETH": {
-      "price_usd": 1616.41,
-      "change_24h_pct": 3.0,
-      "change_24h_pts": 47.01
+      "price_usd": 1615.4399,
+      "change_24h_pct": 2.93,
+      "change_24h_pts": 46.0399
     },
     "BNB": {
-      "price_usd": 559.74,
-      "change_24h_pct": 1.72,
-      "change_24h_pts": 9.44
+      "price_usd": 559.34,
+      "change_24h_pct": 1.64,
+      "change_24h_pts": 9.04
     },
     "SOL": {
-      "price_usd": 75.62,
-      "change_24h_pct": 6.09,
-      "change_24h_pts": 4.34
+      "price_usd": 75.3,
+      "change_24h_pct": 5.64,
+      "change_24h_pts": 4.02
     },
     "XRP": {
-      "price_usd": 1.0643,
-      "change_24h_pct": 1.67,
-      "change_24h_pts": 0.0175
+      "price_usd": 1.0623,
+      "change_24h_pct": 1.48,
+      "change_24h_pts": 0.0155
     },
     "ADA": {
-      "price_usd": 0.1469,
-      "change_24h_pct": 2.23,
-      "change_24h_pts": 0.0032
+      "price_usd": 0.1467,
+      "change_24h_pct": 2.09,
+      "change_24h_pts": 0.003
     },
     "DOGE": {
-      "price_usd": 0.0738,
-      "change_24h_pct": 0.99,
-      "change_24h_pts": 0.0007
+      "price_usd": 0.0736,
+      "change_24h_pct": 0.78,
+      "change_24h_pts": 0.0006
     },
     "USDT": {
       "price_usd": 0.9984,
