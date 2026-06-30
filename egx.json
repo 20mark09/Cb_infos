@@ -1,42 +1,42 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-06-30 10:32 UTC",
+  "lastUpdated": "2026-06-30 14:20 UTC",
   "indices": {
     "EGX30": {
       "date": "30/06/2026",
-      "value": 50275.38,
+      "value": 50487.96,
       "open": 49825.58,
       "high": 50702.05,
       "low": 49825.58,
-      "change_pct": 0.9,
-      "ytd_pct": 20.19
+      "change_pct": 1.33,
+      "ytd_pct": 20.7
     },
     "SHARIAH": {
       "date": "30/06/2026",
-      "value": 50275.38,
+      "value": 50487.96,
       "open": 49825.58,
       "high": 50702.05,
       "low": 49825.58,
-      "change_pct": 0.9,
-      "ytd_pct": 20.19
+      "change_pct": 1.33,
+      "ytd_pct": 20.7
     },
     "EGX70": {
       "date": "30/06/2026",
-      "value": 15355.16,
+      "value": 15503.28,
       "open": 15185.64,
-      "high": 15434.99,
+      "high": 15503.28,
       "low": 15185.64,
-      "change_pct": 1.12,
-      "ytd_pct": 16.99
+      "change_pct": 2.09,
+      "ytd_pct": 18.12
     },
     "EGX100": {
       "date": "30/06/2026",
-      "value": 20953.51,
+      "value": 21141.62,
       "open": 20733.32,
-      "high": 21073.74,
+      "high": 21141.62,
       "low": 20733.32,
-      "change_pct": 1.06,
-      "ytd_pct": 20.24
+      "change_pct": 1.97,
+      "ytd_pct": 21.32
     }
   },
   "gainers": [
@@ -52,45 +52,45 @@
     },
     {
       "name": "Alexandria New Medical Center",
-      "price": 65.71,
-      "change_pct": 18.87
+      "price": 66.03,
+      "change_pct": 19.45
     },
     {
       "name": "Sues Canal Company For Technology Settling",
-      "price": 630.25,
-      "change_pct": 16.22
+      "price": 620.01,
+      "change_pct": 14.33
     },
     {
       "name": "TAWASOA For Factoring",
-      "price": 6.91,
-      "change_pct": 16.13
+      "price": 6.79,
+      "change_pct": 14.12
     }
   ],
   "losers": [
     {
-      "name": "Ismailia Misr Poultry",
-      "price": 28.12,
-      "change_pct": -3.0
+      "name": "Misr Oils & Soap",
+      "price": 271.83,
+      "change_pct": -4.55
+    },
+    {
+      "name": "Egyptian Financial & Industrial",
+      "price": 181.31,
+      "change_pct": -4.13
     },
     {
       "name": "Rakta Paper Manufacturing",
-      "price": 21.8,
-      "change_pct": -2.81
+      "price": 21.67,
+      "change_pct": -3.39
     },
     {
-      "name": "Extracted Oils",
-      "price": 10.87,
-      "change_pct": -2.51
-    },
-    {
-      "name": "Misr Oils & Soap",
-      "price": 278.52,
-      "change_pct": -2.2
+      "name": "Catalyst Partners Middle East –CPME",
+      "price": 19.25,
+      "change_pct": -3.17
     },
     {
       "name": "Egyptian Arabian(Themar)Comp. For Securities&Bonds Brok. EAC",
-      "price": 7.42,
-      "change_pct": -1.72
+      "price": 7.34,
+      "change_pct": -2.78
     }
   ]
 }
