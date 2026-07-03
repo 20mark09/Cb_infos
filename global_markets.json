@@ -1,6 +1,6 @@
 {
   "source": "Yahoo Finance via yfinance",
-  "lastUpdated": "2026-07-03 18:37 UTC",
+  "lastUpdated": "2026-07-03 20:02 UTC",
   "scrape_error": null,
   "indices": {
     "SP500": {
@@ -144,39 +144,39 @@
   },
   "crypto": {
     "BTC": {
-      "price_usd": 62147.7617,
-      "change_24h_pct": 1.08,
-      "change_24h_pts": 663.7422
+      "price_usd": 62135.0,
+      "change_24h_pct": 1.06,
+      "change_24h_pts": 650.9688
     },
     "ETH": {
-      "price_usd": 1736.96,
-      "change_24h_pct": 2.27,
-      "change_24h_pts": 38.52
+      "price_usd": 1742.4301,
+      "change_24h_pct": 2.59,
+      "change_24h_pts": 43.9901
     },
     "BNB": {
-      "price_usd": 567.65,
-      "change_24h_pct": 1.69,
-      "change_24h_pts": 9.4301
+      "price_usd": 569.39,
+      "change_24h_pct": 2.0,
+      "change_24h_pts": 11.17
     },
     "SOL": {
-      "price_usd": 81.77,
-      "change_24h_pct": 1.41,
-      "change_24h_pts": 1.14
+      "price_usd": 82.29,
+      "change_24h_pct": 2.07,
+      "change_24h_pts": 1.67
     },
     "XRP": {
-      "price_usd": 1.1235,
-      "change_24h_pct": 3.36,
-      "change_24h_pts": 0.0365
+      "price_usd": 1.1286,
+      "change_24h_pct": 3.83,
+      "change_24h_pts": 0.0416
     },
     "ADA": {
-      "price_usd": 0.1801,
-      "change_24h_pct": 11.66,
-      "change_24h_pts": 0.0188
+      "price_usd": 0.1817,
+      "change_24h_pct": 12.65,
+      "change_24h_pts": 0.0204
     },
     "DOGE": {
-      "price_usd": 0.0769,
-      "change_24h_pct": 3.74,
-      "change_24h_pts": 0.0028
+      "price_usd": 0.0772,
+      "change_24h_pct": 4.16,
+      "change_24h_pts": 0.0031
     },
     "USDT": {
       "price_usd": 0.9991,
