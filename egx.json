@@ -1,86 +1,81 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-07-05 09:43 UTC",
+  "lastUpdated": "2026-07-05 13:40 UTC",
   "indices": {
     "EGX30": {
       "date": "05/07/2026",
-      "value": 51052.67,
+      "value": 51130.89,
       "open": 50532.7,
-      "high": 51120.9,
+      "high": 51171.73,
       "low": 50532.7,
-      "change_pct": 1.03,
-      "ytd_pct": 22.05
+      "change_pct": 1.18,
+      "ytd_pct": 22.24
     },
     "SHARIAH": {
       "date": "05/07/2026",
-      "value": 51052.67,
+      "value": 51130.89,
       "open": 50532.7,
-      "high": 51120.9,
+      "high": 51171.73,
       "low": 50532.7,
-      "change_pct": 1.03,
-      "ytd_pct": 22.05
+      "change_pct": 1.18,
+      "ytd_pct": 22.24
     },
     "EGX70": {
       "date": "05/07/2026",
-      "value": 15878.43,
+      "value": 15954.04,
       "open": 15680.9,
-      "high": 15905.56,
+      "high": 15954.04,
       "low": 15680.9,
-      "change_pct": 1.26,
-      "ytd_pct": 20.98
+      "change_pct": 1.74,
+      "ytd_pct": 21.55
     },
     "EGX100": {
       "date": "05/07/2026",
-      "value": 21561.76,
+      "value": 21655.69,
       "open": 21330.57,
-      "high": 21592.18,
+      "high": 21655.69,
       "low": 21330.57,
-      "change_pct": 1.08,
-      "ytd_pct": 23.73
+      "change_pct": 1.52,
+      "ytd_pct": 24.27
     }
   },
   "gainers": [
     {
-      "name": "Delta For Printing & Packaging",
-      "price": 230.0,
-      "change_pct": 15.43
+      "name": "El Shams Housing & Urbanization",
+      "price": 13.83,
+      "change_pct": 18.41
+    },
+    {
+      "name": "El Arabia Engineering Industries",
+      "price": 2.73,
+      "change_pct": 9.64
     },
     {
       "name": "El Obour Real Estate Investment",
-      "price": 38.51,
-      "change_pct": 10.03
+      "price": 38.01,
+      "change_pct": 8.6
     },
     {
-      "name": "El Shams Housing & Urbanization",
-      "price": 12.47,
-      "change_pct": 6.76
+      "name": "Egyptian for Tourism Resorts",
+      "price": 19.21,
+      "change_pct": 8.53
     },
     {
       "name": "Rubex International for Plastic and Acrylic Manufacturing",
-      "price": 13.13,
-      "change_pct": 6.06
-    },
-    {
-      "name": "Industrial & Engineering Projects",
-      "price": 0.486,
-      "change_pct": 5.88
+      "price": 13.25,
+      "change_pct": 7.03
     }
   ],
   "losers": [
     {
-      "name": "Tycoon Holding Company For Financial Investments",
-      "price": 26.08,
-      "change_pct": -5.2
+      "name": "El-Nile Co. For Pharmaceuticals And Chemical Industries",
+      "price": 173.05,
+      "change_pct": -3.86
     },
     {
       "name": "East Delta Flour Mills",
-      "price": 319.66,
-      "change_pct": -3.31
-    },
-    {
-      "name": "El-Nile Co. For Pharmaceuticals And Chemical Industries",
-      "price": 175.09,
-      "change_pct": -2.73
+      "price": 320.43,
+      "change_pct": -3.07
     },
     {
       "name": "Osool ESB Securities Brokerage",
@@ -89,8 +84,13 @@
     },
     {
       "name": "GB Corp",
-      "price": 31.25,
-      "change_pct": -2.07
+      "price": 31.17,
+      "change_pct": -2.32
+    },
+    {
+      "name": "Egyptian Arabian(Themar)Comp. For Securities&Bonds Brok. EAC",
+      "price": 7.38,
+      "change_pct": -2.12
     }
   ]
 }
