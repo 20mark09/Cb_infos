@@ -1,15 +1,15 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-07-08 09:26 UTC",
+  "lastUpdated": "2026-07-08 14:08 UTC",
   "indices": {
     "EGX30": {
       "date": "08/07/2026",
-      "value": 52174.21,
+      "value": 52028.37,
       "open": 53006.11,
       "high": 53006.11,
-      "low": 52171.86,
-      "change_pct": -1.57,
-      "ytd_pct": 24.73
+      "low": 51820.41,
+      "change_pct": -1.84,
+      "ytd_pct": 24.38
     },
     "SHARIAH": {
       "date": null,
@@ -42,55 +42,55 @@
   "gainers": [
     {
       "name": "Alexandria New Medical Center",
-      "price": 65.05,
-      "change_pct": 10.27
+      "price": 70.78,
+      "change_pct": 19.99
     },
     {
-      "name": "GMC GROUP FOR INDUSTRIAL COMMERCIAL & FINANCIAL INVESTMENTS",
-      "price": 2.18,
-      "change_pct": 4.81
+      "name": "Saudi Egyptian Investment & Finance",
+      "price": 257.1,
+      "change_pct": 12.51
     },
     {
       "name": "Delta For Printing & Packaging",
-      "price": 202.6,
-      "change_pct": 3.83
+      "price": 206.99,
+      "change_pct": 6.08
     },
     {
-      "name": "Gourmet Egypt.Com Foods",
-      "price": 14.74,
-      "change_pct": 3.29
+      "name": "Giza General Contracting",
+      "price": 0.548,
+      "change_pct": 5.79
     },
     {
-      "name": "Lecico Egypt",
-      "price": 31.15,
-      "change_pct": 3.15
+      "name": "Elsaeed Contracting& Real Estate Investment Company SCCD",
+      "price": 1.72,
+      "change_pct": 5.52
     }
   ],
   "losers": [
     {
       "name": "Tycoon Holding Company For Financial Investments",
-      "price": 21.67,
-      "change_pct": -12.27
+      "price": 20.33,
+      "change_pct": -17.69
     },
     {
-      "name": "El Kahera Housing",
-      "price": 1.38,
-      "change_pct": -4.83
+      "name": "El Arabia for Land Reclamation",
+      "price": 363.78,
+      "change_pct": -5.01
     },
     {
       "name": "El Ahram Co. For Printing And Packing",
-      "price": 14.42,
-      "change_pct": -4.25
+      "price": 14.32,
+      "change_pct": -4.91
     },
     {
-      "name": "El Arabia Engineering Industries",
-      "price": 2.73,
-      "change_pct": -4.21
+      "name": "General Company For Land Reclamation,Development & Reconstru",
+      "price": 219.73,
+      "change_pct": -4.87
     },
     {
-      "name": "Arabia for Investment and Development",
-      "price": 0.654,
-      "change_pct": -3.68
+      "name": "El Nasr For Manufacturing Agricultural Crops",
+      "price": 37.03,
+      "change_pct": -4.76
     }
   ]
 }
