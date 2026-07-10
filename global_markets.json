@@ -1,6 +1,6 @@
 {
   "source": "Yahoo Finance via yfinance",
-  "lastUpdated": "2026-07-09 22:08 UTC",
+  "lastUpdated": "2026-07-10 08:56 UTC",
   "scrape_error": null,
   "indices": {
     "SP500": {
@@ -12,12 +12,12 @@
       "low": 7481.73
     },
     "NASDAQ": {
-      "value": 29727.0977,
+      "value": 29727.0996,
       "change_pct": 1.62,
-      "change_pts": 474.5357,
-      "open": 29486.6133,
-      "high": 29773.7441,
-      "low": 29398.4727
+      "change_pts": 474.5376,
+      "open": 29486.6094,
+      "high": 29773.7402,
+      "low": 29398.4707
     },
     "DOW": {
       "value": 52487.4102,
@@ -28,160 +28,160 @@
       "low": 52249.4414
     },
     "FTSE": {
-      "value": 10472.4502,
-      "change_pct": -0.16,
-      "change_pts": -16.5898,
-      "open": 10487.8896,
-      "high": 10539.4697,
-      "low": 10397.4805
+      "value": 10473.0498,
+      "change_pct": 0.01,
+      "change_pts": 0.9395,
+      "open": 10471.9404,
+      "high": 10506.1299,
+      "low": 10469.0498
     },
     "DAX": {
-      "value": 25118.27,
-      "change_pct": 0.89,
-      "change_pts": 220.82,
-      "open": 25097.4805,
-      "high": 25127.7598,
-      "low": 24867.3203
+      "value": 25103.4395,
+      "change_pct": -0.02,
+      "change_pts": -4.4297,
+      "open": 25081.1895,
+      "high": 25195.8301,
+      "low": 25071.6094
     },
     "NIKKEI": {
-      "value": 67743.85,
-      "change_pct": 0.85,
-      "change_pts": 572.1703,
-      "open": 67046.3672,
-      "high": 68447.8906,
-      "low": 67008.8906
+      "value": 68557.7266,
+      "change_pct": 1.07,
+      "change_pts": 726.9375,
+      "open": 68526.7188,
+      "high": 69374.8594,
+      "low": 68271.9062
     },
     "HSI": {
-      "value": 24030.18,
-      "change_pct": -0.7,
-      "change_pts": -169.2809,
-      "open": 24181.3398,
-      "high": 24353.7598,
-      "low": 23917.3203
+      "value": 24175.1191,
+      "change_pct": 0.6,
+      "change_pts": 144.9395,
+      "open": 24213.4395,
+      "high": 24499.6309,
+      "low": 24064.6191
     },
     "SSEC": {
-      "value": 4036.588,
-      "change_pct": 1.64,
-      "change_pts": 65.2211,
-      "open": 3977.5474,
-      "high": 4040.5388,
-      "low": 3938.8774
+      "value": 3996.1616,
+      "change_pct": -1.01,
+      "change_pts": -40.7405,
+      "open": 4031.5374,
+      "high": 4074.8279,
+      "low": 3995.8071
     },
     "CAC": {
-      "value": 8326.62,
-      "change_pct": 1.1,
-      "change_pts": 90.9198,
-      "open": 8307.5098,
-      "high": 8329.0,
-      "low": 8262.8604
+      "value": 8326.2197,
+      "change_pct": -0.03,
+      "change_pts": -2.2402,
+      "open": 8324.0703,
+      "high": 8350.8301,
+      "low": 8319.9004
     },
     "ASX": {
-      "value": 8762.5,
-      "change_pct": -0.26,
-      "change_pts": -22.5996,
-      "open": 8785.0996,
-      "high": 8785.0996,
-      "low": 8700.5
+      "value": 8806.0,
+      "change_pct": 0.5,
+      "change_pts": 43.5,
+      "open": 8762.5,
+      "high": 8821.5996,
+      "low": 8748.5996
     }
   },
   "commodities": {
     "GOLD_USD": {
-      "value": 4132.6001,
-      "change_pct": 1.49,
-      "change_pts": 60.5,
-      "open": 4087.6001,
-      "high": 4148.3999,
-      "low": 4063.3999
+      "value": 4108.3999,
+      "change_pct": -0.51,
+      "change_pts": -21.1001,
+      "open": 4135.3999,
+      "high": 4144.6001,
+      "low": 4108.2002
     },
     "SILVER_USD": {
-      "value": 60.355,
-      "change_pct": 3.63,
-      "change_pts": 2.115,
-      "open": 58.885,
-      "high": 61.03,
-      "low": 57.955
+      "value": 59.91,
+      "change_pct": -1.42,
+      "change_pts": -0.865,
+      "open": 60.415,
+      "high": 61.195,
+      "low": 59.86
     },
     "OIL_BRENT": {
-      "value": 76.04,
-      "change_pct": -3.59,
-      "change_pts": -2.83,
-      "open": 79.38,
-      "high": 79.38,
-      "low": 75.6
+      "value": 76.22,
+      "change_pct": -0.48,
+      "change_pts": -0.37,
+      "open": 75.97,
+      "high": 76.84,
+      "low": 75.35
     },
     "OIL_WTI": {
-      "value": 71.81,
-      "change_pct": -3.33,
-      "change_pts": -2.47,
-      "open": 74.95,
-      "high": 75.13,
-      "low": 71.42
+      "value": 71.98,
+      "change_pct": -0.57,
+      "change_pts": -0.41,
+      "open": 71.86,
+      "high": 72.56,
+      "low": 71.16
     },
     "NAT_GAS": {
-      "value": 3.012,
-      "change_pct": -6.26,
-      "change_pts": -0.201,
-      "open": 3.219,
-      "high": 3.244,
-      "low": 2.991
+      "value": 2.977,
+      "change_pct": -1.06,
+      "change_pts": -0.032,
+      "open": 3.016,
+      "high": 3.022,
+      "low": 2.96
     },
     "COPPER": {
-      "value": 6.2475,
-      "change_pct": 2.13,
-      "change_pts": 0.13,
-      "open": 6.115,
-      "high": 6.296,
-      "low": 6.102
+      "value": 6.263,
+      "change_pct": -0.85,
+      "change_pts": -0.0535,
+      "open": 6.245,
+      "high": 6.3255,
+      "low": 6.24
     },
     "WHEAT": {
-      "value": 619.0,
-      "change_pct": 2.44,
-      "change_pts": 14.75,
-      "open": 606.75,
-      "high": 621.25,
-      "low": 602.25
+      "value": 617.5,
+      "change_pct": -0.36,
+      "change_pts": -2.25,
+      "open": 618.75,
+      "high": 620.75,
+      "low": 614.0
     }
   },
   "crypto": {
     "BTC": {
-      "price_usd": 63277.6016,
-      "change_24h_pct": 1.67,
-      "change_24h_pts": 1039.9023
+      "price_usd": 64188.2383,
+      "change_24h_pct": 1.6,
+      "change_24h_pts": 1012.9883
     },
     "ETH": {
-      "price_usd": 1748.34,
-      "change_24h_pct": 0.36,
-      "change_24h_pts": 6.34
+      "price_usd": 1783.45,
+      "change_24h_pct": 2.27,
+      "change_24h_pts": 39.63
     },
     "BNB": {
-      "price_usd": 570.08,
-      "change_24h_pct": 0.31,
-      "change_24h_pts": 1.77
+      "price_usd": 575.46,
+      "change_24h_pct": 1.23,
+      "change_24h_pts": 7.02
     },
     "SOL": {
-      "price_usd": 78.08,
-      "change_24h_pct": 0.4,
-      "change_24h_pts": 0.31
+      "price_usd": 79.26,
+      "change_24h_pct": 1.63,
+      "change_24h_pts": 1.27
     },
     "XRP": {
-      "price_usd": 1.0959,
-      "change_24h_pct": 0.53,
-      "change_24h_pts": 0.0058
+      "price_usd": 1.1117,
+      "change_24h_pct": 1.75,
+      "change_24h_pts": 0.0191
     },
     "ADA": {
-      "price_usd": 0.1668,
-      "change_24h_pct": -0.12,
-      "change_24h_pts": -0.0002
+      "price_usd": 0.1681,
+      "change_24h_pct": 1.08,
+      "change_24h_pts": 0.0018
     },
     "DOGE": {
-      "price_usd": 0.0732,
-      "change_24h_pct": 1.2,
-      "change_24h_pts": 0.0009
+      "price_usd": 0.0742,
+      "change_24h_pct": 1.88,
+      "change_24h_pts": 0.0014
     },
     "USDT": {
-      "price_usd": 0.9992,
-      "change_24h_pct": 0.03,
-      "change_24h_pts": 0.0003
+      "price_usd": 0.9993,
+      "change_24h_pct": 0.01,
+      "change_24h_pts": 0.0001
     }
   }
 }
