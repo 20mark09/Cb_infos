@@ -1,28 +1,28 @@
 {
   "source": "Yahoo Finance via yfinance",
-  "lastUpdated": "2026-07-10 19:22 UTC",
+  "lastUpdated": "2026-07-10 20:47 UTC",
   "scrape_error": null,
   "indices": {
     "SP500": {
-      "value": 7575.6401,
-      "change_pct": 0.44,
-      "change_pts": 33.3604,
+      "value": 7575.3901,
+      "change_pct": 0.42,
+      "change_pts": 31.7501,
       "open": 7547.6401,
-      "high": 7577.6699,
+      "high": 7579.9302,
       "low": 7508.1602
     },
     "NASDAQ": {
-      "value": 29832.6914,
-      "change_pct": 0.36,
-      "change_pts": 105.5934,
+      "value": 29825.1094,
+      "change_pct": 0.33,
+      "change_pts": 98.0114,
       "open": 29618.3418,
       "high": 29856.9414,
       "low": 29484.4902
     },
     "DOW": {
-      "value": 52688.7188,
-      "change_pct": 0.4,
-      "change_pts": 208.168,
+      "value": 52637.0117,
+      "change_pct": 0.29,
+      "change_pts": 149.6017,
       "open": 52622.9219,
       "high": 52709.75,
       "low": 52266.8086
@@ -86,49 +86,49 @@
   },
   "commodities": {
     "GOLD_USD": {
-      "value": 4107.6001,
-      "change_pct": -0.53,
-      "change_pts": -21.8999,
+      "value": 4119.5,
+      "change_pct": -0.24,
+      "change_pts": -10.0,
       "open": 4135.3999,
       "high": 4144.6001,
       "low": 4081.7
     },
     "SILVER_USD": {
-      "value": 60.0,
-      "change_pct": -1.28,
-      "change_pts": -0.775,
+      "value": 60.165,
+      "change_pct": -1.0,
+      "change_pts": -0.61,
       "open": 60.415,
       "high": 61.195,
       "low": 59.245
     },
     "OIL_BRENT": {
-      "value": 76.09,
-      "change_pct": -0.65,
-      "change_pts": -0.5,
+      "value": 76.03,
+      "change_pct": -0.73,
+      "change_pts": -0.56,
       "open": 75.97,
       "high": 77.56,
       "low": 75.31
     },
     "OIL_WTI": {
-      "value": 71.58,
-      "change_pct": -1.12,
-      "change_pts": -0.81,
+      "value": 71.56,
+      "change_pct": -1.15,
+      "change_pts": -0.83,
       "open": 71.86,
       "high": 73.16,
       "low": 70.77
     },
     "NAT_GAS": {
-      "value": 2.942,
-      "change_pct": -2.23,
-      "change_pts": -0.067,
+      "value": 2.938,
+      "change_pct": -2.36,
+      "change_pts": -0.071,
       "open": 3.016,
       "high": 3.022,
       "low": 2.874
     },
     "COPPER": {
-      "value": 6.279,
-      "change_pct": -0.59,
-      "change_pts": -0.0375,
+      "value": 6.285,
+      "change_pct": -0.5,
+      "change_pts": -0.0315,
       "open": 6.245,
       "high": 6.3255,
       "low": 6.2355
@@ -144,29 +144,29 @@
   },
   "crypto": {
     "BTC": {
-      "price_usd": 63746.6719,
-      "change_24h_pct": 0.9,
-      "change_24h_pts": 571.4219
+      "price_usd": 63678.1484,
+      "change_24h_pct": 0.8,
+      "change_24h_pts": 502.8984
     },
     "ETH": {
-      "price_usd": 1783.55,
-      "change_24h_pct": 2.28,
-      "change_24h_pts": 39.7301
+      "price_usd": 1788.9301,
+      "change_24h_pct": 2.59,
+      "change_24h_pts": 45.1101
     },
     "BNB": {
-      "price_usd": 574.7,
-      "change_24h_pct": 1.1,
-      "change_24h_pts": 6.26
+      "price_usd": 574.92,
+      "change_24h_pct": 1.14,
+      "change_24h_pts": 6.48
     },
     "SOL": {
-      "price_usd": 77.6,
-      "change_24h_pct": -0.5,
-      "change_24h_pts": -0.39
+      "price_usd": 77.67,
+      "change_24h_pct": -0.41,
+      "change_24h_pts": -0.32
     },
     "XRP": {
-      "price_usd": 1.0977,
-      "change_24h_pct": 0.47,
-      "change_24h_pts": 0.0051
+      "price_usd": 1.1027,
+      "change_24h_pct": 0.92,
+      "change_24h_pts": 0.0101
     },
     "ADA": {
       "price_usd": 0.1664,
@@ -174,14 +174,14 @@
       "change_24h_pts": 0.0001
     },
     "DOGE": {
-      "price_usd": 0.0739,
-      "change_24h_pct": 1.52,
+      "price_usd": 0.074,
+      "change_24h_pct": 1.57,
       "change_24h_pts": 0.0011
     },
     "USDT": {
-      "price_usd": 0.9991,
-      "change_24h_pct": -0.01,
-      "change_24h_pts": -0.0001
+      "price_usd": 0.9992,
+      "change_24h_pct": 0.0,
+      "change_24h_pts": 0.0
     }
   }
 }
