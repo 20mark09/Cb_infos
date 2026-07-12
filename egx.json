@@ -1,96 +1,96 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-07-12 09:02 UTC",
+  "lastUpdated": "2026-07-12 13:20 UTC",
   "indices": {
     "EGX30": {
       "date": "12/07/2026",
-      "value": 52517.55,
+      "value": 52256.18,
       "open": 52311.51,
-      "high": 52518.17,
-      "low": 52288.62,
-      "change_pct": 0.39,
-      "ytd_pct": 25.55
+      "high": 52519.29,
+      "low": 52253.71,
+      "change_pct": -0.11,
+      "ytd_pct": 24.93
     },
     "SHARIAH": {
       "date": "12/07/2026",
-      "value": 52517.55,
+      "value": 52256.18,
       "open": 52311.51,
-      "high": 52518.17,
-      "low": 52288.62,
-      "change_pct": 0.39,
-      "ytd_pct": 25.55
+      "high": 52519.29,
+      "low": 52253.71,
+      "change_pct": -0.11,
+      "ytd_pct": 24.93
     },
     "EGX70": {
       "date": "12/07/2026",
-      "value": 16456.49,
+      "value": 16485.36,
       "open": 16281.62,
-      "high": 16459.27,
+      "high": 16505.29,
       "low": 16281.62,
-      "change_pct": 1.07,
-      "ytd_pct": 25.38
+      "change_pct": 1.25,
+      "ytd_pct": 25.6
     },
     "EGX100": {
       "date": "12/07/2026",
-      "value": 22263.82,
+      "value": 22266.39,
       "open": 22067.78,
-      "high": 22263.82,
+      "high": 22297.69,
       "low": 22067.78,
-      "change_pct": 0.89,
-      "ytd_pct": 27.76
+      "change_pct": 0.9,
+      "ytd_pct": 27.78
     }
   },
   "gainers": [
     {
+      "name": "National Housing for Professional Syndicates",
+      "price": 81.13,
+      "change_pct": 14.27
+    },
+    {
       "name": "Alexandria New Medical Center",
-      "price": 88.0,
-      "change_pct": 15.79
+      "price": 83.89,
+      "change_pct": 10.38
     },
     {
-      "name": "Saudi Egyptian Investment & Finance",
-      "price": 274.95,
-      "change_pct": 12.53
+      "name": "Engineering Industries (ICON)",
+      "price": 42.61,
+      "change_pct": 9.79
     },
     {
-      "name": "ASEC Company For Mining - ASCOM",
-      "price": 63.48,
-      "change_pct": 9.37
+      "name": "Cairo For Investment And Real Estate Developments-CIRA Edu",
+      "price": 31.53,
+      "change_pct": 8.87
     },
     {
       "name": "Prime Holding",
-      "price": 2.8,
-      "change_pct": 8.53
-    },
-    {
-      "name": "National Housing for Professional Syndicates",
-      "price": 76.45,
-      "change_pct": 7.68
+      "price": 2.77,
+      "change_pct": 7.36
     }
   ],
   "losers": [
     {
+      "name": "GMC GROUP FOR INDUSTRIAL COMMERCIAL & FINANCIAL INVESTMENTS",
+      "price": 1.99,
+      "change_pct": -4.33
+    },
+    {
       "name": "Sharkia National Food",
-      "price": 11.79,
-      "change_pct": -4.61
+      "price": 11.9,
+      "change_pct": -3.72
     },
     {
-      "name": "Gharbia Islamic Housing Development",
-      "price": 49.99,
-      "change_pct": -3.31
+      "name": "Ceramic & Porcelain",
+      "price": 35.32,
+      "change_pct": -3.21
     },
     {
-      "name": "Golden Textiles & Clothes Wool",
-      "price": 111.08,
-      "change_pct": -2.56
-    },
-    {
-      "name": "Gourmet Egypt.Com Foods",
-      "price": 14.3,
-      "change_pct": -2.19
+      "name": "Misr Duty Free Shops",
+      "price": 45.67,
+      "change_pct": -3.18
     },
     {
       "name": "Act Financial",
-      "price": 2.82,
-      "change_pct": -2.08
+      "price": 2.79,
+      "change_pct": -3.13
     }
   ]
 }
