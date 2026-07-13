@@ -1,31 +1,31 @@
 {
   "source": "Yahoo Finance via yfinance",
-  "lastUpdated": "2026-07-13 16:18 UTC",
+  "lastUpdated": "2026-07-13 18:15 UTC",
   "scrape_error": null,
   "indices": {
     "SP500": {
-      "value": 7533.8301,
-      "change_pct": -0.55,
-      "change_pts": -41.5599,
+      "value": 7524.0601,
+      "change_pct": -0.68,
+      "change_pts": -51.3299,
       "open": 7547.5298,
       "high": 7565.3701,
-      "low": 7529.3301
+      "low": 7514.6602
     },
     "NASDAQ": {
-      "value": 29364.9961,
-      "change_pct": -1.54,
-      "change_pts": -460.1139,
+      "value": 29305.8027,
+      "change_pct": -1.74,
+      "change_pts": -519.3073,
       "open": 29471.0156,
       "high": 29540.9961,
-      "low": 29298.1367
+      "low": 29252.9023
     },
     "DOW": {
-      "value": 52448.6484,
-      "change_pct": -0.36,
-      "change_pts": -188.3616,
+      "value": 52488.5781,
+      "change_pct": -0.28,
+      "change_pts": -148.4319,
       "open": 52676.5312,
       "high": 52846.5117,
-      "low": 52445.9805
+      "low": 52351.1211
     },
     "FTSE": {
       "value": 10498.29,
@@ -86,57 +86,57 @@
   },
   "commodities": {
     "GOLD_USD": {
-      "value": 4022.1001,
-      "change_pct": -1.11,
-      "change_pts": -45.2998,
+      "value": 3998.7,
+      "change_pct": -1.69,
+      "change_pts": -68.7,
       "open": 4106.6001,
       "high": 4111.6001,
-      "low": 4005.8
+      "low": 3992.8999
     },
     "SILVER_USD": {
-      "value": 58.36,
-      "change_pct": -0.34,
-      "change_pts": -0.2,
+      "value": 57.725,
+      "change_pct": -1.43,
+      "change_pts": -0.835,
       "open": 59.71,
       "high": 59.795,
-      "low": 57.825
+      "low": 57.595
     },
     "OIL_BRENT": {
-      "value": 79.77,
-      "change_pct": 0.86,
-      "change_pts": 0.68,
+      "value": 82.67,
+      "change_pct": 4.53,
+      "change_pts": 3.58,
       "open": 78.05,
-      "high": 80.03,
+      "high": 82.85,
       "low": 77.28
     },
     "OIL_WTI": {
-      "value": 74.93,
-      "change_pct": 0.86,
-      "change_pts": 0.64,
+      "value": 77.6,
+      "change_pct": 4.46,
+      "change_pts": 3.31,
       "open": 73.69,
-      "high": 75.21,
+      "high": 77.82,
       "low": 72.61
     },
     "NAT_GAS": {
-      "value": 2.895,
-      "change_pct": -0.31,
-      "change_pts": -0.009,
+      "value": 2.891,
+      "change_pct": -0.45,
+      "change_pts": -0.013,
       "open": 2.931,
       "high": 2.953,
       "low": 2.847
     },
     "COPPER": {
-      "value": 6.3035,
-      "change_pct": 1.51,
-      "change_pts": 0.094,
+      "value": 6.271,
+      "change_pct": 0.99,
+      "change_pts": 0.0615,
       "open": 6.2705,
       "high": 6.356,
       "low": 6.197
     },
     "WHEAT": {
-      "value": 640.0,
-      "change_pct": -0.7,
-      "change_pts": -4.5,
+      "value": 637.0,
+      "change_pct": -1.16,
+      "change_pts": -7.5,
       "open": 646.5,
       "high": 653.0,
       "low": 633.5
