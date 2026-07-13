@@ -1,44 +1,96 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-07-13 10:27 UTC",
+  "lastUpdated": "2026-07-13 14:35 UTC",
   "indices": {
     "EGX30": {
       "date": "13/07/2026",
-      "value": 5887.21,
-      "open": 5879.61,
-      "high": 5896.5,
-      "low": 5870.2,
-      "change_pct": 0.13,
-      "ytd_pct": 28.04
+      "value": 52608.28,
+      "open": 52256.18,
+      "high": 52661.8,
+      "low": 52256.18,
+      "change_pct": 0.67,
+      "ytd_pct": 25.77
     },
     "SHARIAH": {
-      "date": null,
-      "value": null,
-      "open": null,
-      "high": null,
-      "low": null,
-      "change_pct": null,
-      "ytd_pct": null
+      "date": "13/07/2026",
+      "value": 52608.28,
+      "open": 52256.18,
+      "high": 52661.8,
+      "low": 52256.18,
+      "change_pct": 0.67,
+      "ytd_pct": 25.77
     },
     "EGX70": {
-      "date": null,
-      "value": null,
-      "open": null,
-      "high": null,
-      "low": null,
-      "change_pct": null,
-      "ytd_pct": null
+      "date": "13/07/2026",
+      "value": 16563.19,
+      "open": 16485.36,
+      "high": 16591.45,
+      "low": 16485.36,
+      "change_pct": 0.47,
+      "ytd_pct": 26.19
     },
     "EGX100": {
-      "date": null,
-      "value": null,
-      "open": null,
-      "high": null,
-      "low": null,
-      "change_pct": null,
-      "ytd_pct": null
+      "date": "13/07/2026",
+      "value": 22347.31,
+      "open": 22266.39,
+      "high": 22396.36,
+      "low": 22266.39,
+      "change_pct": 0.36,
+      "ytd_pct": 28.24
     }
   },
-  "gainers": [],
-  "losers": []
+  "gainers": [
+    {
+      "name": "Alexandria New Medical Center",
+      "price": 100.66,
+      "change_pct": 19.99
+    },
+    {
+      "name": "Cairo Pharmaceuticals",
+      "price": 449.86,
+      "change_pct": 11.96
+    },
+    {
+      "name": "Tycoon Holding Company For Financial Investments",
+      "price": 23.26,
+      "change_pct": 9.61
+    },
+    {
+      "name": "Misr Oils & Soap",
+      "price": 297.11,
+      "change_pct": 7.17
+    },
+    {
+      "name": "Natural Gas & Mining Project (Egypt Gas)",
+      "price": 53.47,
+      "change_pct": 6.94
+    }
+  ],
+  "losers": [
+    {
+      "name": "Naeem Real Estate Holding Group",
+      "price": 19.52,
+      "change_pct": -4.55
+    },
+    {
+      "name": "Pioneers Properties For Urban Development - PRE Group",
+      "price": 8.2,
+      "change_pct": -3.98
+    },
+    {
+      "name": "Rowad Tourism (Al Rowad)",
+      "price": 43.07,
+      "change_pct": -2.67
+    },
+    {
+      "name": "Rakta Paper Manufacturing",
+      "price": 22.51,
+      "change_pct": -2.55
+    },
+    {
+      "name": "General Company For Land Reclamation,Development & Reconstru",
+      "price": 230.05,
+      "change_pct": -2.54
+    }
+  ]
 }
