@@ -1,96 +1,96 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-07-15 13:44 UTC",
+  "lastUpdated": "2026-07-16 09:14 UTC",
   "indices": {
     "EGX30": {
-      "date": "15/07/2026",
-      "value": 52558.39,
-      "open": 52299.31,
-      "high": 52695.11,
-      "low": 52296.81,
-      "change_pct": 0.5,
-      "ytd_pct": 25.65
+      "date": "16/07/2026",
+      "value": 52866.72,
+      "open": 52558.39,
+      "high": 52918.19,
+      "low": 52558.39,
+      "change_pct": 0.59,
+      "ytd_pct": 26.39
     },
     "SHARIAH": {
-      "date": null,
-      "value": null,
-      "open": null,
-      "high": null,
-      "low": null,
-      "change_pct": null,
-      "ytd_pct": null
+      "date": "16/07/2026",
+      "value": 52866.72,
+      "open": 52558.39,
+      "high": 52918.19,
+      "low": 52558.39,
+      "change_pct": 0.59,
+      "ytd_pct": 26.39
     },
     "EGX70": {
-      "date": "15/07/2026",
-      "value": 16790.88,
-      "open": 16555.46,
-      "high": 16817.96,
-      "low": 16555.46,
-      "change_pct": 1.42,
-      "ytd_pct": 27.93
+      "date": "16/07/2026",
+      "value": 16976.14,
+      "open": 16790.88,
+      "high": 17006.15,
+      "low": 16790.88,
+      "change_pct": 1.1,
+      "ytd_pct": 29.34
     },
     "EGX100": {
-      "date": "15/07/2026",
-      "value": 22607.88,
-      "open": 22340.68,
-      "high": 22635.67,
-      "low": 22340.68,
-      "change_pct": 1.2,
-      "ytd_pct": 29.74
+      "date": "16/07/2026",
+      "value": 22814.23,
+      "open": 22607.88,
+      "high": 22845.38,
+      "low": 22607.88,
+      "change_pct": 0.91,
+      "ytd_pct": 30.92
     }
   },
   "gainers": [
     {
-      "name": "Cairo Educational Services",
-      "price": 107.16,
+      "name": "Delta For Printing & Packaging",
+      "price": 242.4,
       "change_pct": 20.0
     },
     {
       "name": "Glaxo Smith Kline",
-      "price": 88.09,
-      "change_pct": 20.0
+      "price": 105.7,
+      "change_pct": 19.99
     },
     {
-      "name": "Alexandria New Medical Center",
-      "price": 141.4,
-      "change_pct": 17.06
+      "name": "National Printing",
+      "price": 30.05,
+      "change_pct": 14.52
     },
     {
-      "name": "October Pharma",
-      "price": 420.09,
-      "change_pct": 12.68
+      "name": "Nozha International Hospital",
+      "price": 21.1,
+      "change_pct": 10.59
     },
     {
-      "name": "Pioneers Properties For Urban Development - PRE Group",
-      "price": 9.95,
-      "change_pct": 11.92
+      "name": "El Kahera El Watania Investment",
+      "price": 79.38,
+      "change_pct": 9.85
     }
   ],
   "losers": [
     {
-      "name": "Sidi Kerir Petrochemicals - SIDPEC",
-      "price": 14.89,
-      "change_pct": -10.3
+      "name": "Alexandria New Medical Center",
+      "price": 130.11,
+      "change_pct": -7.98
     },
     {
-      "name": "Golden Textiles & Clothes Wool",
-      "price": 102.73,
-      "change_pct": -7.18
+      "name": "Egyptian Real Estate Group",
+      "price": 1.57,
+      "change_pct": -4.27
     },
     {
-      "name": "Arabia for Investment and Development",
-      "price": 0.68,
-      "change_pct": -6.72
+      "name": "Pioneers Properties For Urban Development - PRE Group",
+      "price": 9.55,
+      "change_pct": -4.02
     },
     {
-      "name": "Samad Misr -EGYFERT",
-      "price": 232.42,
-      "change_pct": -6.13
+      "name": "Cairo Educational Services",
+      "price": 102.85,
+      "change_pct": -4.02
     },
     {
-      "name": "Concrete Fashion Group For Commercial& Industrial Investment",
-      "price": 0.103,
-      "change_pct": -4.63
+      "name": "Naeem Real Estate Holding Group",
+      "price": 19.2,
+      "change_pct": -3.52
     }
   ]
 }
