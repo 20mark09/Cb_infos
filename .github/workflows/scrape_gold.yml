@@ -1,8 +1,5 @@
 name: Scrape Gold Prices
 
-on:
-  schedule:
-    - cron: "0 */2 * * *"   # every 2 hours
   workflow_dispatch:          # manual trigger
 
 env:
