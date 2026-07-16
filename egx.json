@@ -1,42 +1,42 @@
 {
   "source": "https://www.egx.com.eg",
-  "lastUpdated": "2026-07-16 09:14 UTC",
+  "lastUpdated": "2026-07-16 13:51 UTC",
   "indices": {
     "EGX30": {
       "date": "16/07/2026",
-      "value": 52866.72,
+      "value": 52928.06,
       "open": 52558.39,
-      "high": 52918.19,
+      "high": 52993.22,
       "low": 52558.39,
-      "change_pct": 0.59,
-      "ytd_pct": 26.39
+      "change_pct": 0.7,
+      "ytd_pct": 26.53
     },
     "SHARIAH": {
       "date": "16/07/2026",
-      "value": 52866.72,
+      "value": 52928.06,
       "open": 52558.39,
-      "high": 52918.19,
+      "high": 52993.22,
       "low": 52558.39,
-      "change_pct": 0.59,
-      "ytd_pct": 26.39
+      "change_pct": 0.7,
+      "ytd_pct": 26.53
     },
     "EGX70": {
       "date": "16/07/2026",
-      "value": 16976.14,
+      "value": 17049.97,
       "open": 16790.88,
-      "high": 17006.15,
+      "high": 17049.97,
       "low": 16790.88,
-      "change_pct": 1.1,
-      "ytd_pct": 29.34
+      "change_pct": 1.54,
+      "ytd_pct": 29.9
     },
     "EGX100": {
       "date": "16/07/2026",
-      "value": 22814.23,
+      "value": 22887.36,
       "open": 22607.88,
-      "high": 22845.38,
+      "high": 22887.36,
       "low": 22607.88,
-      "change_pct": 0.91,
-      "ytd_pct": 30.92
+      "change_pct": 1.24,
+      "ytd_pct": 31.34
     }
   },
   "gainers": [
@@ -51,46 +51,46 @@
       "change_pct": 19.99
     },
     {
-      "name": "National Printing",
-      "price": 30.05,
-      "change_pct": 14.52
-    },
-    {
       "name": "Nozha International Hospital",
-      "price": 21.1,
-      "change_pct": 10.59
+      "price": 21.56,
+      "change_pct": 13.0
     },
     {
       "name": "El Kahera El Watania Investment",
-      "price": 79.38,
-      "change_pct": 9.85
+      "price": 80.8,
+      "change_pct": 11.82
+    },
+    {
+      "name": "Aspire Capital Holding For Financial Investments",
+      "price": 0.35,
+      "change_pct": 11.11
     }
   ],
   "losers": [
     {
       "name": "Alexandria New Medical Center",
-      "price": 130.11,
-      "change_pct": -7.98
+      "price": 118.5,
+      "change_pct": -16.2
     },
     {
       "name": "Egyptian Real Estate Group",
-      "price": 1.57,
-      "change_pct": -4.27
+      "price": 1.56,
+      "change_pct": -4.88
     },
     {
-      "name": "Pioneers Properties For Urban Development - PRE Group",
-      "price": 9.55,
-      "change_pct": -4.02
-    },
-    {
-      "name": "Cairo Educational Services",
-      "price": 102.85,
-      "change_pct": -4.02
+      "name": "Catalyst Partners Middle East –CPME",
+      "price": 17.43,
+      "change_pct": -4.28
     },
     {
       "name": "Naeem Real Estate Holding Group",
-      "price": 19.2,
-      "change_pct": -3.52
+      "price": 19.13,
+      "change_pct": -3.87
+    },
+    {
+      "name": "Pioneers Properties For Urban Development - PRE Group",
+      "price": 9.59,
+      "change_pct": -3.62
     }
   ]
 }
